@@ -11,3 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+#root {
+  max-width: 400px;    /* iPhone 기준 폭 */
+  margin: 0 auto;     
+  height: 812px;       
+  border: 1px solid #000; 
+  overflow: hidden;    
+}

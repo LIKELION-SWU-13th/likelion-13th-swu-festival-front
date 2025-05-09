@@ -1,0 +1,26 @@
+.booth-page {
+  padding: 16px;
+  background: var(--Gray-90, #303036);
+  min-height: 100vh;
+}
+.map-container {
+  position: relative;
+  margin-top: 24px;
+  text-align: center;
+}
+
+.map-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+/* 공통 하이라이트 스타일 */
+.map-highlight {
+  position: absolute;
+  pointer-events: none;
+  border-radius: var(--4, 4px);
+  border: 2px solid var(--Indigo-10, #9DA4FB);
+  background: rgba(88, 99, 248, 0.30);
+}

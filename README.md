@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+# SWU-FESRIVAL
+서울여자대학교 멋쟁이사자차럼 대학 13기 운영진 축제 프로젝트 Repository입니다.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<br>
 
-## Available Scripts
+## Git Branch Strategy
+FESTIVAL 프로젝트는 GitHub Flow를 기반으로 한 브랜치 전략을 사용합니다.
+- `main`: 배포 가능한 안정적인 코드를 관리하는 브랜치
+- `develop`: 개발 중인 코드를 관리하는 default 브랜치
+- `feature`: 새로운 기능 개발을 위한 브랜치
+<br>
 
-In the project directory, you can run:
+### 작업 순서
+1. **Branch 생성**
+   - develop 브랜치의 최신 상태 가져오기
+      ```
+      git fetch origin
+      git pull origin develop
+      ```
+    - 새로운 feature 브랜치 생성 및 이동
+      ```
+      git checkout -b feature/{feature-name}
+      ```
+2. **Commit & Push**
+    - 작은 단위로 나눠 commit
+    - 아래의 Commit Message Convention을 준수
+3. **Pull Request**
+    - GitHub에서 PR 생성
+      - develop ← feature/{feature-name}
+    - 팀원들의 코드 리뷰와 피드백 진행
+4. **Merge**
+    - develop으로 merge
+    - 작업 브랜치 삭제
+5. **배포**
+    - 개발이 완료된 코드는 main 브랜치로 merge하여 배포
+<br>
 
-### `npm start`
+## Branch Naming Convention
+브랜치를 생성할 때는 다음과 같은 형식을 따릅니다.
+```
+feature/{feature-name}
+```
+#### 예시
+feature/login  
+<br>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Commit Message Convention
+작업한 내용을 커밋할 때는 다음과 같은 형식을 따릅니다.
+```
+type: Subject
+```
+### Type
+| Type | 설명 |
+|------|------|
+| `Feat` | 새로운 기능 추가 |
+| `Fix` | 버그 수정 |
+| `Design` | UI/UX 디자인 변경 |
+| `Style` | 코드 스타일 변경 (코드 포맷팅, 세미콜론 누락, 코드 변경이 없는 경우 등) |
+| `Refactor` | 코드 리팩토링 |
+| `Build` | 외부 라이브러리 추가, 빌드 설정 변경 |
+| `Docs` | 문서 수정 (README.md 등) |
+| `Test` | 테스트 코드 작성 |
+| `Chore` | 그 외 자잘한 수정이나 빌드 업데이트 |
+| `Init` | 프로젝트 초기 설정 |
+<br>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Tech Stack
+- Frontend: React
+- Backend:

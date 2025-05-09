@@ -1,0 +1,83 @@
+.location-info-bar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;
+  gap: 8px;
+}
+
+.place-name {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--Gray-10, #F1F1F3);
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: -0.32px;
+}
+
+.view-map-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 8px;
+  border: 1px solid var(--Gray-70, #60606C);
+  background: var(--Gray-80, #484851);
+  border-radius: 14px;
+  cursor: pointer;
+  font-family: Pretendard;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: -0.32px;
+  color: var(--Indigo-0, #CED1FD);
+  transition: background 0.2s, color 0.2s;
+}
+
+.view-map-btn:hover {
+  background: #5f5fff;
+  color: #fff;
+}
+
+.location-info-wrapper {
+  position: relative;
+}
+
+/* 이미지 컨테이너 */
+.map-container {
+  position: relative;
+  margin-top: px;
+}
+
+/* 지도 이미지 */
+.map-container img {
+  width: 368px;
+  height: 362px;
+  flex-shrink: 0;
+  border-radius: 16px;
+}
+
+.close-on-image {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  padding: 4px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* 아이콘 색상 */
+  fill: rgba(250, 250, 250, 0.8);
+  fill-opacity: 0.8;
+
+  /* 반투명 배경 추가 */
+  background-color: rgba(250, 250, 250, 0.40);
+}
