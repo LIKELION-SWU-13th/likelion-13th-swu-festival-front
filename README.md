@@ -1,12 +1,21 @@
 # SWU-FESTIVAL
 서울여자대학교 멋쟁이사자처럼 13기 운영진 축제 프로젝트 Front-end 레포지토리
 <br>
+<br>
 
 ## Git Branch Strategy
 FESTIVAL 프로젝트는 GitHub Flow를 기반으로 한 브랜치 전략을 사용합니다.
 - `main`: 배포 가능한 안정적인 코드를 관리하는 브랜치
 - `develop`: 개발 중인 코드를 관리하는 default 브랜치
 - `feature`: 새로운 기능 개발을 위한 브랜치
+<br>
+
+### Installation
+```bash
+git clone https://github.com/LIKELION-SWU-13th/likelion-13th-swu-festival-front.git
+cd likelion-13th-swu-festival-front
+npm install
+```
 <br>
 
 ### 작업 순서
@@ -65,4 +74,3 @@ type: Subject
 
 ## Tech Stack
 - Frontend: React
-- Backend:
