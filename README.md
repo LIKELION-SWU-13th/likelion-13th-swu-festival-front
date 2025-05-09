@@ -1,6 +1,5 @@
-# SWU-FESRIVAL
-서울여자대학교 멋쟁이사자차럼 대학 13기 운영진 축제 프로젝트 Repository입니다.
-
+# SWU-FESTIVAL
+서울여자대학교 멋쟁이사자처럼 13기 운영진 축제 프로젝트 Front-end 레포지토리
 <br>
 
 ## Git Branch Strategy
