@@ -10,9 +10,9 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/booth" replace />} />
-        <Route path="/zodiac" element={<StarPage />} />     
+        <Route path="/star" element={<StarPage />} />     
         <Route path="/booth"  element={<BoothPage />} />
-        <Route path="/show"   element={<PerformPage />} />   
+        <Route path="/perform"   element={<PerformPage />} />   
         <Route path="*" element={<Navigate to="/booth" replace />} />
       </Routes>
     </BrowserRouter>

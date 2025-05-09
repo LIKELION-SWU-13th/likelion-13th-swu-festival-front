@@ -9,9 +9,9 @@ import showIcon   from '../assets/ph_microphone-stage.svg';
 
 // 탭들 설정값
 const TABS = [
-  { id: 'zodiac', label: '별별 취향',  iconSrc: zodiacIcon },
+  { id: 'star', label: '별별 취향',  iconSrc: zodiacIcon },
   { id: 'booth',  label: '부스 배치도', iconSrc: boothIcon  },
-  { id: 'show',   label: '공연 정보',   iconSrc: showIcon   },
+  { id: 'perform',   label: '공연 정보',   iconSrc: showIcon   },
 ];
 
 export default function TopTabs() {
