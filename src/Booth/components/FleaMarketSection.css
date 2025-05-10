@@ -1,0 +1,45 @@
+/* 플리마켓 */
+.flea-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  margin-bottom: 8px;
+  padding: 7px 8px;
+}
+
+.flea-cell {
+  position: relative;
+  width: 54px;
+  height: 48px;
+  background: var(--Gray-80, #484851);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.flea-cell:hover {
+  background: var(--Gray-70, #60606C);
+}
+
+.flea-icon {
+  width: 22px;
+  height: 21px;
+  fill: var(--Indigo-10, #9DA4FB);
+  stroke-width: 1.65px;
+  stroke: var(--Indigo-10, #9DA4FB);
+}
+
+.flea-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  color: var(--Lavender-80, #210377);
+  font-size: 12px;
+  font-weight: 600;
+  z-index: 2;
+}
