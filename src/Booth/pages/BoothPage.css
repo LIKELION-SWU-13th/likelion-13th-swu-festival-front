@@ -1,0 +1,8 @@
+/* BoothPage 전체 컨테이너 */
+.booth-page {
+  position: relative;
+  padding: 16px;
+  background: var(--Gray-90, #303036);
+  min-height: 100vh;
+}
+

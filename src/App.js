@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-function App() {
+import BoothPage    from './Booth/pages/BoothPage';
+import StarPage     from './Star/StarPage';      // 파일명 StarPage.jsx
+import PerformPage  from './Perform/PerformPage';   // 파일명 PerformPage.jsx
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Navigate to="/booth" replace />} />
+        <Route path="/star" element={<StarPage />} />     
+        <Route path="/booth"  element={<BoothPage />} />
+        <Route path="/perform"   element={<PerformPage />} />   
+        <Route path="*" element={<Navigate to="/booth" replace />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;
