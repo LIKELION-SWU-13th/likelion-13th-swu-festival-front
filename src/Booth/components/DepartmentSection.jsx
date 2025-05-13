@@ -67,7 +67,7 @@ const DepartmentSection = () => {
               completedBooths.includes(num) ? 'completed' : ''
             ].join(' ')}
             style={style}
-            onClick={() => setSelectedBooth(num)}
+            onClick={() => setSelectedBooth(prev => (prev === num ? null : num))}
           >
             <StarIcon className="booth-icon" />
             <span className="booth-label">{num}</span>
@@ -127,7 +127,6 @@ const DepartmentSection = () => {
         </>
       )}
 
-      {/* 바텀 시트 모달 */}
       {showModal && (
         <div className="bottom-sheet">
           <div className="complete-modal">

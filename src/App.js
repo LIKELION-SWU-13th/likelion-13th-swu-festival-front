@@ -2,8 +2,8 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import BoothPage    from './Booth/pages/BoothPage';
-import StarPage     from './Star/StarPage';      // 파일명 StarPage.jsx
-import PerformPage  from './Perform/PerformPage';   // 파일명 PerformPage.jsx
+import StarPage     from './Star/StarPage';      
+import PerformPage  from './Perform/PerformPage';   
 
 export default function App() {
   return (
