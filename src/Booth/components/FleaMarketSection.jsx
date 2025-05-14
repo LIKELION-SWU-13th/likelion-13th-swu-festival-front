@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
+import SliderModal from './SliderModal';
 import { ReactComponent as StarIcon } from '../../assets/Star.svg';
 import './FleaMarketSection.css';
 
@@ -31,41 +32,18 @@ const SELLERS = {
 
 export default function FleaMarketSection() {
   const [selectedBooth, setSelectedBooth] = useState(null);
-  const [sliderOpen, setSliderOpen] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const sliderRef = useRef(null);
-  
-
-  
+  const [slider, setSlider] = useState({ open: false, index: 0 });
 
   const handleClickBooth = num => {
     setSelectedBooth(prev => (prev === num ? null : num));
-    setSliderOpen(false);
+    setSlider({ open: false, index: 0 });
   };
 
-  const openSlider = idx => {
-    setCurrentSlide(idx);
-    setSliderOpen(true);
-  };
-  const closeSlider = () => setSliderOpen(false);
-
-  useEffect(() => {
-    if (sliderOpen && sliderRef.current) {
-      sliderRef.current.scrollTo({
-        left: sliderRef.current.clientWidth * currentSlide,
-        behavior: 'instant'
-      });
-    }
-  }, [sliderOpen, currentSlide]);
-
-  const onScroll = e => {
-    const idx = Math.round(e.target.scrollLeft / e.target.clientWidth);
-    setCurrentSlide(idx);
-  };
+  const openSlider = idx => setSlider({ open: true, index: idx });
+  const closeSlider = () => setSlider({ open: false, index: 0 });
 
   return (
     <section className="flea-market-section">
-      {/* 네비게이션 */}
       <div className="food-bar">푸드트럭</div>
       <div className="flea-row">
         {Object.keys(MARKETS).map(key => {
@@ -83,7 +61,6 @@ export default function FleaMarketSection() {
         })}
       </div>
 
-      {/* 셀러 목록 / 상세 */}
       <div className="category-content">
         {selectedBooth == null ? (
           <>
@@ -93,7 +70,7 @@ export default function FleaMarketSection() {
                 <div key={key} className="seller-item">
                   <span className="seller-index">{key}</span>
                   <div className="seller-info">
-                    <span className="seller-name">{`${s.name}`}</span>
+                    <span className="seller-name">{s.name}</span>
                     <span className="seller-item-name">{s.item}</span>
                   </div>
                 </div>
@@ -108,9 +85,10 @@ export default function FleaMarketSection() {
                 <span className="seller-index">{selectedBooth}</span>
                 <span className="seller-name">{SELLERS[selectedBooth].name}</span>
               </div>
-              <span className="seller-item-addname">{SELLERS[selectedBooth].item}</span>
+              <span className="seller-item-addname">
+                {SELLERS[selectedBooth].item}
+              </span>
             </div>
-
             <div className="section-subtitle">제품 이미지</div>
             <div className="product-images">
               {SELLERS[selectedBooth].images.map((src, i) => (
@@ -126,32 +104,12 @@ export default function FleaMarketSection() {
         )}
       </div>
 
-      {/* 슬라이더 모달 */}
-      {sliderOpen && (
-        <div className="slider-modal" onClick={closeSlider}>
-          <button
-            className="slider-close"
-            onClick={e => { e.stopPropagation(); closeSlider(); }}
-          >
-            ×
-          </button>
-          <div
-            className="slider-container"
-            ref={sliderRef}
-            onScroll={onScroll}
-            onClick={e => e.stopPropagation()}
-          >
-            {SELLERS[selectedBooth].images.map((src, i) => (
-              <div key={i} className="slider-slide">
-                <img src={src} alt="" className="slider-img" />
-              </div>
-            ))}
-          </div>
-          <div className="slider-counter">
-          <span className="counter-current">{currentSlide + 1}</span>
-          /{SELLERS[selectedBooth].images.length}
-          </div>
-        </div>
+      {slider.open && (
+        <SliderModal
+          images={SELLERS[selectedBooth].images}
+          initialIndex={slider.index}
+          onClose={closeSlider}
+        />
       )}
     </section>
   );

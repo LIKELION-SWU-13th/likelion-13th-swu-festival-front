@@ -1,0 +1,101 @@
+/* ScheduleDetailModal.css */
+
+/* 공통: 모달 핸들·헤더·본문·푸터 스타일 */
+.modal-handle {
+  width: 40px; height: 4px;
+  background: #555; border-radius: 2px;
+  margin: 0 auto 12px; cursor: grab;
+}
+.modal-header {
+  display: flex; gap: 12px; align-items: center;
+}
+.modal-image {
+  width: 64px; height: 64px; border-radius: 50%;
+  object-fit: cover;
+}
+.modal-title-group { flex: 1; }
+.modal-title {
+  margin: 0; font-size: 18px; color: #fff;
+}
+.modal-time {
+  margin: 4px 0 0; font-size: 14px; color: #aaa;
+}
+.modal-body { margin: 16px 0; }
+.modal-desc {
+  font-size: 14px; line-height: 1.5; color: #ddd;
+}
+.modal-footer { text-align: center; }
+.modal-action-btn {
+  display: inline-block; padding: 10px 15px;
+  width: 300px;
+  border-radius: 28px;
+  border: 1px solid var(--Gray-10, #F1F1F3);
+  box-shadow: -2px -2px 8px 0px var(--Indigo-10, #9DA4FB) inset;
+  background: var(--Gradient-1, linear-gradient(230deg, var(--Indigo-90, #25283D) 2.04%, var(--Indigo-50, #3B3B98) 61.41%, var(--Indigo-20, #5863F8) 93.76%));
+  color: var(--Gray-10, #F1F1F3); 
+  text-decoration: none; 
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* ============ 모바일 (기본) ============ */
+/* overlay: 뷰포트 전체 fixed */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0);
+  display: flex; justify-content: center; align-items: flex-end;
+  pointer-events: none; transition: background .3s ease; z-index: 1000;
+}
+.modal-overlay.visible {
+  background: rgba(0,0,0,0.4); pointer-events: auto;
+}
+
+/* bottom-sheet */
+.detail-modal {
+  width: 100%; max-width: 360px;
+  margin: 0px;      
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+
+  background: var(--Gray-80,#484851);
+  border-radius: 16px 16px 0 0;  /* 상단만 둥글게 */
+  padding: 16px 24px 32px;
+  box-shadow: 0 -4px 16px rgba(0,0,0,0.4);
+
+  transform: translateY(100%); transition: transform .3s ease;
+}
+.detail-modal.open {
+  transform: translateY(0);
+}
+
+/* ============ 데스크톱 (768px 이상) ============ */
+@media (min-width: 768px) {
+  /* overlay: 컨테이너(SchedulePage) 기준 절대위치 */
+  .modal-overlay {
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0);
+    justify-content: center; align-items: flex-end;
+    z-index: 100; /* SchedulePage 위 */
+  }
+  .modal-overlay.visible {
+    background: rgba(0,0,0,0.4);
+    pointer-events: auto;
+  }
+
+  /* bottom-sheet: 패널 너비에 맞춰, 데스크톱 전용 높이 비율 */
+  .detail-modal {
+    width: 100%; max-width: 340px;   /* 데스크톱에서는 좀 더 넓게 */
+    margin: 0 auto 410px;             /* 아래 여유 조금 더 */
+    max-height: 50vh;                /* 화면 절반 높이 */
+    overflow-y: auto;
+
+    border-radius: 24px 24px 0 0;    /* 더 큰 둥근 모서리 */
+    padding: 24px 32px 40px;
+    box-shadow: 0 -6px 24px rgba(0,0,0,0.5);
+
+    transform: translateY(100%); transition: transform .3s ease;
+  }
+  .detail-modal.open {
+    transform: translateY(0);
+  }
+}

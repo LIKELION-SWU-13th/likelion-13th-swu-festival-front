@@ -13,7 +13,7 @@ export default function LocationInfoBar({
 }) {
   return (
     <>
-      {/* 1) 맵 닫힘 시: 기존 바 */}
+    
       <div className="location-info-bar">
         <span className="place-name">
           <LocationIcon className="icon location-icon" />
@@ -25,28 +25,23 @@ export default function LocationInfoBar({
         </button>
       </div>
 
-      {/* 2) 맵 열림 시: 오버레이 */}
       {showMap && (
         <div className="map-container">
-          {/* 지도 위 placeName 레이블 */}
           <span className="map-place-label">
             <LocationIcon className="icon" />
             {placeName}
           </span>
 
-          {/* 닫기 버튼 */}
           <button className="close-on-image" onClick={onToggleMap}>
             <CloseIcon />
           </button>
 
-          {/* 실제 지도 이미지 */}
           <img
             src={mapImageUrl}
             alt={`${placeName} 지도`}
             className="map-image"
           />
 
-          {/* 하이라이트 박스 */}
           <div
             className="map-highlight"
             style={highlightStyle}
