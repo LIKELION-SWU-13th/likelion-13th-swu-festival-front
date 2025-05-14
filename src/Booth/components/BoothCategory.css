@@ -19,7 +19,7 @@
     background: #5f5fff;
     color: #fff;
     border-radius: 17px;
-border: 1px solid var(--Indigo-10, #9DA4FB);
-background: var(--Gradient-1, linear-gradient(230deg, var(--Indigo-90, #25283D) 2.04%, var(--Indigo-50, #3B3B98) 61.41%, var(--Indigo-20, #5863F8) 93.76%));
+    border: 1px solid var(--Indigo-10, #9DA4FB);
+    background: var(--Gradient-1, linear-gradient(230deg, var(--Indigo-90, #25283D) 2.04%, var(--Indigo-50, #3B3B98) 61.41%, var(--Indigo-20, #5863F8) 93.76%));
   }
   

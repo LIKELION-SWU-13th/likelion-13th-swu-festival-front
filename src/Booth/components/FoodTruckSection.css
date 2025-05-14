@@ -38,7 +38,6 @@
 
 }
 
-/* 선택된 셀의 아이콘과 내부 모든 path/g를 흰색으로 강제 적용 */
 .food-cell.selected .food-icon,
 .food-cell.selected .food-icon path,
 .food-cell.selected .food-icon g {
@@ -89,15 +88,15 @@
 }
 
 .category-content h2 {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .category-content p {
   margin-top: 0;
   margin-bottom: 16px;
-  font-size: 13px;
+  font-size: 16px;
 }
 
 .truck-details {
@@ -137,6 +136,6 @@
   display: block;
   margin-left: 16px;
   margin-top: 4px;
-  font-size: 13px;
+  font-size: 12px;
   color: var(--Indigo-10, #9DA4FB);
 }

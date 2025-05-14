@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import BoothPage    from './Booth/pages/BoothPage';
 import StarPage     from './Star/StarPage';      
-import PerformPage  from './Perform/PerformPage';   
+import PerformPage from './Perform/pages/PerformPage';
 
 export default function App() {
   return (

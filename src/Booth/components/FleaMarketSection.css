@@ -1,19 +1,20 @@
 .flea-market-section {
-  width: 360px;
-  color: #FAFAFA;
+  width: 100%;          /* 부모 컨테이너 너비에 맞춰 늘리기 */
+  max-width: 360px;     /* 필요 시 최대 360px로 제한 */
   position: relative;
+  color: #303036;
 }
 
 .food-bar {
   width: 156px;
   height: 36px;
   border-radius: 8px;
-  background: var(--Gray-50, #93939F);
+  background: #93939F;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 12px;
-  margin-bottom: 16px;
+  margin: 10px 0;
 }
 
 .flea-row {
@@ -21,39 +22,30 @@
   justify-content: center;
   gap: 4px;
   margin-bottom: 16px;
-  padding: 7px 0;
+  padding: 7px 0 45px;
 }
 
 .flea-cell {
   position: relative;
   width: 43px;
   height: 56px;
-  background: var(--Gray-80, #484851);
+  background: #484851;
   border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.2s, box-shadow 0.2s;
+  transition: background .2s, box-shadow .2s;
 }
 
 .flea-cell.active {
-  background: var(
-    --Gradient-1,
-    linear-gradient(
-      230deg,
-      var(--Indigo-90, #25283D) 2.04%,
-      var(--Indigo-50, #3B3B98) 61.41%,
-      var(--Indigo-20, #5863F8) 93.76%
-    )
-  );
-  box-shadow: 0px 0px 5px 0px var(--Indigo-0, #CED1FD);
+  background: linear-gradient(230deg, #25283D 2.04%, #3B3B98 61.41%, #5863F8 93.76%);
+  box-shadow: 0 0 5px #CED1FD;
 }
 
-.flea-cell.active .flea-icon,
-.flea-cell.active .flea-icon * {
-  fill: #FFFFFF !important;
-  stroke: #FFFFFF !important;
+.flea-cell.active .flea-icon {
+  fill: #FFF;
+  stroke: #FFF;
 }
 
 .flea-icon {
@@ -61,7 +53,7 @@
   height: 21px;
   fill: none;
   stroke-width: 1.65px;
-  stroke: var(--Indigo-10, #9DA4FB);
+  stroke: #9DA4FB;
 }
 
 .flea-label {
@@ -73,20 +65,18 @@
   font-weight: 600;
   pointer-events: none;
   z-index: 2;
-  color: var(--Lavender-80, #210377);
+  color: #210377;
 }
 
 .section-title {
   font-size: 20px;
   font-weight: 600;
-  color: #FAFAFA;
   margin-bottom: 16px;
 }
 
 .section-subtitle {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
-  color: #FAFAFA;
   margin-bottom: 12px;
 }
 
@@ -106,7 +96,7 @@
 .seller-index {
   font-size: 14px;
   font-weight: 400;
-  color: var(--Gray-0, #FAFAFA);
+  color: #FAFAFA;
 }
 
 .seller-info {
@@ -117,19 +107,12 @@
 .seller-name {
   font-size: 14px;
   font-weight: 400;
-  color: #FAFAFA;
 }
 
 .seller-item-name {
   font-size: 12px;
   color: var(--Lavender-20, #906CF9);
   margin-top: 4px;
-}
-
-.seller-item-addname {
-  font-size: 12px;
-  color: var(--Lavender-20, #906CF9);
-  margin: 0px 8px 0px 10px;
 }
 
 .active-seller {
@@ -140,7 +123,7 @@
   padding: 0 0 24px;
   border-radius: 8px;
   background: #303036;
-  margin-bottom: 16px;
+  margin-bottom: 0px;
 }
 
 .seller-header {
@@ -149,7 +132,12 @@
   gap: 4px;
 }
 
-/* 제품 이미지 스크롤 영역 */
+.seller-item-addname {
+  font-size: 12px;
+  color: var(--Lavender-20, #906CF9);
+  margin: 0 8px 0 10px;
+}
+
 .product-images {
   display: flex;
   gap: 8px;
@@ -169,90 +157,4 @@
   height: 90px;
   object-fit: cover;
   border-radius: 8px;
-  flex: 0 0 auto;
-}
-
-/* — 슬라이더 모달 — */
-.slider-modal {
-  position: fixed;
-  inset: 0;
-  background: #000;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-/* 닫기 버튼 */
-.slider-close {
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  font-size: 32px;
-  color: #fff;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-/* 이미지+카운터 래퍼: gap 제거 */
-.slider-content {
-  display: flex;
-  flex-direction: column;
-  /* gap 제거 */
-}
-
-/* 스와이프 슬라이더 컨테이너 */
-.slider-container {
-  width: 90%;
-  max-width: 400px;
-  height: auto;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  display: flex;
-
-  /* 강제 24px 여백 */
-  margin-bottom: 24px !important;
-}
-
-/* 숨김 스크롤바 */
-.slider-container::-webkit-scrollbar {
-  display: none;
-}
-.slider-container {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-/* 개별 슬라이드 */
-.slider-slide {
-  flex: 0 0 100%;
-  scroll-snap-align: start;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-}
-
-/* 이미지: 자연 크기로 */
-.slider-img {
-  height: auto;
-  width: auto;
-  max-width: 100%;
-  object-fit: contain;
-  border-radius: 8px;
-}
-
-/* 카운터 */
-.slider-counter {
-  color: #fff;
-  font-size: 16px;
-  line-height: 1;
-  text-align: center;
-}
-
-.slider-counter .counter-current {
-  color: #906CF9;
 }

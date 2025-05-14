@@ -34,6 +34,7 @@ export default function TodayBanner({ banners }) {
             <p className="banner-time">{item.time}</p>
           </div>
         ))}
+        
       </div>
 
       {/* pagination dots */}
