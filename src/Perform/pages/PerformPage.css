@@ -1,0 +1,8 @@
+.perform-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;     
+  padding: 16px;  
+  background: var(--Gray-90, #303036);
+  box-sizing: border-box;
+}

@@ -1,0 +1,130 @@
+.schedule-page {
+  position: relative;       /* 모달-overlay 절대위치 기준 */
+  display: flex;
+  flex-direction: column;
+  background: var(--Gray-90, #303036);
+  padding: 16px;
+  gap: 16px;
+  overflow: visible;        /* 모달이 넘쳐도 보이도록 */
+}
+
+/* 공지 */
+.schedule-notice-inline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--Gray-20, #B0B0B5);
+  align-self: flex-end;
+  padding : 10px;
+}
+.schedule-notice-inline .notice-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* 본문 */
+.schedule-body {
+  display: flex;
+  gap: 16px;
+}
+
+/* 날짜 네비 */
+.date-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: -40px 0 0 -16px;
+}
+.date-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 9999px;
+  background: var(--Gray-80, #42424B);
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.date-btn.active {
+  background: var(--Gradient-1, linear-gradient(230deg, #25283D 2%, #3B3B98 61%, #5863F8 94%));
+}
+.date-number {
+  font-size: 18px;
+  font-weight: 600;
+  color: #CED1FD;
+}
+.date-btn.active .date-number {
+  color: #FFF;
+}
+.date-day {
+  font-size: 12px;
+  color: #F1F1F3;
+}
+.date-btn.active .date-day {
+  color: #EEE;
+}
+
+/* 리스트 */
+.schedule-list {
+  flex: 1;
+  max-height: 360px;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.schedule-list::-webkit-scrollbar {
+  display: none;
+}
+
+/* 아이템 */
+.schedule-item {
+  display: flex;
+  flex-direction: column;
+}
+.timeline-row {
+  display: flex;
+  align-items: center;
+}
+.time-label {
+  font-size: 12px;
+  color: var(--Gray-20, #E4E4E7);
+  width: 50px;
+}
+.time-line {
+  flex: 1;
+  height: 1px;
+  background: var(--Gray-70, #93939F);
+}
+
+/* 카드 */
+.event-card {
+  max-width: 300px;
+  margin: 0px 0px 0px 50px;
+  background: var(--Gray-80, #42424B);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.event-header {
+  font-size: 16px;
+  font-weight: 500;
+  color: #FAFAFA;
+}
+.event-time {
+  font-size: 14px;
+  color: #CED1FD;
+}
+.event-link {
+  margin-left: auto;
+  font-size: 12px;
+  color: #CACAD0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}

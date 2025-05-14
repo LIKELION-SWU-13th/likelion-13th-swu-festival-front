@@ -1,41 +1,54 @@
-import React, { useState } from 'react';
-import { ReactComponent as StarIcon } from '../../assets/Star.svg';
+import React from 'react';
+import { ReactComponent as CardIcon } from '../../assets/Card.svg';
 import './PhotoBoothSection.css';
 
-const PhotoBoothSection = () => {
-  const [selectedBooth, setSelectedBooth] = useState(null);
+import img1_1 from '../images/1-1.png';
+import img1_2 from '../images/1-2.png';
+import img1_3 from '../images/1-3.png';
+import img1_4 from '../images/1-4.png';
+
+export default function PhotoBoothSection() {
+  const frames = [img1_1, img1_2, img1_3, img1_4];
 
   return (
-    <>
-      <div className="photo-layout">
-        <div className="photo-row">
-          {[1, 2, 3, 4, 5].map(n => (
-            <div 
-              key={n} 
-              className={`photo-cell ${selectedBooth === n ? 'selected' : ''}`}
-              onClick={() => setSelectedBooth(n)}
-            >
-              <StarIcon className="photo-icon" />
-              <span className="photo-label">{n}</span>
-            </div>
+    <div className="photo-bottom">
+      <section className="usage-info">
+        <h4>이용 금액</h4>
+        <ul>
+          <li>
+            <span className="desc">2*6 사이즈 2장(1+1)</span>
+            <span className="price">4,000원</span>
+          </li>
+          <li>
+            <span className="desc">4*6 사이즈 2장(1+1)</span>
+            <span className="price">5,000원</span>
+          </li>
+        </ul>
+        <div className="payment">
+          <CardIcon className="icon" />
+          <span>결제</span>
+          <span>카드, 현금, 계좌이체 가능</span>
+        </div>
+      </section>
+
+      <section className="notice">
+        <h4>유의사항</h4>
+        <p>
+          소품 비치 예정&nbsp;
+          <span className="highlight">사용 후 제자리 정리 필수</span>
+        </p>
+      </section>
+
+      <section className="frame-images">
+        <h4>프레임 이미지</h4>
+        <div className="thumbs">
+          {frames.map((src, idx) => (
+            <img key={idx} src={src} alt={`프레임${idx + 1}`} />
           ))}
         </div>
-      </div>
-      
-      <div className="category-content">
-        <h2>포토부스</h2>
-        <p>번호를 누르면 더 자세한 정보를 알 수 있어요!</p>
-        
-        {selectedBooth && (
-          <div className="photo-details">
-            <h3>포토부스 {selectedBooth}</h3>
-            <p>선택하신 포토부스 정보입니다.</p>
-            {/* 추가 정보 표시 가능 */}
-          </div>
-        )}
-      </div>
-    </>
-  );
-};
+      </section>
 
-export default PhotoBoothSection;
+  
+    </div>
+  );
+}
