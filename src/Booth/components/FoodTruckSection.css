@@ -15,8 +15,8 @@
   position: relative;
   width: 54px;
   height: 48px;
-  background: var(--Gray-80, #484851);
-  border-radius: 8px;
+  background: var(--Gray-70, #60606C);
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -62,7 +62,7 @@
   pointer-events: none;
   color: var(--Lavender-80, #210377);
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 400;
   z-index: 2;
 }
 

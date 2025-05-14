@@ -29,7 +29,7 @@ export default function PerformPage() {
       : {
           header: '서울여자대학교 사랑 대동제',
           event: '우리가 마음을 나누는 지금. 이곳에서',
-          time: '11:00 : 21:30',
+          time: '11:00 - 21:30',
         };
 
     // 2) “오늘의 게스트”를 여러 명 관리할 배열

@@ -23,8 +23,8 @@ const PLACE_NAMES = {
 };
 
 const HIGHLIGHT_AREAS = {
-  department: { top: '12%', left: '8%',  width: '28%', height: '22%' },
-  food:       { top: '18%', left: '60%', width: '20%', height: '12%' },
+  department: { top: '27%', left: '8%',  width: '28%', height: '22%' },
+  food:       { top: '18%', left: '10%', width: '25%', height: '5%' },
   flea:       { top: '42%', left: '32%', width: '25%', height: '18%' },
   photo:      { top: '65%', left: '20%', width: '20%', height: '15%' },
 };

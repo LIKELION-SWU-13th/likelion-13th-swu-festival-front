@@ -79,7 +79,7 @@ export default function FleaMarketSection() {
           </>
         ) : (
           <>
-            <div className="section-title">셀러 상세</div>
+            <div className="section-title">셀러 목록</div>
             <div className="seller-item active-seller">
               <div className="seller-header">
                 <span className="seller-index">{selectedBooth}</span>
