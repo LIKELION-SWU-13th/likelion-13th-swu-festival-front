@@ -26,48 +26,61 @@ const DEPARTMENT_LAYOUT = [
   { num: 18, style: { top: '54%', left: '54%' } },
 ];
 
+const API_BASE = 'https://api.likelion13th-swu.site';
+const TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMDIyMTExMzY4IiwibmFtZSI6IuuCqOyYiOydgCIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3NDcyNzI1NTIsImV4cCI6MTc0ODEzNjU1Mn0.ovlJ-iPMh0_bJTSNNLX5H-6KsrpEjGmhMJtalzlP2P0';
+
 const DepartmentSection = () => {
   const [departmentList, setDepartmentList] = useState([]);
   const [selectedBooth, setSelectedBooth] = useState(null);
   const [completedBooths, setCompletedBooths] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
-  // 현재 시간에 따른 운영 상태 계산
+  // 운영 상태 계산
   const now = new Date();
   const hours = now.getHours();
   const minutes = now.getMinutes();
   let statusText;
-  if (hours < 11) {
-    statusText = '운영전';
-  } else if (hours > 16 || (hours === 16 && minutes >= 30)) {
-    statusText = '운영 종료';
-  } else {
-    statusText = '운영중';
-  }
+  if (hours < 11) statusText = '운영전';
+  else if (hours > 16 || (hours === 16 && minutes >= 30)) statusText = '운영 종료';
+  else statusText = '운영중';
 
-  // API에서 부서(부스) 목록 불러오기
+    // 부서 목록 로드
+  const fetchDepartments = async () => {
+    console.log('▶ fetchDepartments 호출');
+    try {
+      const res = await fetch(`${API_BASE}/booth/info`, {
+        headers: { Authorization: TOKEN }
+      });
+      console.log('▶ booth/info 응답:', res.status);
+      if (!res.ok) throw new Error(`Dept HTTP ${res.status}`);
+      const data = await res.json();
+      console.log('▶ department_list:', data.department_list);
+      setDepartmentList(data.department_list);
+    } catch (e) {
+      console.error('Dept fetch error:', e);
+    }
+  };
+
+  // 완료된 부스 리스트 로드
+  const fetchCompleted = async () => {
+    console.log('▶ fetchCompleted 호출');
+    try {
+      const res = await fetch(`${API_BASE}/booth/complete`, {
+        headers: { Authorization: TOKEN }
+      });
+      console.log('▶ booth/complete 응답:', res.status);
+      if (!res.ok) throw new Error(`Completed HTTP ${res.status}`);
+      const data = await res.json();
+      console.log('▶ 완료된 부스 배열:', data);
+      setCompletedBooths(data);
+    } catch (e) {
+      console.error('Completed fetch error:', e);
+    }
+  };
+
   useEffect(() => {
-    const fetchDepartments = async () => {
-      try {
-        const response = await fetch(
-          'https://api.likelion13th-swu.site/booth/info',
-          {
-            method: 'GET',
-            headers: {
-              'Authorization':
-                'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMDIyMTExMzY4IiwibmFtZSI6IuuCqOyYiOydgCIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3NDcyNzI1NTIsImV4cCI6MTc0ODEzNjU1Mn0.ovlJ-iPMh0_bJTSNNLX5H-6KsrpEjGmhMJtalzlP2P0',
-              'Content-Type': 'application/json',
-            },
-          }
-        );
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const data = await response.json();
-        setDepartmentList(data.department_list);
-      } catch (error) {
-        console.error('Failed to fetch department list:', error);
-      }
-    };
     fetchDepartments();
+    fetchCompleted();
   }, []);
 
   const openCompleteModal = (num) => {
@@ -76,13 +89,30 @@ const DepartmentSection = () => {
   };
 
   const handleModalClose = () => setShowModal(false);
-  const handleModalComplete = () => {
-    setCompletedBooths((prev) =>
-      prev.includes(selectedBooth)
-        ? prev.filter((x) => x !== selectedBooth)
-        : [...prev, selectedBooth]
-    );
-    setShowModal(false);
+
+  const handleModalComplete = async () => {
+    try {
+    
+      const res = await fetch(
+        `${API_BASE}/booth/${selectedBooth}/participate`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: TOKEN,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      console.log('▶ POST booth/{id}/participate 응답:', res.status);
+      if (!res.ok) throw new Error(`Participate HTTP ${res.status}`);
+      const message = await res.text();
+      console.log('▶ 참여 완료 메시지:', message);
+      fetchCompleted();
+    } catch (e) {
+      console.error('Participate error:', e);
+    } finally {
+      setShowModal(false);
+    }
   };
 
   return (
@@ -94,10 +124,10 @@ const DepartmentSection = () => {
             className={[
               'booth-cell',
               selectedBooth === num ? 'selected' : '',
-              completedBooths.includes(num) ? 'completed' : '',
-            ].join(' ')}
+              completedBooths.includes(num) ? 'completed' : ''
+            ].filter(Boolean).join(' ')}
             style={style}
-            onClick={() => setSelectedBooth((prev) => (prev === num ? null : num))}
+            onClick={() => setSelectedBooth(prev => (prev === num ? null : num))}
           >
             <StarIcon className="booth-icon" />
             <span className="booth-label">{num}</span>
@@ -115,12 +145,7 @@ const DepartmentSection = () => {
             <li className="booth-status">
               <ClockIcon className="clock-icon" />
               <span className="status-text">{statusText}</span>
-              <span
-                className={[
-                  'status-dot',
-                  statusText === '운영중' ? '' : 'dot-inactive',
-                ].join(' ')}
-              />
+              <span className={['status-dot', statusText === '운영중' ? '' : 'dot-inactive'].join(' ')} />
             </li>
           </ul>
           <div className="detail-action">
@@ -129,10 +154,7 @@ const DepartmentSection = () => {
                 <CheckIcon className="check-icon-completed" />
               </div>
             ) : (
-              <button
-                className="complete-btn-detail"
-                onClick={() => openCompleteModal(selectedBooth)}
-              >
+              <button className="complete-btn-detail" onClick={() => openCompleteModal(selectedBooth)}>
                 체험 완료
               </button>
             )}
@@ -173,12 +195,8 @@ const DepartmentSection = () => {
               <p>체험 완료 처리를 해주세요!</p>
             </div>
             <div className="modal-actions">
-              <button className="btn-close" onClick={handleModalClose}>
-                닫기
-              </button>
-              <button className="btn-confirm" onClick={handleModalComplete}>
-                완료
-              </button>
+              <button className="btn-close" onClick={handleModalClose}>닫기</button>
+              <button className="btn-confirm" onClick={handleModalComplete}>완료</button>
             </div>
           </div>
         </div>
