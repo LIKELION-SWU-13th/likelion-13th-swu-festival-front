@@ -1,3 +1,10 @@
+.location-info-wrapper {
+  position: relative;    /* map-container의 absolute 기준 */
+  display: block;
+  width: 370px;          /* map-image와 동일한 너비로 고정 */
+  margin: 0 auto;        /* 필요시 가운데 정렬 */
+}
+
 .location-info-bar {
   display: inline-flex;
   align-items: center;
@@ -33,11 +40,11 @@
 }
 
 .map-container {
-  position: absolute;    
-  top: 135px;           
-  left: 16px;          
-  right: 16px;
-  z-index: 20;        
+  position: absolute;
+  top: calc(100% + 8px); /* 바 바로 아래 8px 띄우기 */
+  left: 0;                /* wrapper 왼쪽 기준 */
+  width: 100%;            /* wrapper 너비 그대로 */
+  z-index: 20;
 }
 
 .map-place-label {
@@ -45,15 +52,12 @@
   top: 10px;
   left: 10px;
   z-index: 10;
-
   display: flex;
   align-items: center;
   gap: 4px;
   padding: 4px 8px;
-
   background: var(--Gray-0, #FAFAFA);
   border-radius: 14px;
-
   color: var(--Gray-80, #484851);
   font-size: 12px;
   font-weight: 500;
@@ -64,7 +68,6 @@
   top: 16px;
   right: 16px;
   z-index: 10;
-
   width: 32px;
   height: 32px;
   padding: 4px;
@@ -72,16 +75,14 @@
   background-color: rgba(250, 250, 250, 0.4);
   border-radius: 50%;
   cursor: pointer;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   fill: rgba(250, 250, 250, 0.8);
 }
 
 .map-image {
-  width: 100%;
+  width: 100%;            /* wrapper 너비에 맞춤 */
   border-radius: 16px;
 }
 

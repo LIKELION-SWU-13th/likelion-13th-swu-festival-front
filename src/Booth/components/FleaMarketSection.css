@@ -1,36 +1,39 @@
+/* FleaMarketSection.css */
+
+:root {
+  --inner-padding: 8px;
+  --bg-color: #303036;
+  --text-color: #FAFAFA;
+  --subtext-color: #E1E1E3;
+  --accent-color: #906CF9;
+}
+
 .flea-market-section {
-  width: 100%;          /* 부모 컨테이너 너비에 맞춰 늘리기 */
-  max-width: 360px;     /* 필요 시 최대 360px로 제한 */
-  position: relative;
-  color: #303036;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  background: var(--bg-color);
+  color: var(--text-color);
+  box-sizing: border-box;
+  padding: 16px 0;
 }
 
-.food-bar {
-  width: 156px;
-  height: 36px;
-  border-radius: 8px;
-  background: var(--Gray-50, #93939F);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  color: var(--Gray-0, #FAFAFA);
-  margin: 10px 0;
+/* 부스 번호 영역 */
+.flea-layout {
+  width: 100%;
+  padding: 0 var(--inner-padding);
+  box-sizing: border-box;
 }
-
 .flea-row {
   display: flex;
-  justify-content: center;
   gap: 4px;
-  margin-bottom: 16px;
-  padding: 7px 0 45px;
+  margin-bottom: 24px;
 }
-
 .flea-cell {
   position: relative;
   width: 43px;
   height: 56px;
-  background: var(--Gray-70, #60606C);
+  background: #60606C;
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -38,111 +41,106 @@
   cursor: pointer;
   transition: background .2s, box-shadow .2s;
 }
-
 .flea-cell.active {
-  background: linear-gradient(230deg, #25283D 2.04%, #3B3B98 61.41%, #5863F8 93.76%);
+  background: linear-gradient(230deg,#25283D 2%,#3B3B98 61%,#5863F8 94%);
   box-shadow: 0 0 5px #CED1FD;
 }
-
+.flea-icon {
+  width: 22px; height: 21px;
+  fill: none; stroke-width: 1.65px; stroke: #9DA4FB;
+  transition: fill .2s, stroke .2s;
+}
 .flea-cell.active .flea-icon,
 .flea-cell.active .flea-icon path,
 .flea-cell.active .flea-icon g {
-  fill: #FFFFFF !important;
-  stroke: #FFFFFF !important;
-  transition: fill .2s, stroke .2s;
+  fill: #fff !important; stroke: #fff !important;
 }
-
-
-.flea-icon {
-  width: 22px;
-  height: 21px;
-  fill: none;
-  stroke-width: 1.65px;
-  stroke: #9DA4FB;
-}
-
 .flea-label {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top:50%; left:50%;
   transform: translate(-50%, -50%);
-  font-size: 12px;
-  font-weight: 400;
-  pointer-events: none;
-  z-index: 2;
-  color: #210377;
+  font-size:12px; font-weight:400;
+  color:#210377;
+  pointer-events:none;
 }
 
-.section-title {
+/* “셀러 목록” 제목 및 안내문 */
+.category-content {
+  padding: 0 var(--inner-padding);
+  box-sizing: border-box;
+}
+.category-content h2 {
   font-size: 20px;
   font-weight: 600;
-  margin-bottom: 16px;
+  margin: 0 0 16px;
+  color: var(--text-color);
 }
 
-.section-subtitle {
-  font-size: 16px;
-  font-weight: 500;
-  margin-bottom: 12px;
-}
-
+/* 2열 그리드 구성 */
 .seller-list {
   display: grid;
-  grid-auto-flow: column;
-  grid-template-rows: repeat(4, auto);
-  gap: 12px 24px;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 24px;
+  row-gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
+/* 각 항목: 번호+이름, 아래 아이템 */
 .seller-item {
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
-}
-
-.seller-index {
-  font-size: 14px;
-  font-weight: 400;
-  color: #FAFAFA;
-}
-
-.seller-info {
-  display: flex;
-  flex-direction: column;
+  margin: 0;
 }
 
 .seller-name {
+  display: inline;
   font-size: 14px;
   font-weight: 400;
+  color: var(--text-color);
+}
+
+.seller-index {
+  /* 기존 스타일 유지 */
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-color);
+  margin-right: 8px;
 }
 
 .seller-item-name {
+  display: block;            /* 줄바꿈 유지 */
+  margin: 4px 0 0;           /* 위쪽 간격 */
+  margin-left: 14px;
   font-size: 12px;
   color: var(--Lavender-20, #906CF9);
-  margin-top: 4px;
 }
 
+/* 활성 셀러 상세 (선택 시) */
 .active-seller {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 4px;
-  padding: 0 0 24px;
+  margin: 0 0 24px;
+  padding: 0;
+  background: var(--bg-color);
   border-radius: 8px;
-  background: #303036;
-  margin-bottom: 0px;
 }
-
 .seller-header {
   display: flex;
   align-items: baseline;
   gap: 4px;
 }
-
 .seller-item-addname {
+  display: block;
+  margin: 4px 0 0;
   font-size: 12px;
-  color: var(--Lavender-20, #906CF9);
-  margin: 0 8px 0 10px;
+  color: var(--accent-color);
 }
 
+/* 제품 이미지 슬라이더 */
+.section-subtitle {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 8px 0;
+  color: var(--text-color);
+}
 .product-images {
   display: flex;
   gap: 8px;
@@ -152,14 +150,11 @@
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
-
 .product-images::-webkit-scrollbar {
   display: none;
 }
-
 .product-images img {
-  width: 90px;
-  height: 90px;
+  width: 90px; height: 90px;
   object-fit: cover;
   border-radius: 8px;
 }

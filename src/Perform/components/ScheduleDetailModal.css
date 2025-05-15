@@ -1,13 +1,10 @@
-/* ScheduleDetailModal.css */
-
-/* 공통: 모달 핸들·헤더·본문·푸터 스타일 */
 .modal-handle {
-  width: 40px; height: 4px;
-  background: #555; border-radius: 2px;
+  width: 80px; height: 6px;
+  background: #555; border-radius: 4px;
   margin: 0 auto 12px; cursor: grab;
 }
 .modal-header {
-  display: flex; gap: 12px; align-items: center;
+  display: flex; gap: 10px; align-items: center;
 }
 .modal-image {
   width: 64px; height: 64px; border-radius: 50%;
@@ -22,12 +19,14 @@
 }
 .modal-body { margin: 16px 0; }
 .modal-desc {
-  font-size: 14px; line-height: 1.5; color: #ddd;
+  font-size: 16px; line-height: 24px; color: var(--Gray-10, #F1F1F3);
 }
 .modal-footer { text-align: center; }
 .modal-action-btn {
-  display: inline-block; padding: 10px 15px;
+  display: inline-block; 
+  padding: 10px 15px;
   width: 300px;
+  height : 30px;
   border-radius: 28px;
   border: 1px solid var(--Gray-10, #F1F1F3);
   box-shadow: -2px -2px 8px 0px var(--Indigo-10, #9DA4FB) inset;
@@ -68,6 +67,10 @@
   transform: translateY(0);
 }
 
+.modal-desc {
+  white-space: pre-line; /* <p> 안의 '\n'을 줄바꿈으로 변환 */
+}
+
 /* ============ 데스크톱 (768px 이상) ============ */
 @media (min-width: 768px) {
   /* overlay: 컨테이너(SchedulePage) 기준 절대위치 */
@@ -85,7 +88,7 @@
   /* bottom-sheet: 패널 너비에 맞춰, 데스크톱 전용 높이 비율 */
   .detail-modal {
     width: 100%; max-width: 340px;   /* 데스크톱에서는 좀 더 넓게 */
-    margin: 0 auto 410px;             /* 아래 여유 조금 더 */
+    margin: 0 auto 0px;             /* 아래 여유 조금 더 */
     max-height: 50vh;                /* 화면 절반 높이 */
     overflow-y: auto;
 
