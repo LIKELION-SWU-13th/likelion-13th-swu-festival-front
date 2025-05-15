@@ -6,7 +6,7 @@
 .banner-scroll {
   display: flex;
   flex-direction: row;
-  gap: 16px;
+  gap: 10px;
   overflow-x: auto;
   overflow-y: hidden;
   scroll-snap-type: x mandatory;

@@ -1,0 +1,23 @@
+.shooting-stars-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.3);
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+  }
+  
+  .shooting-stars-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .shooting-stars-canvas.bg { filter: blur(0.5px); }
+  .shooting-stars-canvas.fg { mix-blend-mode: screen; filter: blur(0.8px); }
+  

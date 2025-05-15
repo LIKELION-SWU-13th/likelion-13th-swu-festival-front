@@ -34,60 +34,65 @@ export default function FleaMarketSection() {
   const [selectedBooth, setSelectedBooth] = useState(null);
   const [slider, setSlider] = useState({ open: false, index: 0 });
 
-  const handleClickBooth = num => {
-    setSelectedBooth(prev => (prev === num ? null : num));
+  const handleClickBooth = (num) => {
+    setSelectedBooth((prev) => (prev === num ? null : num));
     setSlider({ open: false, index: 0 });
   };
 
-  const openSlider = idx => setSlider({ open: true, index: idx });
-  const closeSlider = () => setSlider({ open: false, index: 0 });
+  const openSlider = (idx) => {
+    setSlider({ open: true, index: idx });
+  };
+
+  const closeSlider = () => {
+    setSlider({ open: false, index: 0 });
+  };
 
   return (
     <section className="flea-market-section">
-      <div className="food-bar">푸드트럭</div>
-      <div className="flea-row">
-        {Object.keys(MARKETS).map(key => {
-          const num = +key;
-          return (
-            <div
-              key={num}
-              className={`flea-cell ${num === selectedBooth ? 'active' : ''}`}
-              onClick={() => handleClickBooth(num)}
-            >
-              <StarIcon className="flea-icon" />
-              <span className="flea-label">{num}</span>
-            </div>
-          );
-        })}
+      {/* 부스 번호 영역 */}
+      <div className="flea-layout">
+        <div className="flea-row">
+          {Object.keys(MARKETS).map((key) => {
+            const num = Number(key);
+            return (
+              <div
+                key={num}
+                className={`flea-cell ${selectedBooth === num ? 'active' : ''}`}
+                onClick={() => handleClickBooth(num)}
+              >
+                <StarIcon className="flea-icon" />
+                <span className="flea-label">{num}</span>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
+      {/* 셀러 목록 / 상세 정보 */}
       <div className="category-content">
-        {selectedBooth == null ? (
+        <h2>셀러 목록</h2>
+        {!selectedBooth && (
           <>
-            <div className="section-title">셀러 목록</div>
-            <div className="seller-list">
+            <ul className="seller-list">
               {Object.entries(SELLERS).map(([key, s]) => (
-                <div key={key} className="seller-item">
+                <li key={key} className="seller-item">
                   <span className="seller-index">{key}</span>
-                  <div className="seller-info">
-                    <span className="seller-name">{s.name}</span>
-                    <span className="seller-item-name">{s.item}</span>
-                  </div>
-                </div>
+                  <span className="seller-name">{s.name}</span>
+                  <span className="seller-item-name">{s.item}</span>
+                </li>
               ))}
-            </div>
+            </ul>
           </>
-        ) : (
+        )}
+
+        {selectedBooth && (
           <>
-            <div className="section-title">셀러 목록</div>
-            <div className="seller-item active-seller">
+            <div className="active-seller">
               <div className="seller-header">
                 <span className="seller-index">{selectedBooth}</span>
                 <span className="seller-name">{SELLERS[selectedBooth].name}</span>
               </div>
-              <span className="seller-item-addname">
-                {SELLERS[selectedBooth].item}
-              </span>
+              <span className="seller-item-addname">{SELLERS[selectedBooth].item}</span>
             </div>
             <div className="section-subtitle">제품 이미지</div>
             <div className="product-images">
