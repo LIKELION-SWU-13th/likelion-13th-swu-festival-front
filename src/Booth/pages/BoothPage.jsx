@@ -31,17 +31,18 @@ const HIGHLIGHT_AREAS = {
 
 export default function BoothPage() {
   const [activeCat, setActiveCat] = useState(CATEGORIES[0].id);
-  const [showMap, setShowMap] = useState(false);
+  const [showMap, setShowMap]     = useState(false);
 
   useEffect(() => {
     setShowMap(false);
   }, [activeCat]);
 
-  const placeName = PLACE_NAMES[activeCat];
+  const placeName      = PLACE_NAMES[activeCat];
   const highlightStyle = HIGHLIGHT_AREAS[activeCat];
 
   return (
     <div className="booth-page">
+      {/* 고정 헤더 */}
       <TopTabs />
 
       <BoothCategory
@@ -60,10 +61,13 @@ export default function BoothPage() {
         />
       </div>
 
-      {activeCat === 'department' && <DepartmentSection />}
-      {activeCat === 'food'       && <FoodTruckSection />}
-      {activeCat === 'flea'       && <FleaMarketSection />}
-      {activeCat === 'photo'      && <PhotoBoothSection />}
+      {/* 이 영역만 스크롤 */}
+      <div className="content-container">
+        {activeCat === 'department' && <DepartmentSection />}
+        {activeCat === 'food'       && <FoodTruckSection />}
+        {activeCat === 'flea'       && <FleaMarketSection />}
+        {activeCat === 'photo'      && <PhotoBoothSection />}
+      </div>
     </div>
   );
 }

@@ -1,109 +1,59 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { ReactComponent as ExclamationIcon } from '../../assets/iconoir_exclamation.svg';
+import { ReactComponent as DesignMockup }    from '../../assets/design-mockup.svg';
 import ScheduleDetailModal from './ScheduleDetailModal';
 import './SchedulePage.css';
 
-import img1_1 from '../images/1-1.png';
+import { Link } from 'react-router-dom';
+import sorimadang from '../images/sorimadang.png';
+import sel from '../images/sel.jpg';
+import hyeyum from '../images/hyeyum.jpg';
+import swurs from '../images/swurs.jpg';
+import chug from '../images/chug.jpg';
+import sake from '../images/sake.jpg';
+import tippsy from '../images/tippsy.jpg';
 
+// 동아리 공연 스케줄 데이터
 export const scheduleData = [
-  // 21일 (수)
-  {
-    date: '21',
-    day: '수',
-    start: '18:00',
-    end: '19:30',
-    title: 'SWURS',
-    description: '응원단의 꽃! 서울여대 응원단 SWURS...',
-    imageUrl: img1_1,
-    linkUrl: 'https://www.instagram.com/swurs_cheerteam?igsh=YXZjdWlhdHF4ejU4',
-    linkLabel: '공연정보 바로가기 >',
-    buttonLabel: '동아리 인스타그램 보러가기',
-  },
-
-  // 22일 (목)
-  {
-    date: '22',
-    day: '목',
-    start: '18:00',
-    end: '18:40',
-    title: '학우 버스킹',
-    description: '서랑제 무대에서 청춘의 사랑을 나눌 학우분',
-    imageUrl: img1_1,
-    linkUrl: 'https://www.instagram.com/p/DJYzDOXNap9/?img_index=3&igsh=bnoyYXd0bGRxaHd5',
-    linkLabel: '공연정보 바로가기 >',
-    buttonLabel: '학구 버스킹 안내 보러가기',
-  },
-  {
-    date: '22',
-    day: '목',
-    start: '18:40',
-    end: '21:00',
-    title: '동아리(밴드)',
-    description: '서랑제 무대에서 청춘의 사랑을 나눌 학우분',
-    imageUrl: img1_1,
-    linkUrl: 'https://www.instagram.com/p/DJYzDOXNap9/?img_index=3&igsh=bnoyYXd0bGRxaHd5',
-    linkLabel: '공연정보 바로가기 >',
-    buttonLabel: '학구 버스킹 안내 보러가기',
-  },
-
-
-  // 23일 (금)
-  {
-    date: '23',
-    day: '금',
-    start: '15:00',
-    end: '16:00',
-    title: 'SWURS',
-    description: '금요일 오후 에너지...',
-    imageUrl: '/images/swurs.jpg',
-    linkUrl: 'https://instagram.com/swurs_official',
-    linkLabel: '공연정보 바로가기 >',
-  },
-  
+  { date: '21', day: '수', start: '18:00', end: '19:30', title: '소리마당', description: '폭넓은 음악을 다루는 서울여대 중앙 노래패 밴드! 서울여대 중앙 노래패 밴드로 위로와 공감의 음악을 합니다.', imageUrl: sorimadang, linkUrl: 'https://www.instagram.com/swurs_cheerteam' },
+  { date: '22', day: '목', start: '18:40', end: '20:20', title: '소리마당', description: `폭넓은 음악을 다루는 서울여대 중앙 노래패 밴드!\n서울여대 중앙 노래패 밴드로 위로와 공감의 음악을 합니다.`, imageUrl: sorimadang, linkUrl: 'https://www.instagram.com/sorimadang_swu/' },
+  { date: '22', day: '목', start: '18:00', end: '20:20', title: 'S.E.L', description: `서울여대 유일무이 중앙 락밴드! S.E.L.\n다채로운 락 사운드로 심장을 울리는 무대를 선사합니다.`, imageUrl: sel, linkUrl: 'https://www.instagram.com/s.e.l.swu/' },
+  { date: '22', day: '목', start: '18:00', end: '20:20', title: '한혜윰', description: `생각을 춤으로, 춤을 꿈으로!\n서울여대 탈춤 동아리로 50년 역사의 전통을 자랑합니다.`, imageUrl: hyeyum, linkUrl: 'https://www.instagram.com/hyeyumies/' },
+  { date: '23', day: '금', start: '15:00', end: '16:00', title: 'SWURS 응원대제전', description: `서울여대의 꽃, 막힘없이 피어라!\n서울여자대학교 응원단 동아리 SWURS\nSWURS는 서울여대 공연예술분과 정동아리입니다.\n최근에는 키움 히어로즈의 홈 구장인 고척 스카이돔에서 공연 하기도 하였습니다.`, imageUrl: swurs, linkUrl: 'https://www.instagram.com/swurs_cheerteam/' },
+  { date: '23', day: '금', start: '16:30', end: '17:30', title: '청천벽력', description: `서울여대 유일무이 중앙 풍물패! 청천벽력\n다양한 전통악기로 하나의 울림을 만들어내는 풍물패 동아리입니다.`,   imageUrl: chug, linkUrl: 'https://www.instagram.com/bolt_from_the_blue.swu/' },
+  { date: '23', day: '금', start: '18:00', end: '19:00', title: 'S.A.K.E', description: `서울여대 유일 재즈 댄스 퍼포먼스 동아리! S.A.K.E.\n재즈댄스에 기반한 창작안무와 K-POP 커버댄스를 선보이는 동아리입니다.`, imageUrl: sake, linkUrl: 'https://www.instagram.com/s.a.k.e._jazz/' },
+  { date: '23', day: '금', start: '19:30', end: '20:30', title: 'TIPSSY', description: `서울여대 유일 스트릿 댄스 동아리! TIPSSY\n다양한 스트릿 장르의 댄스와 K-POP 커버까지 소화하는 댄스 동아리입니다.`, imageUrl: tippsy, linkUrl: 'https://www.instagram.com/tipssy_swu/' },
 ];
 
 const uniqueDates = Array.from(
-  scheduleData.reduce((map, item) => map.set(item.date, item.day), new Map())
+  scheduleData.reduce((m, item) => m.set(item.date, item.day), new Map())
 ).map(([date, day]) => ({ date, day }));
 
-export default function SchedulePage() {
+// 아티스트 이름 → 라우트용 ID 매핑
+const artistIdMap = {
+  '박지현': 'parkjihyun',
+  '유다빈 밴드': 'yudabin',
+  '이채연': 'ichaeyeon'
+};
+
+export default function SchedulePage({ guestSchedules }) {
   const [selectedDate, setSelectedDate] = useState(uniqueDates[0].date);
-  const [isOpen, setIsOpen] = useState(false);
-  const [modalEvent, setModalEvent] = useState(null);
-  const modalContainerRef = useRef(null);
+  const [isOpen, setIsOpen]             = useState(false);
+  const [modalEvent, setModalEvent]     = useState(null);
 
-  const filteredEvents = scheduleData.filter(
-    (item) => item.date === selectedDate
-  );
-
-  const openModal = (eventData) => {
-    setModalEvent(eventData);
-    setIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsOpen(false);
-  };
+  const filteredEvents  = scheduleData.filter(item => item.date === selectedDate);
+  const selectedArtist  = guestSchedules.find(gs => gs.date === selectedDate);
+  const artistRouteId   = selectedArtist ? artistIdMap[selectedArtist.event] : null;
 
   return (
-    <div className="schedule-page" ref={modalContainerRef}>
-      {/* 공지 */}
-      <div className="schedule-notice-inline">
-        <ExclamationIcon className="notice-icon" />
-        <span>
-          현장 상황에 따라 시간은 조금씩 달라질 수 있습니다.
-        </span>
-      </div>
-
-      {/* 날짜 내비 + 일정 리스트 */}
-      <div className="schedule-body">
+    <div className="schedule-page">
+      {/* 1. 고정 헤더 */}
+      <div className="schedule-header">
         <div className="date-nav">
           {uniqueDates.map(({ date, day }) => (
             <button
               key={date}
-              className={`date-btn ${
-                date === selectedDate ? 'active' : ''
-              }`}
+              className={`date-btn ${date === selectedDate ? 'active' : ''}`}
               onClick={() => setSelectedDate(date)}
             >
               <span className="date-number">{date}</span>
@@ -111,37 +61,59 @@ export default function SchedulePage() {
             </button>
           ))}
         </div>
-
-        <div className="schedule-list">
-          {filteredEvents.map((item, idx) => (
-            <div key={idx} className="schedule-item">
-              <div className="timeline-row">
-                <div className="time-label">{item.start}</div>
-                <div className="time-line" />
-              </div>
-
-              <div className="event-card">
-                <div className="event-header">{item.title}</div>
-                <div className="event-time">
-                  {`${item.start}–${item.end}`}
-                </div>
-                <button
-                  className="event-link"
-                  onClick={() => openModal(item)}
-                >
-                  {item.linkLabel}
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+        <h2 className="section-title">동아리 공연</h2>
       </div>
 
-      {/* 모달 */}
+      {/* 2. 공연 리스트 */}
+      <div className="schedule-list">
+        {filteredEvents.map((item, idx) => (
+          <div
+            key={idx}
+            className="event-card"
+            onClick={() => { setModalEvent(item); setIsOpen(true); }}
+          >
+            <img src={item.imageUrl} alt={item.title} className="event-img" />
+            <div className="event-info">
+              <div className="event-header">{item.title}</div>
+              <div className="event-time">{`${item.start}–${item.end}`}</div>
+            </div>
+            <DesignMockup className="event-arrow" />
+          </div>
+        ))}
+      </div>
+
+      <div className="schedule-notice-inline">
+        <ExclamationIcon className="notice-icon" />
+        <span>현장 상황에 따라 시간은 조금씩 달라질 수 있습니다.</span>
+      </div>
+
+      {/* 오늘의 아티스트 */}
+      <h2 className="section-title">오늘의 아티스트</h2>
+      <div className="artist-card">
+        <img
+          src={selectedArtist.imageUrl}
+          alt={selectedArtist.event}
+          className="artist-img"
+        />
+        <div className="artist-info">
+          <div className="artist-header">{selectedArtist.event}</div>
+          <div className="artist-time">{selectedArtist.time}</div>
+        </div>
+        {/* 내부 라우트로 연결 */}
+        <button className="artist-button">
+          {artistRouteId
+            ? <Link to={`/artist/${artistRouteId}`} className="artist-link">
+                대표곡 정보 보기
+              </Link>
+            : '대표곡 정보 보기'}
+        </button>
+      </div>
+
+      {/* 3. 모달 */}
       {isOpen && modalEvent && (
         <ScheduleDetailModal
           isOpen={isOpen}
-          onClose={closeModal}
+          onClose={() => setIsOpen(false)}
           event={modalEvent}
         />
       )}

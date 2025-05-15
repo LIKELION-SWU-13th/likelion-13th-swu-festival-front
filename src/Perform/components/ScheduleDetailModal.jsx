@@ -3,29 +3,112 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import './ScheduleDetailModal.css';
 
-export default function ScheduleDetailModal({ isOpen, onClose, event }) {
+export default function ScheduleDetailModal({
+  isOpen,
+  onClose,
+  event,
+  animationDuration = 500, // duration in ms
+}) {
   const [dragY, setDragY] = useState(0);
-  const startYRef = useRef(null);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const startY = useRef(0);
+  const lastY = useRef(0);
+  const isTouch = useRef(false);
+  const modalRef = useRef(null);
 
   useEffect(() => {
-    if (!isOpen) setDragY(0);
+    if (!isOpen) {
+      setDragY(0);
+      setIsAnimating(false);
+    }
+    return cleanup;
   }, [isOpen]);
 
   if (!isOpen || !event) return null;
 
-  // 드래그 시작/중/끝 로직 그대로
-  const handleDragStart = e => { /* … */ };
-  const handleDragging  = e => { /* … */ };
-  const handleDragEnd   = () => { /* … */ };
+  const handleDragStart = (e) => {
+    if (isAnimating) return;
+    isTouch.current = !!e.touches;
+    const clientY = isTouch.current ? e.touches[0].clientY : e.clientY;
+    startY.current = clientY;
+    lastY.current = clientY;
+    if (isTouch.current) {
+      document.addEventListener('touchmove', handleDragging, { passive: false });
+      document.addEventListener('touchend', handleDragEnd);
+    } else {
+      document.addEventListener('mousemove', handleDragging);
+      document.addEventListener('mouseup', handleDragEnd);
+    }
+  };
 
-  const modal = (
-    <div className="modal-overlay visible" onClick={onClose}>
+  const handleDragging = (e) => {
+    const clientY = isTouch.current ? e.touches[0].clientY : e.clientY;
+    lastY.current = clientY;
+    const delta = clientY - startY.current;
+    if (delta > 0) {
+      e.preventDefault();
+      setDragY(delta);
+    }
+  };
+
+  const handleDragEnd = () => {
+    cleanup();
+    const screenY = window.innerHeight;
+    if (
+      lastY.current > screenY - 50 ||
+      dragY > (modalRef.current?.offsetHeight || 0) / 2
+    ) {
+      triggerCloseAnimation();
+    } else {
+      setDragY(0);
+    }
+  };
+
+  const triggerCloseAnimation = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setDragY(window.innerHeight);
+  };
+
+  const handleTransitionEnd = () => {
+    if (isAnimating) {
+      onClose();
+    }
+  };
+
+  const cleanup = () => {
+    document.removeEventListener('touchmove', handleDragging);
+    document.removeEventListener('touchend', handleDragEnd);
+    document.removeEventListener('mousemove', handleDragging);
+    document.removeEventListener('mouseup', handleDragEnd);
+  };
+
+  const transitionStyle = isAnimating
+    ? `transform ${animationDuration}ms ease-out`
+    : dragY > 0
+    ? 'none'
+    : `transform ${animationDuration}ms ease-out`;
+
+  return ReactDOM.createPortal(
+    <div className="modal-overlay visible" onClick={triggerCloseAnimation}>
       <div
+        ref={modalRef}
         className="detail-modal open"
-        style={{ transform: `translateY(${dragY}px)` }}
-        onClick={e => e.stopPropagation()}
+        style={{
+          transform: `translateY(${dragY}px)`,
+          transition: transitionStyle,
+        }}
+        onClick={(e) => e.stopPropagation()}
+        onTransitionEnd={handleTransitionEnd}
       >
-        <div className="modal-handle" onMouseDown={handleDragStart} onTouchStart={handleDragStart} />
+        <div
+          className="modal-handle"
+          onMouseDown={handleDragStart}
+          onTouchStart={handleDragStart}
+          onClick={triggerCloseAnimation}
+          style={{ cursor: 'pointer' }}
+        />
+
         <div className="modal-header">
           <img src={event.imageUrl} alt={event.title} className="modal-image" />
           <div className="modal-title-group">
@@ -33,24 +116,40 @@ export default function ScheduleDetailModal({ isOpen, onClose, event }) {
             <p className="modal-time">{`${event.start} - ${event.end}`}</p>
           </div>
         </div>
+
         <div className="modal-body">
-          <p className="modal-desc">{event.description}</p>
+          <p className="modal-desc" style={{ whiteSpace: 'pre-line' }}>
+            {event.description}
+          </p>
         </div>
+
         <div className="modal-footer">
-          <a href={event.linkUrl} target="_blank" rel="noreferrer" className="modal-action-btn">
-            {event.buttonLabel}
+          <a
+            href={event.linkUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="modal-action-btn"
+          >
+            {event.buttonLabel || '동아리 인스타그램 보러가기'}
           </a>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
-
-  // container 검사 삭제 → 항상 body에 포탈
-  return ReactDOM.createPortal(modal, document.body);
 }
 
 ScheduleDetailModal.propTypes = {
-  isOpen:     PropTypes.bool.isRequired,
-  onClose:    PropTypes.func.isRequired,
-  event:      PropTypes.object,
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  event: PropTypes.shape({
+    title: PropTypes.string,
+    start: PropTypes.string,
+    end: PropTypes.string,
+    imageUrl: PropTypes.string,
+    description: PropTypes.string,
+    linkUrl: PropTypes.string,
+    buttonLabel: PropTypes.string,
+  }),
+  animationDuration: PropTypes.number, // animation duration in ms
 };
