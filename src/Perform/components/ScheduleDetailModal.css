@@ -12,7 +12,7 @@
 }
 .modal-title-group { flex: 1; }
 .modal-title {
-  margin: 0; font-size: 18px; color: #fff;
+  margin: 0; font-size: 18px; color: var(--Gray-30, #CACAD0);
 }
 .modal-time {
   margin: 4px 0 0; font-size: 14px; color: #aaa;
@@ -21,6 +21,14 @@
 .modal-desc {
   font-size: 16px; line-height: 24px; color: var(--Gray-10, #F1F1F3);
 }
+
+.detail-modal .modal-desc {
+  white-space: pre-line;    
+  font-size: 16px;
+  line-height: 24px;
+  color: #F1F1F3;            
+}
+
 .modal-footer { text-align: center; }
 .modal-action-btn {
   display: inline-block; 
