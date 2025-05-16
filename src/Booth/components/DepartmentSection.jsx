@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { ReactComponent as StarIcon } from '../../assets/Star.svg';
 import { ReactComponent as ClockIcon } from '../../assets/Clock.svg';
 import { ReactComponent as CheckIcon } from '../../assets/Check.svg';
+import ShootingStars from './ShootingStars';
 import './DepartmentSection.css';
 
 const DEPARTMENT_LAYOUT = [
@@ -34,6 +35,7 @@ const DepartmentSection = () => {
   const [selectedBooth, setSelectedBooth] = useState(null);
   const [completedBooths, setCompletedBooths] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [showStars, setShowStars] = useState(false);
 
   // 운영 상태 계산
   const now = new Date();
@@ -44,17 +46,14 @@ const DepartmentSection = () => {
   else if (hours > 16 || (hours === 16 && minutes >= 30)) statusText = '운영 종료';
   else statusText = '운영중';
 
-    // 부서 목록 로드
+  // 부서 목록 로드
   const fetchDepartments = async () => {
-    console.log('▶ fetchDepartments 호출');
     try {
       const res = await fetch(`${API_BASE}/booth/info`, {
         headers: { Authorization: TOKEN }
       });
-      console.log('▶ booth/info 응답:', res.status);
       if (!res.ok) throw new Error(`Dept HTTP ${res.status}`);
       const data = await res.json();
-      console.log('▶ department_list:', data.department_list);
       setDepartmentList(data.department_list);
     } catch (e) {
       console.error('Dept fetch error:', e);
@@ -63,15 +62,12 @@ const DepartmentSection = () => {
 
   // 완료된 부스 리스트 로드
   const fetchCompleted = async () => {
-    console.log('▶ fetchCompleted 호출');
     try {
       const res = await fetch(`${API_BASE}/booth/complete`, {
         headers: { Authorization: TOKEN }
       });
-      console.log('▶ booth/complete 응답:', res.status);
       if (!res.ok) throw new Error(`Completed HTTP ${res.status}`);
       const data = await res.json();
-      console.log('▶ 완료된 부스 배열:', data);
       setCompletedBooths(data);
     } catch (e) {
       console.error('Completed fetch error:', e);
@@ -92,7 +88,6 @@ const DepartmentSection = () => {
 
   const handleModalComplete = async () => {
     try {
-    
       const res = await fetch(
         `${API_BASE}/booth/${selectedBooth}/participate`,
         {
@@ -103,11 +98,10 @@ const DepartmentSection = () => {
           },
         }
       );
-      console.log('▶ POST booth/{id}/participate 응답:', res.status);
       if (!res.ok) throw new Error(`Participate HTTP ${res.status}`);
-      const message = await res.text();
-      console.log('▶ 참여 완료 메시지:', message);
+      await res.text();
       fetchCompleted();
+      setShowStars(true);
     } catch (e) {
       console.error('Participate error:', e);
     } finally {
@@ -200,6 +194,10 @@ const DepartmentSection = () => {
             </div>
           </div>
         </div>
+      )}
+
+      {showStars && (
+        <ShootingStars onComplete={() => setShowStars(false)} />
       )}
     </div>
   );
