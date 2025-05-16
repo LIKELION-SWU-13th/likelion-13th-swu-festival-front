@@ -1,5 +1,6 @@
 // src/components/DepartmentSection.jsx
 import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { ReactComponent as StarIcon } from '../../assets/Star.svg';
 import { ReactComponent as ClockIcon } from '../../assets/Clock.svg';
 import { ReactComponent as CheckIcon } from '../../assets/Check.svg';
@@ -30,7 +31,7 @@ const DEPARTMENT_LAYOUT = [
 const API_BASE = 'https://api.likelion13th-swu.site';
 const TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMDIyMTExMzY4IiwibmFtZSI6IuuCqOyYiOydgCIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3NDcyNzI1NTIsImV4cCI6MTc0ODEzNjU1Mn0.ovlJ-iPMh0_bJTSNNLX5H-6KsrpEjGmhMJtalzlP2P0';
 
-const DepartmentSection = () => {
+export default function DepartmentSection() {
   const [departmentList, setDepartmentList] = useState([]);
   const [selectedBooth, setSelectedBooth] = useState(null);
   const [completedBooths, setCompletedBooths] = useState([]);
@@ -41,17 +42,24 @@ const DepartmentSection = () => {
   const now = new Date();
   const hours = now.getHours();
   const minutes = now.getMinutes();
-  let statusText;
-  if (hours < 11) statusText = '운영전';
-  else if (hours > 16 || (hours === 16 && minutes >= 30)) statusText = '운영 종료';
-  else statusText = '운영중';
+  const statusText = hours < 11
+    ? '운영전'
+    : (hours > 16 || (hours === 16 && minutes >= 30))
+      ? '운영 종료'
+      : '운영중';
 
-  // 부서 목록 로드
+  // 데이터 로드
+  useEffect(() => {
+    fetchDepartments();
+    fetchCompleted();
+  }, []);
+
   const fetchDepartments = async () => {
     try {
-      const res = await fetch(`${API_BASE}/booth/info`, {
-        headers: { Authorization: TOKEN }
-      });
+      const res = await fetch(
+        `${API_BASE}/booth/info`,
+        { headers: { Authorization: TOKEN } }
+      );
       if (!res.ok) throw new Error(`Dept HTTP ${res.status}`);
       const data = await res.json();
       setDepartmentList(data.department_list);
@@ -60,12 +68,12 @@ const DepartmentSection = () => {
     }
   };
 
-  // 완료된 부스 리스트 로드
   const fetchCompleted = async () => {
     try {
-      const res = await fetch(`${API_BASE}/booth/complete`, {
-        headers: { Authorization: TOKEN }
-      });
+      const res = await fetch(
+        `${API_BASE}/booth/complete`,
+        { headers: { Authorization: TOKEN } }
+      );
       if (!res.ok) throw new Error(`Completed HTTP ${res.status}`);
       const data = await res.json();
       setCompletedBooths(data);
@@ -74,16 +82,10 @@ const DepartmentSection = () => {
     }
   };
 
-  useEffect(() => {
-    fetchDepartments();
-    fetchCompleted();
-  }, []);
-
   const openCompleteModal = (num) => {
     setSelectedBooth(num);
     setShowModal(true);
   };
-
   const handleModalClose = () => setShowModal(false);
 
   const handleModalComplete = async () => {
@@ -109,6 +111,14 @@ const DepartmentSection = () => {
     }
   };
 
+  const starsElement = (
+    <ShootingStars
+      duration={3000}
+      fadeDuration={500}
+      onComplete={() => setShowStars(false)}
+    />
+  );
+
   return (
     <div className="dept-section">
       <div className="dept-layout">
@@ -119,7 +129,9 @@ const DepartmentSection = () => {
               'booth-cell',
               selectedBooth === num ? 'selected' : '',
               completedBooths.includes(num) ? 'completed' : ''
-            ].filter(Boolean).join(' ')}
+            ]
+              .filter(Boolean)
+              .join(' ')}
             style={style}
             onClick={() => setSelectedBooth(prev => (prev === num ? null : num))}
           >
@@ -139,7 +151,14 @@ const DepartmentSection = () => {
             <li className="booth-status">
               <ClockIcon className="clock-icon" />
               <span className="status-text">{statusText}</span>
-              <span className={['status-dot', statusText === '운영중' ? '' : 'dot-inactive'].join(' ')} />
+              <span
+                className={[
+                  'status-dot',
+                  statusText === '운영중' ? '' : 'dot-inactive'
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
+              />
             </li>
           </ul>
           <div className="detail-action">
@@ -148,7 +167,10 @@ const DepartmentSection = () => {
                 <CheckIcon className="check-icon-completed" />
               </div>
             ) : (
-              <button className="complete-btn-detail" onClick={() => openCompleteModal(selectedBooth)}>
+              <button
+                className="complete-btn-detail"
+                onClick={() => openCompleteModal(selectedBooth)}
+              >
                 체험 완료
               </button>
             )}
@@ -189,18 +211,18 @@ const DepartmentSection = () => {
               <p>체험 완료 처리를 해주세요!</p>
             </div>
             <div className="modal-actions">
-              <button className="btn-close" onClick={handleModalClose}>닫기</button>
-              <button className="btn-confirm" onClick={handleModalComplete}>완료</button>
+              <button className="btn-close" onClick={handleModalClose}>
+                닫기
+              </button>
+              <button className="btn-confirm" onClick={handleModalComplete}>
+                완료
+              </button>
             </div>
           </div>
         </div>
       )}
 
-      {showStars && (
-        <ShootingStars onComplete={() => setShowStars(false)} />
-      )}
+      {showStars && ReactDOM.createPortal(starsElement, document.body)}
     </div>
   );
-};
-
-export default DepartmentSection;
+}

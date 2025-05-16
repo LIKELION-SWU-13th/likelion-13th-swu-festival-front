@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import './ShootingStars.css';
 
-export default function ShootingStars({ duration = 4000, fadeDuration = 1200, onComplete = () => {} }) {
+export default function ShootingStars({ duration = 3000, fadeDuration = 1200, onComplete = () => {} }) {
   const canvasBgRef = useRef();
   const canvasFgRef = useRef();
   const [fade, setFade] = useState(false);
