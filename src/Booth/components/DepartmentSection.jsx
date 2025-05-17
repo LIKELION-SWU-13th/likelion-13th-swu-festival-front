@@ -16,7 +16,7 @@ const LAYOUTS = [
     { id: 'middle',     numbers: [11,12,13],           style: { top:'20%', left:'38%', transform:'translateX(-50%)', width:'100px', height:'40px', flexDirection:'row' } },
     { id: 'right',      numbers: [20,21,22,23,24,25,26,27,28], style:{top:'0%', left:'85%', transform:'translateX(-100%)', width:'40px', height:'240px', flexDirection:'column'} },
   ],
-  // 5/22 레이아웃 (예시)
+  // 5/22 레이아웃
   [
     { id: 'left',       numbers: [9,8,7,6,5,4,3,2,1], style: { top:'0%', left:'5%',  width:'40px',  height:'240px', flexDirection:'column' } },
     { id: 'center',     numbers: [10,11,12,13,14], style: { top:'40%', left:'29%', transform:'translateX(-50%)', width:'150px', height:'40px', flexDirection:'row' } },
@@ -24,7 +24,7 @@ const LAYOUTS = [
     { id: 'middle-top', numbers: [22,23,24,25,26,27],  style: { top:'0%', left:'25%', transform:'translateX(-50%)', width:'180px', height:'40px', flexDirection:'row' } },
     { id: 'right',      numbers: [28,29,30,31,32,33,34,35,36], style:{top:'0%', left:'85%', transform:'translateX(-100%)', width:'40px', height:'240px', flexDirection:'column'} },
   ],
-  // 5/23 레이아웃 (예시)
+  // 5/23 레이아웃
   [
     { id: 'left',       numbers: [9,8,7,6,5,4,3,2,1], style: { top:'0%', left:'5%',  width:'40px',  height:'240px', flexDirection:'column' } },
     { id: 'center',     numbers: [10], style: { top:'40%', left:'43%', transform:'translateX(-50%)', width:'60px', height:'40px', flexDirection:'row' } },
@@ -92,6 +92,12 @@ export default function DepartmentSection() {
     setShowModal(false);
   };
 
+  // 선택된 블록의 부스 번호 렌더 순서 결정 (항상 오름차순)
+  const getRenderNumbers = () => {
+    if (!selectedBlock) return [];
+    return [...selectedBlock.numbers].sort((a, b) => a - b);
+  };
+
   const openCompleteModal = num => { setActiveBooth(num); setShowModal(true); };
   const closeModal        = ()  => setShowModal(false);
   const confirmComplete   = ()  => {
@@ -107,7 +113,7 @@ export default function DepartmentSection() {
 
   return (
     <div className="dept-section">
-      {/* ─── 헤더 + 스크롤 래퍼 ─── */}
+      {/* 헤더 */}
       <div className="header-wrapper">
         <div className="dept-header">
           <span className="day-pill">{today.label}</span>
@@ -115,7 +121,7 @@ export default function DepartmentSection() {
         </div>
       </div>
 
-      {/* ─── 블록 레이아웃 ─── */}
+      {/* 블록 레이아웃 */}
       <div className="dept-layout">
         {BLOCK_LAYOUT.map(block => (
           <div
@@ -138,10 +144,9 @@ export default function DepartmentSection() {
         ))}
       </div>
 
-      {/* ─── 부스 목록 타이틀 ─── */}
       <h3 className="booth-list-title">부스 목록</h3>
 
-      {/* ─── 텍스트 리스트 (선택 전) ─── */}
+      {/* 선택 전 텍스트 리스트 */}
       {!selectedBlock && (
         <div className="text-list-container">
           <ul className="text-list-col">
@@ -163,10 +168,10 @@ export default function DepartmentSection() {
         </div>
       )}
 
-      {/* ─── 카드 리스트 (선택 후) ─── */}
+      {/* 선택 후 카드 리스트 */}
       {selectedBlock && (
         <div className="booth-list-container">
-          {selectedBlock.numbers.map(num => {
+          {getRenderNumbers().map(num => {
             const name = departmentList[num-1] || '로딩 중…';
             const done = completedBooths.includes(num);
             return (
@@ -194,7 +199,7 @@ export default function DepartmentSection() {
         </div>
       )}
 
-      {/* ─── 완료 모달 ─── */}
+      {/* 완료 모달 */}
       {showModal && (
         <div className="bottom-sheet">
           <div className="complete-modal">
