@@ -41,6 +41,27 @@ const TRUCKS = {
       { name: '연어 샐러드',             price: '6,800원' },
     ],
   },
+  6: {
+    label: '그린연어 덮밥',
+    menu: [
+      { name: '아보카도 연어 덮밥',        price: '7,500원' },
+      { name: '연어 샐러드',             price: '6,800원' },
+    ],
+  },
+  7: {
+    label: '그린연어 덮밥',
+    menu: [
+      { name: '아보카도 연어 덮밥',        price: '7,500원' },
+      { name: '연어 샐러드',             price: '6,800원' },
+    ],
+  },
+  8: {
+    label: '그린연어 덮밥',
+    menu: [
+      { name: '아보카도 연어 덮밥',        price: '7,500원' },
+      { name: '연어 샐러드',             price: '6,800원' },
+    ],
+  },
 };
 
 const FoodTruckSection = () => {

@@ -1,5 +1,3 @@
-/* FleaMarketSection.css */
-
 :root {
   --inner-padding: 8px;
   --bg-color: #303036;
@@ -18,20 +16,48 @@
   padding: 16px 0;
 }
 
-/* 부스 번호 영역 */
+/* 레이아웃 컨테이너 */
 .flea-layout {
-  width: 100%;
-  padding: 0 var(--inner-padding);
-  box-sizing: border-box;
-}
-.flea-row {
   display: flex;
-  gap: 4px;
-  margin-bottom: 24px;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 var(--inner-padding);
 }
+
+/* 긴 위치 블록 */
+.location-block.long {
+  width: 348px;
+  height: 36px;
+  background: var(--Gray-60, #787887);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: background .2s;
+  font-size: 12px;
+  color: var(--Gray-0, #FAFAFA);
+}
+
+/* 두 개의 부스 그리드 묶음 */
+.market-grids {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+/* 각 그리드 열 */
+.market-grid {
+  display: flex;
+  flex-direction: row; 
+  gap: 4px;
+}
+
+/* 부스 셀 공통 */
 .flea-cell {
   position: relative;
-  width: 43px;
+  width: 40px;
   height: 56px;
   background: #60606C;
   border-radius: 4px;
@@ -45,29 +71,52 @@
   background: linear-gradient(230deg,#25283D 2%,#3B3B98 61%,#5863F8 94%);
   box-shadow: 0 0 5px #CED1FD;
 }
+
+/* 별 아이콘 */
 .flea-icon {
-  width: 22px; height: 21px;
-  fill: none; stroke-width: 1.65px; stroke: #9DA4FB;
+  width: 22px;
+  height: 21px;
+  fill: none;
+  stroke-width: 1.65px;
+  stroke: #9DA4FB;
   transition: fill .2s, stroke .2s;
 }
 .flea-cell.active .flea-icon,
 .flea-cell.active .flea-icon path,
 .flea-cell.active .flea-icon g {
-  fill: #fff !important; stroke: #fff !important;
+  fill: #fff !important;
+  stroke: #fff !important;
 }
+
+/* 부스 번호 레이블 */
 .flea-label {
   position: absolute;
-  top:50%; left:50%;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
-  font-size:12px; font-weight:400;
-  color:#210377;
-  pointer-events:none;
+  font-size: 12px;
+  font-weight: 400;
+  color: #210377;
+  pointer-events: none;
+}
+
+/* 하단 위치 블록 (학생 누리관) */
+.location-block.long.bottom {
+  margin-top: 8px;
+  margin-bottom: 50px;
+  width: 348px;
+  height: 56px;
+  border-radius: 8px;
+  background: var(--Gray-60, #787887);
+  font-size: 12px;
+  color: var(--Gray-0, #FAFAFA);
 }
 
 /* “셀러 목록” 제목 및 안내문 */
 .category-content {
   padding: 0 var(--inner-padding);
   box-sizing: border-box;
+  margin-top: 80px;
 }
 .category-content h2 {
   font-size: 20px;
@@ -87,35 +136,29 @@
   margin: 0;
 }
 
-/* 각 항목: 번호+이름, 아래 아이템 */
+/* 각 셀러 항목 */
 .seller-item {
   margin: 0;
 }
-
-.seller-name {
-  display: inline;
-  font-size: 14px;
-  font-weight: 400;
-  color: var(--text-color);
-}
-
 .seller-index {
-  /* 기존 스타일 유지 */
   font-size: 14px;
   font-weight: 400;
   color: var(--text-color);
   margin-right: 8px;
 }
-
+.seller-name {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-color);
+}
 .seller-item-name {
-  display: block;            /* 줄바꿈 유지 */
-  margin: 4px 0 0;           /* 위쪽 간격 */
-  margin-left: 14px;
+  display: block;
+  margin: 4px 0 0 14px;
   font-size: 12px;
-  color: var(--Lavender-20, #906CF9);
+  color: var(--accent-color);
 }
 
-/* 활성 셀러 상세 (선택 시) */
+/* 활성 셀러 상세 */
 .active-seller {
   margin: 0 0 24px;
   padding: 0;
@@ -125,13 +168,12 @@
 .seller-header {
   display: flex;
   align-items: baseline;
-  gap: 0px;
+  gap: 0;
   padding: 0;
 }
 .seller-item-addname {
   display: block;
-  margin: 4px 0 0;
-  margin-left: 14px;
+  margin: 4px 0 0 14px;
   font-size: 12px;
   color: var(--accent-color);
 }
@@ -140,7 +182,7 @@
 .section-subtitle {
   font-size: 16px;
   font-weight: 500;
-  margin: 8px 0;
+  margin: 20px 0 10px 0;
   color: var(--text-color);
 }
 .product-images {
@@ -156,7 +198,8 @@
   display: none;
 }
 .product-images img {
-  width: 90px; height: 90px;
+  width: 90px;
+  height: 90px;
   object-fit: cover;
   border-radius: 8px;
 }

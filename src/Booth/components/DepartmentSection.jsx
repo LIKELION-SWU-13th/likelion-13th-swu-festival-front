@@ -1,207 +1,215 @@
+// DepartmentSection.jsx
 import React, { useState, useEffect } from 'react';
-import { ReactComponent as StarIcon } from '../../assets/Star.svg';
 import { ReactComponent as ClockIcon } from '../../assets/Clock.svg';
 import { ReactComponent as CheckIcon } from '../../assets/Check.svg';
 import './DepartmentSection.css';
 
-const DEPARTMENT_LAYOUT = [
-  { num: 4,  style: { top: '0%',  left: '5%'  } },
-  { num: 5,  style: { top: '0%',  left: '28%' } },
-  { num: 6,  style: { top: '0%',  left: '41%' } },
-  { num: 7,  style: { top: '0%',  left: '54%' } },
-  { num: 8,  style: { top: '0%',  left: '67%' } },
-  { num: 9,  style: { top: '0%',  left: '90%' } },
-  { num: 3,  style: { top: '18%', left: '5%'  } },
-  { num: 13, style: { top: '26%', left: '28%' } },
-  { num: 14, style: { top: '26%', left: '41%' } },
-  { num: 15, style: { top: '26%', left: '54%' } },
-  { num: 16, style: { top: '26%', left: '67%' } },
-  { num: 10, style: { top: '18%', left: '90%' } },
-  { num: 2,  style: { top: '36%', left: '5%'  } },
-  { num: 11, style: { top: '36%', left: '90%' } },
-  { num: 12, style: { top: '54%', left: '90%' } },
-  { num: 1,  style: { top: '54%', left: '5%'  } },
-  { num: 17, style: { top: '54%', left: '41%' } },
-  { num: 18, style: { top: '54%', left: '54%' } },
-];
-
 const API_BASE = 'https://api.likelion13th-swu.site';
 const TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMDIyMTExMzY4IiwibmFtZSI6IuuCqOyYiOydgCIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3NDcyNzI1NTIsImV4cCI6MTc0ODEzNjU1Mn0.ovlJ-iPMh0_bJTSNNLX5H-6KsrpEjGmhMJtalzlP2P0';
 
-const DepartmentSection = () => {
-  const [departmentList, setDepartmentList] = useState([]);
-  const [selectedBooth, setSelectedBooth] = useState(null);
+// 날짜별 블록 레이아웃 정의
+const LAYOUTS = [
+  // 5/21 레이아웃
+  [
+    { id: 'left',       numbers: [10,9,8,7,6,5,4,3,2,1], style: { top:'0%', left:'5%',  width:'40px',  height:'240px', flexDirection:'column' } },
+    { id: 'middle-top', numbers: [14,15,16,17,18,19],  style: { top:'0%', left:'30%', transform:'translateX(-50%)', width:'150px', height:'40px', flexDirection:'row' } },
+    { id: 'middle',     numbers: [11,12,13],           style: { top:'20%', left:'38%', transform:'translateX(-50%)', width:'100px', height:'40px', flexDirection:'row' } },
+    { id: 'right',      numbers: [20,21,22,23,24,25,26,27,28], style:{top:'0%', left:'85%', transform:'translateX(-100%)', width:'40px', height:'240px', flexDirection:'column'} },
+  ],
+  // 5/22 레이아웃 (예시)
+  [
+    { id: 'left',       numbers: [9,8,7,6,5,4,3,2,1], style: { top:'0%', left:'5%',  width:'40px',  height:'240px', flexDirection:'column' } },
+    { id: 'center',     numbers: [10,11,12,13,14], style: { top:'40%', left:'29%', transform:'translateX(-50%)', width:'150px', height:'40px', flexDirection:'row' } },
+    { id: 'middle',     numbers: [15,16,17,18,19,20,21], style: { top:'20%', left:'22%', transform:'translateX(-50%)', width:'200px', height:'40px', flexDirection:'row' } },
+    { id: 'middle-top', numbers: [22,23,24,25,26,27],  style: { top:'0%', left:'25%', transform:'translateX(-50%)', width:'180px', height:'40px', flexDirection:'row' } },
+    { id: 'right',      numbers: [28,29,30,31,32,33,34,35,36], style:{top:'0%', left:'85%', transform:'translateX(-100%)', width:'40px', height:'240px', flexDirection:'column'} },
+  ],
+  // 5/23 레이아웃 (예시)
+  [
+    { id: 'left',       numbers: [9,8,7,6,5,4,3,2,1], style: { top:'0%', left:'5%',  width:'40px',  height:'240px', flexDirection:'column' } },
+    { id: 'center',     numbers: [10], style: { top:'40%', left:'43%', transform:'translateX(-50%)', width:'60px', height:'40px', flexDirection:'row' } },
+    { id: 'middle',     numbers: [11,12,13,14,15,16,17], style: { top:'20%', left:'22%', transform:'translateX(-50%)', width:'200px', height:'40px', flexDirection:'row' } },
+    { id: 'middle-top', numbers: [18,19,20,21,22,23],  style: { top:'0%', left:'25%', transform:'translateX(-50%)', width:'180px', height:'40px', flexDirection:'row' } },
+    { id: 'right',      numbers: [24,25,26,27,28,29,30,31,32,33], style:{top:'0%', left:'85%', transform:'translateX(-100%)', width:'40px', height:'240px', flexDirection:'column'} },
+  ],
+];
+
+export default function DepartmentSection() {
+  const [departmentList, setDepartmentList]   = useState([]);
   const [completedBooths, setCompletedBooths] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+  const [selectedBlock, setSelectedBlock]     = useState(null);
+  const [activeBooth, setActiveBooth]         = useState(null);
+  const [showModal, setShowModal]             = useState(false);
+
+  // 날짜 배열과 라벨 매핑
+  const days = [
+    { date:'5/21 수요일', label:'Day 1' },
+    { date:'5/22 목요일', label:'Day 2' },
+    { date:'5/23 금요일', label:'Day 3' },
+  ];
+
+  // 오늘 인덱스 계산
+  const todayDate = new Date().getDate();
+  const todayIndex = todayDate === 21 ? 0
+                   : todayDate === 22 ? 1
+                   : todayDate === 23 ? 2
+                   : 0;
+  const today = days[todayIndex];
+
+  // 오늘 레이아웃 선택
+  const BLOCK_LAYOUT = LAYOUTS[todayIndex];
 
   // 운영 상태 계산
-  const now = new Date();
-  const hours = now.getHours();
+  const now     = new Date();
+  const hours   = now.getHours();
   const minutes = now.getMinutes();
-  let statusText;
-  if (hours < 11) statusText = '운영전';
-  else if (hours > 16 || (hours === 16 && minutes >= 30)) statusText = '운영 종료';
-  else statusText = '운영중';
+  const statusText = hours < 11
+    ? '운영전'
+    : (hours > 16 || (hours === 16 && minutes >= 30))
+      ? '운영 종료'
+      : '운영중';
 
-    // 부서 목록 로드
-  const fetchDepartments = async () => {
-    console.log('▶ fetchDepartments 호출');
-    try {
-      const res = await fetch(`${API_BASE}/booth/info`, {
-        headers: { Authorization: TOKEN }
-      });
-      console.log('▶ booth/info 응답:', res.status);
-      if (!res.ok) throw new Error(`Dept HTTP ${res.status}`);
-      const data = await res.json();
-      console.log('▶ department_list:', data.department_list);
-      setDepartmentList(data.department_list);
-    } catch (e) {
-      console.error('Dept fetch error:', e);
-    }
-  };
-
-  // 완료된 부스 리스트 로드
-  const fetchCompleted = async () => {
-    console.log('▶ fetchCompleted 호출');
-    try {
-      const res = await fetch(`${API_BASE}/booth/complete`, {
-        headers: { Authorization: TOKEN }
-      });
-      console.log('▶ booth/complete 응답:', res.status);
-      if (!res.ok) throw new Error(`Completed HTTP ${res.status}`);
-      const data = await res.json();
-      console.log('▶ 완료된 부스 배열:', data);
-      setCompletedBooths(data);
-    } catch (e) {
-      console.error('Completed fetch error:', e);
-    }
-  };
-
+  // 데이터 로드
   useEffect(() => {
-    fetchDepartments();
-    fetchCompleted();
+    Promise.all([
+      fetch(`${API_BASE}/booth/info`,     { headers:{ Authorization:TOKEN } }),
+      fetch(`${API_BASE}/booth/complete`, { headers:{ Authorization:TOKEN } }),
+    ])
+    .then(([r1,r2]) => {
+      if (!r1.ok||!r2.ok) throw new Error();
+      return Promise.all([r1.json(), r2.json()]);
+    })
+    .then(([deptData, compData]) => {
+      setDepartmentList(deptData.department_list);
+      setCompletedBooths(compData);
+    })
+    .catch(console.error);
   }, []);
 
-  const openCompleteModal = (num) => {
-    setSelectedBooth(num);
-    setShowModal(true);
+  const onBlockClick = block => {
+    setSelectedBlock(prev => prev?.id === block.id ? null : block);
+    setActiveBooth(null);
+    setShowModal(false);
   };
 
-  const handleModalClose = () => setShowModal(false);
-
-  const handleModalComplete = async () => {
-    try {
-    
-      const res = await fetch(
-        `${API_BASE}/booth/${selectedBooth}/participate`,
-        {
-          method: 'POST',
-          headers: {
-            Authorization: TOKEN,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      console.log('▶ POST booth/{id}/participate 응답:', res.status);
-      if (!res.ok) throw new Error(`Participate HTTP ${res.status}`);
-      const message = await res.text();
-      console.log('▶ 참여 완료 메시지:', message);
-      fetchCompleted();
-    } catch (e) {
-      console.error('Participate error:', e);
-    } finally {
-      setShowModal(false);
-    }
+  const openCompleteModal = num => { setActiveBooth(num); setShowModal(true); };
+  const closeModal        = ()  => setShowModal(false);
+  const confirmComplete   = ()  => {
+    fetch(`${API_BASE}/booth/${activeBooth}/participate`, {
+      method:'POST',
+      headers:{ Authorization:TOKEN,'Content-Type':'application/json' }
+    })
+    .then(r=>{ if(!r.ok) throw new Error(); return r; })
+    .then(()=> setCompletedBooths(prev=>[...prev, activeBooth]))
+    .catch(console.error)
+    .finally(()=> setShowModal(false));
   };
 
   return (
     <div className="dept-section">
+      {/* ─── 헤더 + 스크롤 래퍼 ─── */}
+      <div className="header-wrapper">
+        <div className="dept-header">
+          <span className="day-pill">{today.label}</span>
+          <span className="date-text">{today.date}</span>
+        </div>
+      </div>
+
+      {/* ─── 블록 레이아웃 ─── */}
       <div className="dept-layout">
-        {DEPARTMENT_LAYOUT.map(({ num, style }) => (
+        {BLOCK_LAYOUT.map(block => (
           <div
-            key={num}
-            className={[
-              'booth-cell',
-              selectedBooth === num ? 'selected' : '',
-              completedBooths.includes(num) ? 'completed' : ''
-            ].filter(Boolean).join(' ')}
-            style={style}
-            onClick={() => setSelectedBooth(prev => (prev === num ? null : num))}
-          >
-            <StarIcon className="booth-icon" />
-            <span className="booth-label">{num}</span>
+            key={block.id}
+            className={`block-cell ${selectedBlock?.id === block.id ? 'block-selected' : ''}`}
+            style={{
+              position: 'absolute',
+              top: block.style.top,
+              left: block.style.left,
+              width: block.style.width,
+              height: block.style.height,
+              display: 'flex',
+              flexDirection: block.style.flexDirection,
+            }}
+            onClick={() => onBlockClick(block)}>
+            {block.numbers.map(n => (
+              <span key={n} className="block-number">{n}</span>
+            ))}
           </div>
         ))}
       </div>
 
-      {selectedBooth ? (
-        <div className="selection-info-detail">
-          <ul className="detail-list">
-            <li className="booth-name">
-              <span className="index">{selectedBooth}.</span>
-              {departmentList[selectedBooth - 1]}
-            </li>
-            <li className="booth-status">
-              <ClockIcon className="clock-icon" />
-              <span className="status-text">{statusText}</span>
-              <span className={['status-dot', statusText === '운영중' ? '' : 'dot-inactive'].join(' ')} />
-            </li>
+      {/* ─── 부스 목록 타이틀 ─── */}
+      <h3 className="booth-list-title">부스 목록</h3>
+
+      {/* ─── 텍스트 리스트 (선택 전) ─── */}
+      {!selectedBlock && (
+        <div className="text-list-container">
+          <ul className="text-list-col">
+            {departmentList.slice(0,9).map((name, idx) => (
+              <li key={idx}>
+                <span className="text-list-index">{idx+1}&nbsp;</span>
+                {name}
+              </li>
+            ))}
           </ul>
-          <div className="detail-action">
-            {completedBooths.includes(selectedBooth) ? (
-              <div onClick={() => setSelectedBooth(null)}>
-                <CheckIcon className="check-icon-completed" />
-              </div>
-            ) : (
-              <button className="complete-btn-detail" onClick={() => openCompleteModal(selectedBooth)}>
-                체험 완료
-              </button>
-            )}
-          </div>
+          <ul className="text-list-col">
+            {departmentList.slice(9).map((name, idx) => (
+              <li key={idx+9}>
+                <span className="text-list-index">{idx+10}&nbsp;</span>
+                {name}
+              </li>
+            ))}
+          </ul>
         </div>
-      ) : (
-        <>
-          <h3 className="booth-list-title">부스 목록</h3>
-          <div className="booth-list-container">
-            <ul className="booth-list-col">
-              {departmentList.slice(0, 9).map((name, idx) => (
-                <li key={idx}>
-                  <span className="booth-list-index">{idx + 1}.</span>
-                  {name}
-                </li>
-              ))}
-            </ul>
-            <ul className="booth-list-col">
-              {departmentList.slice(9).map((name, idx) => (
-                <li key={idx + 9}>
-                  <span className="booth-list-index">{idx + 10}.</span>
-                  {name}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </>
       )}
 
+      {/* ─── 카드 리스트 (선택 후) ─── */}
+      {selectedBlock && (
+        <div className="booth-list-container">
+          {selectedBlock.numbers.map(num => {
+            const name = departmentList[num-1] || '로딩 중…';
+            const done = completedBooths.includes(num);
+            return (
+              <div key={num} className="booth-card">
+                <div className="card-header">
+                  <span className="card-index">{num}</span>
+                  <span className="card-name">{name}</span>
+                </div>
+                <div className="card-status">
+                  <ClockIcon className="clock-icon" />
+                  <span>{statusText}</span>
+                  <span className={['status-dot', statusText==='운영중'?'':'dot-inactive'].join(' ')} />
+                </div>
+                <div className="card-action">
+                  {done
+                    ? <CheckIcon className="check-icon-completed" />
+                    : <button className="complete-btn-detail" onClick={()=>openCompleteModal(num)}>
+                        체험 완료
+                      </button>
+                  }
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* ─── 완료 모달 ─── */}
       {showModal && (
         <div className="bottom-sheet">
           <div className="complete-modal">
-            <div className="modal-header">
-              <h3>✔️ 체험 완료 처리</h3>
-            </div>
+            <div className="modal-header"><h3>✔️ 체험 완료 처리</h3></div>
             <div className="modal-body">
               <p>부스 활동은 즐거우셨나요?</p>
               <p>체험 완료 처리를 해주세요!</p>
             </div>
             <div className="modal-actions">
-              <button className="btn-close" onClick={handleModalClose}>닫기</button>
-              <button className="btn-confirm" onClick={handleModalComplete}>완료</button>
+              <button className="btn-close" onClick={closeModal}>닫기</button>
+              <button className="btn-confirm" onClick={confirmComplete}>완료</button>
             </div>
           </div>
         </div>
       )}
     </div>
   );
-};
-
-export default DepartmentSection;
+}
