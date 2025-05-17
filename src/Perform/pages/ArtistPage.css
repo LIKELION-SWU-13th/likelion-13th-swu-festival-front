@@ -1,0 +1,118 @@
+/* 페이지 전체 */
+.artist-page {
+    padding: 16px;
+    background: var(--Gray-90, #303036);
+    min-height: 100vh;
+  }
+  
+  /* 뒤로가기 버튼 */
+  .back-button {
+    background: none;
+    border: none;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 5px;
+  }
+  .back-button svg {
+    width: 24px;
+    height: 24px;
+    transform: scaleX(-1);
+  }
+  
+  /* 제목 */
+  .artist-title {
+    color: #FAFAFA;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  
+  /* 리스트 초기화 */
+  .song-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* 카드 (li) */
+  .song-card {
+    position: relative;
+    margin-bottom: 12px;
+  }
+  .song-card:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* 카드 내부 버튼 전체를 카드처럼 */
+  .song-link {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 15px;
+    padding-right: 60px;
+    background: var(--Gray-80, #484851);
+    border: none;
+    border-radius: 12px;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .song-link:hover {
+    background: var(--Gray-70, #5A5A66);
+  }
+  
+  /* 왼쪽 원형 이미지 */
+  .song-img {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  
+  /* 곡명 / 아티스트명 */
+  .song-info {
+    flex: 1;
+    margin-left: 12px;
+    display: flex;
+    flex-direction: column;
+  }
+  .song-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--Gray-0, #FAFAFA);
+
+  }
+  .artist-name {
+    font-size: 14px;
+    color: var(--Indigo-10, #9DA4FB);
+    font-weight: 500;
+    margin-top: 4px;
+  }
+  
+  /* 오른쪽 반쯤 튀어나오는 화살표 원 */
+  .arrow-wrapper {
+    position: absolute;
+    top: 50%;
+    right: 0px;
+    width: 32px;
+    height: 32px; 
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-50%);
+  }
+  .arrow-wrapper svg {
+    width: 24px;
+    height: 24px;
+  }
+  
+  /* 아티스트 없을 때 메시지 */
+  .no-artist {
+    color: #FAFAFA;
+    padding: 16px;
+  }
+  

@@ -1,0 +1,172 @@
+.schedule-page {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 고정 헤더 */
+.schedule-header {
+  flex: none;
+}
+.date-nav {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+}
+.date-nav::-webkit-scrollbar { display: none; }
+.date-btn {
+  width: 40px;
+  padding: 13px 0;
+  background: var(--Gray-80, #484851);
+  border: none;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 600;
+}
+.date-number, .date-day {
+  color: var(--Gray-40, #AEAEB7);
+}
+.date-btn.active {
+  background: var(--Gradient-1, linear-gradient(230deg, var(--Indigo-90, #25283D) 2.04%, var(--Indigo-50, #3B3B98) 61.41%, var(--Indigo-20, #5863F8) 93.76%));
+}
+.date-btn.active .date-number,
+.date-btn.active .date-day {
+  color: #FAFAFA;
+}
+.section-title {
+  margin: 16px 0 8px 10px;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--Gray-0, #FAFAFA);
+}
+
+/* 공연 리스트 */
+.schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.event-card {
+  display: flex;
+  align-items: center;
+  background: var(--Gray-80, #484851);
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.event-card:hover {
+  background: var(--Gray-70, #5A5A66);
+}
+.event-img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.event-info {
+  flex: 1;
+  padding: 0 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.event-header {
+  font-size: 16px;
+  font-weight: 600;
+  color: #FAFAFA;
+}
+.event-time {
+  font-size: 14px;
+  color: var(--Indigo-10, #9DA4FB);
+  margin-top: 4px;
+}
+.event-arrow {
+  width: 24px;
+  height: 24px;
+}
+.schedule-notice-inline {
+  display: flex;
+  align-items: center;
+  padding: 10px 0 30px;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--Indigo-10, #9DA4FB);
+}
+.schedule-notice-inline .notice-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* 오늘의 아티스트 */
+.artist-card {
+  position: relative;
+  width: 363px;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--Gray-80, #303036);
+}
+.artist-img {
+  width: 363px;
+  height: 234px;
+  object-fit: cover;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+.artist-info {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 2;
+}
+.artist-header {
+  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  text-shadow: 0 0 4px rgba(0,0,0,0.8);
+}
+.artist-time {
+  color: var(--Indigo-10, #9DA4FB);
+  font-size: 14px;
+  margin: 0;
+  text-shadow: 0 0 4px rgba(0,0,0,0.8);
+}
+.artist-button {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  width: 299px;
+  height: 52px;
+  background: var(--Gradient-1, linear-gradient(230deg,
+    var(--Indigo-90, #25283D) 2.04%,
+    var(--Indigo-50, #3B3B98) 61.41%,
+    var(--Indigo-20, #5863F8) 93.76%
+  ));
+  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: 600;
+  border: 1px solid var(--Gray-10, #F1F1F3);
+  border-radius: 28px;
+  box-shadow: -2px -2px 8px 0 rgba(157,164,251,0.3) inset;
+  cursor: pointer;
+}
+.artist-button:hover {
+  opacity: 0.9;
+}
+
+.artist-button .artist-link {
+  color: var(--Gray-10, #F1F1F3);    
+  text-decoration: none;   
+}

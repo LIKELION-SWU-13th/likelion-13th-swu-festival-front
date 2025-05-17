@@ -16,10 +16,29 @@ code {
 }
 
 
-#root {
-  max-width: 400px;    /* iPhone 기준 폭 */
-  margin: 0 auto;     
-  height: 812px;       
-  border: 1px solid #000; 
-  overflow: hidden;    
+/* index.css */
+
+@media (max-width: 480px) {
+  /* 모바일 미러링 전용 */
+  #root {
+    max-width: 400px;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0 auto;
+    border: 1px solid #000;
+    position: relative;
+  }
+}
+
+@media (min-width: 481px) {
+  /* 데스크톱에서는 기본 상태로 */
+  #root {
+    max-width: none;
+    width: 400px;
+    height: 100vh;
+    overflow: visible;
+    margin: 0 auto;
+    border: none;
+    position: static;
+  }
 }

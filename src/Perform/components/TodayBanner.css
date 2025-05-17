@@ -1,0 +1,91 @@
+.today-banner-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.banner-scroll {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.banner-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.banner-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex: 0 0 90%;
+  margin: 24px 0 0 0;
+  /* SVG 배경 + 그라데이션 레이어링 */
+  background-image:
+    url('../../assets/back-stars.svg'),
+    linear-gradient(230deg, var(--Indigo-90, #25283D) 2.04%, var(--Indigo-50, #3B3B98) 61.41%, var(--Indigo-20, #5863F8) 93.76%);
+  background-repeat: no-repeat, no-repeat;
+  background-position: center center, 0 0;
+  background-size: 100%, 100%, cover;
+  border-radius: 8px;
+  padding: 16px;
+  min-height: 131px;
+  scroll-snap-align: start;
+  position: relative;
+}
+
+.banner-header {
+  display: flex;
+  align-items: center;
+}
+
+.banner-icon {
+  width: 20px;
+  height: 20px;
+  margin: 0 8px 0 0;
+}
+
+.banner-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #FAFAFA;
+}
+
+.banner-event {
+  margin: 16px 0 4px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--Gray-10, #F1F1F3);
+}
+
+.banner-time {
+  margin: 4px 0 4px;
+  font-size: 14px;
+  color: var(--Indigo-0, #CED1FD);
+}
+
+.banner-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.pagination-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--Gray-40, #7a6b80);
+  border-radius: 50%;
+  margin: 0 4px;
+  transition: all 0.3s ease;
+}
+
+.pagination-dot.active {
+  width: 16px;
+  border-radius: 5px;
+  background: var(--Indigo-20, #5863F8);
+}

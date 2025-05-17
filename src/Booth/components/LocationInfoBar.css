@@ -1,11 +1,15 @@
-/* ---------------------------------------------------
-   1) 맵 닫힘 시: 기존 바
---------------------------------------------------- */
+.location-info-wrapper {
+  position: relative;    /* map-container의 absolute 기준 */
+  display: block;
+  width: 370px;          /* map-image와 동일한 너비로 고정 */
+  margin: 0 auto;        /* 필요시 가운데 정렬 */
+}
+
 .location-info-bar {
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  margin: 20px 0;
+  margin: 25px 0 5px 0;
   gap: 8px;
 }
 
@@ -35,44 +39,35 @@
   color: #fff;
 }
 
-/* ---------------------------------------------------
-   2) 맵 열림 시: map-container 와 내부 요소
---------------------------------------------------- */
 .map-container {
-  position: absolute;    /* wrapper 기준으로 overlay */
-  top: 135px;            /* 탭+카테고리+마진 합 */
-  left: 16px;            /* BoothPage padding과 동일 */
-  right: 16px;
-  z-index: 20;           /* 뒤 콘텐츠 위에 */
+  position: absolute;
+  top: calc(100% + 8px); /* 바 바로 아래 8px 띄우기 */
+  left: 0;                /* wrapper 왼쪽 기준 */
+  width: 100%;            /* wrapper 너비 그대로 */
+  z-index: 20;
 }
 
-/* 2-1) 지도 위 placeName 레이블 */
 .map-place-label {
   position: absolute;
   top: 10px;
   left: 10px;
   z-index: 10;
-
   display: flex;
   align-items: center;
   gap: 4px;
   padding: 4px 8px;
-
   background: var(--Gray-0, #FAFAFA);
   border-radius: 14px;
-
   color: var(--Gray-80, #484851);
   font-size: 12px;
   font-weight: 500;
 }
 
-/* 2-2) X 닫기 버튼 */
 .close-on-image {
   position: absolute;
   top: 16px;
   right: 16px;
   z-index: 10;
-
   width: 32px;
   height: 32px;
   padding: 4px;
@@ -80,21 +75,17 @@
   background-color: rgba(250, 250, 250, 0.4);
   border-radius: 50%;
   cursor: pointer;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   fill: rgba(250, 250, 250, 0.8);
 }
 
-/* 2-3) 지도 이미지 */
 .map-image {
-  width: 100%;
+  width: 100%;            /* wrapper 너비에 맞춤 */
   border-radius: 16px;
 }
 
-/* 2-4) 하이라이트 박스 */
 .map-highlight {
   position: absolute;
   pointer-events: none;

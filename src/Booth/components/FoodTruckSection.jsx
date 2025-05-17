@@ -46,22 +46,29 @@ const TRUCKS = {
 const FoodTruckSection = () => {
   const [selectedTruck, setSelectedTruck] = useState(null);
 
+  const handleClick = (key) => {
+    setSelectedTruck(prev => prev === key ? null : key);
+  };
+
   return (
     <>
       <div className="road-bar">제 1과학관</div>
 
       <div className="food-layout">
         <div className="food-row">
-          {Object.keys(TRUCKS).map((key) => (
-            <div
-              key={key}
-              className={`food-cell ${selectedTruck === Number(key) ? 'selected' : ''}`}
-              onClick={() => setSelectedTruck(Number(key))}
-            >
-              <StarIcon className="food-icon" />
-              <span className="food-label">{key}</span>
-            </div>
-          ))}
+          {Object.keys(TRUCKS).map((key) => {
+            const id = Number(key);
+            return (
+              <div
+                key={key}
+                className={`food-cell ${selectedTruck === id ? 'selected' : ''}`}
+                onClick={() => handleClick(id)}
+              >
+                <StarIcon className="food-icon" />
+                <span className="food-label">{key}</span>
+              </div>
+            );
+          })}
         </div>
       </div>
 
@@ -88,5 +95,6 @@ const FoodTruckSection = () => {
     </>
   );
 };
+
 
 export default FoodTruckSection;
