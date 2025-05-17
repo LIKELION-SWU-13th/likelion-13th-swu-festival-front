@@ -34,8 +34,10 @@ const Signup = () => {
   });
 
   // 업로드된 파일 상태 (QRUpload에서 사용)
-  const [selectedFile, setSelectedFile] = useState(null)
+  const [selectedFile, setSelectedFile] = useState(null);
 
+  // 업로드 단계 진입 여부 상태 (QRUpload가 조작)
+  const [isReadyToUpload, setIsReadyToUpload] = useState(false);
 
   // 다음 단계로 이동하는 메서드
   const handleNext = () => {
@@ -45,11 +47,11 @@ const Signup = () => {
 
   // 현재 단계 및 파일 업로드 상태에 따라 배경 이미지를 동적으로 결정
   const getBackgroundImage = () => {
-    if (step === 1 && !selectedFile) return bgStart;                 // QR 인증 시작 전
-    if (step === 1 && selectedFile === null) return bgPlaceholder;   // 파일 placeholder 상태 (업로드 전)
-    if (step === 1 && selectedFile) return bgPreview;                // 파일 미리보기 상태 (업로드 후)
-    if (step === 2) return bgConfirmation;                           // 정보 확인 화면
-    if (step === 3) return bgSuccess;                                // 로그인 성공 화면
+    if (step === 1 && !isReadyToUpload) return bgStart; // 진입 전
+    if (step === 1 && isReadyToUpload && !selectedFile) return bgPlaceholder;
+    if (step === 1 && selectedFile) return bgPreview;
+    if (step === 2) return bgConfirmation;
+    if (step === 3) return bgSuccess;
   };
 
   // 현재 단계에 따라 렌더링할 컴포넌트 결정
@@ -62,10 +64,18 @@ const Signup = () => {
             setUserInfo={setUserInfo}
             selectedFile={selectedFile}
             setSelectedFile={setSelectedFile}
+            isReadyToUpload={isReadyToUpload}
+            setIsReadyToUpload={setIsReadyToUpload}
           />
         );
       case 2:
-        return <Confirmation userInfo={userInfo} onNext={handleNext} />;
+        return (
+        <Confirmation
+        userInfo={userInfo}
+        setUserInfo={setUserInfo}
+        selectedFile={selectedFile}
+        onNext={handleNext} />
+        );
       case 3:
         return <Success />;
       default:
