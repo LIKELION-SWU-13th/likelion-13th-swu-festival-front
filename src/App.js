@@ -7,6 +7,11 @@ import PerformPage from './Perform/pages/PerformPage';
 import ArtistPage from './Perform/pages/ArtistPage';
 import SongPage from './Perform/components/SongModal';
 
+import BoothPage    from './Booth/pages/BoothPage';
+import StarPage     from './Star/StarPage';      // 파일명 StarPage.jsx
+import PerformPage  from './Perform/PerformPage';   // 파일명 PerformPage.jsx
+import Signup from './Signup/Signup'; // 회원가입 컴포넌트
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -21,6 +26,7 @@ export default function App() {
         <Route path="/artist/:artistId/song/:songId" element={<SongPage />} />
 
         <Route path="*" element={<Navigate to="/booth" replace />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </BrowserRouter>
   );
