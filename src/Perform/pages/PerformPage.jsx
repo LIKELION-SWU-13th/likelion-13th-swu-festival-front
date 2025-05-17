@@ -28,9 +28,9 @@ export default function PerformPage() {
 
   // 2) 오늘의 게스트
   const guestSchedules = [
-    { date: '21', header: '오늘의 토크쇼는?',   event: '박지현',      time: '20:00–21:00', imageUrl: './images/parkjihyun.png',  link: 'https://youtu.be/parkjihyun' },
-    { date: '22', header: '오늘의 게스트는?', event: '유다빈 밴드', time: '20:30–22:00', imageUrl: yudabinImg,    link: 'https://youtu.be/yudabin' },
-    { date: '23', header: '오늘의 게스트는?', event: '이채연',      time: '20:00–21:00', imageUrl: ichaeyeonImg, link: 'https://youtu.be/ichaeyeon' },
+    { date: '21', event: '박지현', time: '18:00–19:30', imageUrl: yudabinImg},
+    { date: '22', event: '유다빈 밴드', time: '20:30–22:00', imageUrl: yudabinImg},
+    { date: '23', event: '이채연', time: '20:00–21:00', imageUrl: ichaeyeonImg},
   ];
 
   // 3) TodayBanner에 넘길 배열

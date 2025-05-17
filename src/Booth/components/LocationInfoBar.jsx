@@ -1,3 +1,4 @@
+// src/pages/components/LocationInfoBar.js
 import React from 'react';
 import { ReactComponent as LocationIcon } from '../../assets/iconoir_map-pin.svg';
 import { ReactComponent as CloseIcon    } from '../../assets/iconoir_xmark.svg';
@@ -9,11 +10,10 @@ export default function LocationInfoBar({
   onToggleMap,
   placeName,
   mapImageUrl,
-  highlightStyle
+  highlightStyles  // 배열로 받습니다
 }) {
   return (
     <>
-    
       <div className="location-info-bar">
         <span className="place-name">
           <LocationIcon className="icon location-icon" />
@@ -42,10 +42,13 @@ export default function LocationInfoBar({
             className="map-image"
           />
 
-          <div
-            className="map-highlight"
-            style={highlightStyle}
-          />
+          {highlightStyles.map((style, idx) => (
+            <div
+              key={idx}
+              className="map-highlight"
+              style={style}
+            />
+          ))}
         </div>
       )}
     </>

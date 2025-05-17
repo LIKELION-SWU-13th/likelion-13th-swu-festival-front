@@ -19,21 +19,15 @@
   flex: 0 0 auto;
 }
 
-/* 필요하다면 header를 sticky로 만드려면 여기에 추가 */
-/*
-.booth-page > .TopTabs,
-.booth-page > .BoothCategory,
-.booth-page > .location-info-wrapper {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-*/
-
 /* 실제 스크롤이 필요한 부스 콘텐츠 부분 */
 .content-container {
   flex: 1 1 auto;        /* 남은 공간 전부 차지 */
   min-height: 0;         /* flex 자식에서 overflow 동작을 위해 필수 */
   overflow-y: auto;      /* 내부에서만 세로 스크롤 */
   -webkit-overflow-scrolling: touch; /* 모바일 부드러운 스크롤 */
+  scrollbar-width: none;
+  /* IE 10+ */
+  -ms-overflow-style: none;
 }
+
+

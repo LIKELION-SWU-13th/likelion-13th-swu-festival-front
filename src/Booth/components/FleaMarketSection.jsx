@@ -1,3 +1,4 @@
+// FleaMarketSection.jsx
 import React, { useState } from 'react';
 import SliderModal from './SliderModal';
 import { ReactComponent as StarIcon } from '../../assets/Star.svg';
@@ -8,99 +9,92 @@ import img1_2 from '../images/1-2.png';
 import img1_3 from '../images/1-3.png';
 import img1_4 from '../images/1-4.png';
 
-const MARKETS = {
-  1: { label: '플리마켓 1', description: '수공예 상품과 빈티지 잡화를 만날 수 있는 공간입니다.' },
-  2: { label: '플리마켓 2', description: '핸드메이드 액세서리 전문 셀러들이 모여 있어요.' },
-  3: { label: '플리마켓 3', description: '도자기와 공예품을 직접 제작하는 부스입니다.' },
-  4: { label: '플리마켓 4', description: '친환경 중고 물품을 교환·판매하는 부스입니다.' },
-  5: { label: '플리마켓 5', description: '아트 프린트와 일러스트 소품을 만나보세요.' },
-  6: { label: '플리마켓 6', description: '로컬 푸드와 음료를 즐길 수 있는 푸드 코너입니다.' },
-  7: { label: '플리마켓 7', description: '빈티지 의류와 악세서리가 가득해요.' },
-  8: { label: '플리마켓 8', description: '수제 향초와 비누, 뷰티 제품을 판매합니다.' },
-};
-
 const SELLERS = {
-  1: { name: '셀러 이름 1', item: '키링', images: [img1_1, img1_2, img1_3, img1_4] },
-  2: { name: '셀러 이름 2', item: '엽서', images: [img1_1, img1_2, img1_3, img1_4] },
-  3: { name: '셀러 이름 3', item: '머리끈', images: [img1_1, img1_2, img1_3, img1_4] },
-  4: { name: '셀러 이름 4', item: '키워드', images: [img1_1, img1_2, img1_3, img1_4] },
-  5: { name: '셀러 이름 5', item: '아트 프린트', images: [img1_1, img1_2, img1_3, img1_4] },
-  6: { name: '셀러 이름 6', item: '푸드 코너', images: [img1_1, img1_2, img1_3, img1_4] },
-  7: { name: '셀러 이름 7', item: '빈티지 의류', images: [img1_1, img1_2, img1_3, img1_4] },
-  8: { name: '셀러 이름 8', item: '뷰티 제품', images: [img1_1, img1_2, img1_3, img1_4] },
+  1: { name: '담기:淡器',            item: '키링',       images: [img1_1, img1_2, img1_3, img1_4] },
+  2: { name: '뜨개다방',             item: '엽서',       images: [img1_1, img1_2, img1_3, img1_4] },
+  3: { name: '레이븐팩토리',         item: '머리끈',     images: [img1_1, img1_2, img1_3, img1_4] },
+  4: { name: '라플레르',             item: '키워드',     images: [img1_1, img1_2, img1_3, img1_4] },
+  5: { name: '소원상점',             item: '아트 프린트',images: [img1_1, img1_2, img1_3, img1_4] },
+  6: { name: '뜨개슌 애옹상점',      item: '푸드 코너', images: [img1_1, img1_2, img1_3, img1_4] },
+  7: { name: '플레인톤',             item: '빈티지 의류',images: [img1_1, img1_2, img1_3, img1_4] },
+  8: { name: '체리쉬미앤유',         item: '뷰티 제품', images: [img1_1, img1_2, img1_3, img1_4] },
 };
 
 export default function FleaMarketSection() {
-  const [selectedBooth, setSelectedBooth] = useState(null);
-  const [slider, setSlider] = useState({ open: false, index: 0 });
+  const [selected, setSelected] = useState(null);
+  const [slider, setSlider]     = useState({ open: false, index: 0 });
 
-  const handleClickBooth = (num) => {
-    setSelectedBooth((prev) => (prev === num ? null : num));
+  const handleClick = (key) => {
+    setSelected(prev => (prev === key ? null : key));
     setSlider({ open: false, index: 0 });
   };
 
-  const openSlider = (idx) => {
-    setSlider({ open: true, index: idx });
-  };
-
-  const closeSlider = () => {
-    setSlider({ open: false, index: 0 });
-  };
+  const openSlider  = (idx) => setSlider({ open: true, index: idx });
+  const closeSlider = ()    => setSlider({ open: false, index: 0 });
 
   return (
     <section className="flea-market-section">
-      {/* 부스 번호 영역 */}
       <div className="flea-layout">
-        <div className="flea-row">
-          {Object.keys(MARKETS).map((key) => {
-            const num = Number(key);
-            return (
+        <div className="location-block long">삼각숲</div>
+        <div className="market-grids">
+          <div className="market-grid">
+            {Object.keys(SELLERS).map(n => (
               <div
-                key={num}
-                className={`flea-cell ${selectedBooth === num ? 'active' : ''}`}
-                onClick={() => handleClickBooth(num)}
+                key={n}
+                className={`flea-cell ${selected === Number(n) ? 'active' : ''}`}
+                onClick={() => handleClick(Number(n))}
               >
                 <StarIcon className="flea-icon" />
-                <span className="flea-label">{num}</span>
+                <span className="flea-label">{n}</span>
               </div>
-            );
-          })}
+            ))}
+          </div>
         </div>
+        <div className="location-block long bottom">한샘길</div>
       </div>
 
-      {/* 셀러 목록 / 상세 정보 */}
       <div className="category-content">
         <h2>셀러 목록</h2>
-        {!selectedBooth && (
-          <>
-            <ul className="seller-list">
-              {Object.entries(SELLERS).map(([key, s]) => (
-                <li key={key} className="seller-item">
-                  <span className="seller-index">{key}</span>
-                  <span className="seller-name">{s.name}</span>
-                  <span className="seller-item-name">{s.item}</span>
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
 
-        {selectedBooth && (
+        <ul className="seller-list">
+          {!selected
+            ? Object.entries(SELLERS).map(([k, s]) => (
+                <li
+                  key={k}
+                  className="seller-item"
+                  onClick={() => handleClick(Number(k))}
+                >
+                  <div className="seller-summary">
+                    <span className="seller-index">{k}</span>
+                    <span className="seller-name">{s.name}</span>
+                    <span className="seller-item-name">{s.item}</span>
+                  </div>
+                </li>
+              ))
+            : (
+                <li
+                  className="seller-item selected-summary"
+                  onClick={() => handleClick(selected)}
+                >
+                  <div className="seller-summary">
+                    <span className="seller-index">{selected}</span>
+                    <span className="seller-name">{SELLERS[selected].name}</span>
+                    <span className="seller-item-name">{SELLERS[selected].item}</span>
+                  </div>
+                </li>
+              )
+          }
+        </ul>
+
+        {selected && (
           <>
-            <div className="active-seller">
-              <div className="seller-header">
-                <span className="seller-index">{selectedBooth}</span>
-                <span className="seller-name">{SELLERS[selectedBooth].name}</span>
-              </div>
-              <span className="seller-item-addname">{SELLERS[selectedBooth].item}</span>
-            </div>
             <div className="section-subtitle">제품 이미지</div>
             <div className="product-images">
-              {SELLERS[selectedBooth].images.map((src, i) => (
+              {SELLERS[selected].images.map((src, i) => (
                 <img
                   key={i}
                   src={src}
-                  alt={`${SELLERS[selectedBooth].item} ${i + 1}`}
+                  alt={`${SELLERS[selected].item} ${i + 1}`}
                   onClick={() => openSlider(i)}
                 />
               ))}
@@ -109,9 +103,9 @@ export default function FleaMarketSection() {
         )}
       </div>
 
-      {slider.open && (
+      {slider.open && selected && (
         <SliderModal
-          images={SELLERS[selectedBooth].images}
+          images={SELLERS[selected].images}
           initialIndex={slider.index}
           onClose={closeSlider}
         />
