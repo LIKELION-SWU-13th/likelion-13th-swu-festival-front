@@ -60,4 +60,37 @@ instance.interceptors.response.use(
   }
 );
 
+// 사용자 인증 상태 확인 (refresh 토큰 유효성 검사)
+export const checkAuth = async () => {
+  try {
+    const refreshToken = localStorage.getItem('refresh_token');
+    if (!refreshToken) {
+      throw new Error('리프레시 토큰이 없습니다.');
+    }
+    
+    const response = await instance.get('/user/auth', {
+      headers: {
+        Authorization: `Bearer ${refreshToken}`
+      }
+    });
+    return { isAuthenticated: true, message: response.data };
+  } catch (error) {
+    if (error.response?.status === 401) {
+      // 유효하지 않거나 만료된 리프레시 토큰
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+      return { 
+        isAuthenticated: false, 
+        message: '유효하지 않거나 만료된 리프레시 토큰입니다',
+        error
+      };
+    }
+    return { 
+      isAuthenticated: false, 
+      message: '인증 확인 중 오류가 발생했습니다',
+      error
+    };
+  }
+};
+
 export default instance; 
