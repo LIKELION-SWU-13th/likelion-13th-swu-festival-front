@@ -5,7 +5,7 @@ import TodayBanner from '../components/TodayBanner';
 import SchedulePage, { scheduleData } from '../components/SchedulePage';
 import './PerformPage.css';
 
-
+import juchang from '../images/juchang.png'
 import yudabinImg from '../images/yudabin.png';
 import ichaeyeonImg from '../images/ichaeyeon.png';
 
@@ -28,7 +28,7 @@ export default function PerformPage() {
 
   // 2) 오늘의 게스트
   const guestSchedules = [
-    { date: '21', event: '박지현', time: '18:00–19:30', imageUrl: yudabinImg},
+    { date: '21', event: '주창윤 교수님', time: '18:00–19:30', imageUrl: juchang},
     { date: '22', event: '유다빈 밴드', time: '20:30–22:00', imageUrl: yudabinImg},
     { date: '23', event: '이채연', time: '20:00–21:00', imageUrl: ichaeyeonImg},
   ];

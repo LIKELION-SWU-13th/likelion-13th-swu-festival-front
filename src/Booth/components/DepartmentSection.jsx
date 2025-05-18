@@ -13,7 +13,7 @@ const LAYOUTS = [
   [
     { id: 'left',       numbers: [10,9,8,7,6,5,4,3,2,1], style: { top:'0%', left:'5%',  width:'40px',  height:'240px', flexDirection:'column' } },
     { id: 'middle-top', numbers: [14,15,16,17,18,19],  style: { top:'0%', left:'30%', transform:'translateX(-50%)', width:'150px', height:'40px', flexDirection:'row' } },
-    { id: 'middle',     numbers: [11,12,13],           style: { top:'20%', left:'38%', transform:'translateX(-50%)', width:'100px', height:'40px', flexDirection:'row' } },
+    { id: 'middle',     numbers: [11,12,13],           style: { top:'20%', left:'36%', transform:'translateX(-50%)', width:'100px', height:'40px', flexDirection:'row' } },
     { id: 'right',      numbers: [20,21,22,23,24,25,26,27,28], style:{top:'0%', left:'85%', transform:'translateX(-100%)', width:'40px', height:'240px', flexDirection:'column'} },
   ],
   // 5/22 레이아웃
@@ -150,7 +150,7 @@ export default function DepartmentSection() {
       {!selectedBlock && (
         <div className="text-list-container">
           <ul className="text-list-col">
-            {departmentList.slice(0,9).map((name, idx) => (
+            {departmentList.slice(0,18).map((name, idx) => (
               <li key={idx}>
                 <span className="text-list-index">{idx+1}&nbsp;</span>
                 {name}
@@ -160,7 +160,7 @@ export default function DepartmentSection() {
           <ul className="text-list-col">
             {departmentList.slice(9).map((name, idx) => (
               <li key={idx+9}>
-                <span className="text-list-index">{idx+10}&nbsp;</span>
+                <span className="text-list-index">{idx+19}&nbsp;</span>
                 {name}
               </li>
             ))}

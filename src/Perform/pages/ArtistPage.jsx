@@ -22,7 +22,27 @@ import ichaeyeon5 from '../images/ichaeyeon5.jpg';
 import ichaeyeon6 from '../images/ichaeyeon6.jpg';
 import ichaeyeon7 from '../images/ichaeyeon7.jpg';
 
+const juchangLinks = {
+  '1': 'https://m.blog.naver.com/PostView.naver?blogId=joochangyun&logNo=223563056230&navType=by',
+  '2': 'https://m.blog.naver.com/PostView.naver?blogId=joochangyun&logNo=223343742157&navType=by',
+  '3': 'https://m.blog.naver.com/PostView.naver?blogId=joochangyun&logNo=222994954310&navType=by',
+  '4': 'https://m.blog.naver.com/PostView.naver?blogId=joochangyun&logNo=222992414970&navType=by',
+  '5': 'https://m.blog.naver.com/PostView.naver?blogId=joochangyun&logNo=223576005028&navType=by',
+  '6': 'https://youtu.be/a2pGIOg5BGY?si=NqJnC6BMOXkR6_jy',
+};
+
 const artistData = {
+  juchang: {
+    name: '주창윤 교수님',
+    songs: [
+      { id: '1', title: '사랑의 의지' },
+      { id: '2', title: '에로스의 회복' },
+      { id: '3', title: '사랑의 파괴' },
+      { id: '4', title: '사랑할 용기' },
+      { id: '5', title: '사랑받고 있다는 거 눈치채!' },
+      { id: '6', title: '주창윤 교수님의 환승연애2 리액션' },
+    ],
+  },
   yudabin: {
     name: '유다빈 밴드',
     songs: [
@@ -50,6 +70,15 @@ const artistData = {
 };
 
 const lyricsData = {
+  juchang: {
+    '1': '가사를 제공하지 않습니다.',
+    '2': '가사를 제공하지 않습니다.',
+    '3': '가사를 제공하지 않습니다.',
+    '4': '가사를 제공하지 않습니다.',
+    '5': '가사를 제공하지 않습니다.',
+    '6': '가사를 제공하지 않습니다.',
+    '7': '가사를 제공하지 않습니다.',
+  },
   yudabin: {
 '1': `나무가 사라져간 산길
 주인 없는 바다
@@ -831,9 +860,9 @@ Let's get the party started`
 export default function ArtistPage() {
   const { artistId } = useParams();
   const navigate = useNavigate();
-  const artist = artistData[artistId];
   const [openId, setOpenId] = useState(null);
 
+  const artist = artistData[artistId];
   if (!artist) {
     return <p className="no-artist">존재하지 않는 아티스트입니다.</p>;
   }
@@ -842,41 +871,63 @@ export default function ArtistPage() {
 
   return (
     <div className="artist-page">
-      {/* 뒤로가기 버튼 */}
-      <button className="back-button" onClick={() => navigate(-1)}>
-        <ArrowIcon />
-      </button>
+      <div className="artist-header">
+        <button className="back-button" onClick={() => navigate(-1)}>
+          <ArrowIcon />
+        </button>
+        <h1 className="artist-title">
+          {artistId === 'juchang' ? '블로그 아카이빙 보기' : '대표곡'}
+        </h1>
+      </div>
 
-      <h1 className="artist-title">대표곡</h1>
       <ul className="song-list">
-        {artist.songs.map(song => (
-          <li key={song.id} className="song-card">
-            <button
-              className="song-link"
-              onClick={() => setOpenId(song.id)}
-            >
-              <img
-                src={song.imageUrl}
-                alt={song.title}
-                className="song-img"
-              />
-              <div className="song-info">
-                <div className="song-name">{song.title}</div>
-                <div className="artist-name">{artist.name}</div>
-              </div>
-              <div className="arrow-wrapper">
-                <ArrowIcon />
-              </div>
-            </button>
-          </li>
-        ))}
+        {artist.songs.map(song => {
+          const displayName =
+            artistId === 'juchang' && song.id === '6'
+              ? '서울여자대학교, Seoul Women\'s University (Official)'
+              : artist.name;
+          return (
+            <li key={song.id} className="song-card">
+              <button
+                className="song-link"
+                onClick={() => {
+                  if (artistId === 'juchang') {
+                    const url = juchangLinks[song.id];
+                    if (url) window.open(url, '_blank');
+                    else console.warn('No URL mapped for song', song.id);
+                  } else {
+                    setOpenId(song.id);
+                  }
+                }}
+              >
+                {artistId !== 'juchang' && song.imageUrl && (
+                  <img
+                    src={song.imageUrl}
+                    alt={song.title}
+                    className="song-img"
+                  />
+                )}
+                <div
+                  className="song-info"
+                  style={{ marginLeft: artistId === 'juchang' ? 0 : '12px' }}
+                >
+                  <div className="song-name">{song.title}</div>
+                  <div className="artist-name">{displayName}</div>
+                </div>
+                <div className="arrow-wrapper">
+                  <ArrowIcon />
+                </div>
+              </button>
+            </li>
+          );
+        })}
       </ul>
 
-      {selectedSong && (
+      {artistId !== 'juchang' && selectedSong && (
         <SongModal
           song={selectedSong}
           artistName={artist.name}
-          lyrics={lyricsData[artistId]?.[openId] ?? '가사를 찾을 수 없습니다.'}
+          lyrics={lyricsData[artistId][openId]}
           onClose={() => setOpenId(null)}
         />
       )}
