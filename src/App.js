@@ -8,6 +8,7 @@ import Signup from './Signup/Signup';
 import ConstellationPage from './Constellation/pages/ConstellationPage';
 import QuizPage from './Constellation/pages/QuizPage';
 import CouponPage from './Constellation/pages/CouponPage';
+import QuizType from './Constellation/pages/QuizType'
 
 export default function App() {
   // 초기 상태는 localStorage에서 토큰이 있는지로 판단
