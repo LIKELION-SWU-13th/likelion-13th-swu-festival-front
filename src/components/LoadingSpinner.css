@@ -1,0 +1,46 @@
+.loading-wrapper {
+    position: relative;
+    padding: 84px 16px 100px;
+    background-image: url('../Signup/assets/background.svg'); /* 배경 이미지 적용 */
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh; /* 전체 화면 높이 확보 */
+}
+  
+.loading-overlay {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* 어두운 오버레이 필터 적용 */
+    z-index: 1;
+}
+  
+.loading-content {
+    position: relative;
+    z-index: 2; /* 오버레이 위에 콘텐츠 표시 */
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+    text-align: left;
+}
+  
+.loading-spinner-image {
+    width: 48px;
+    height: 48px;
+    margin: 80px auto 0;
+    display: block;
+    animation: spin 1s linear infinite; /* 회전 애니메이션 적용 */
+}
+  
+/* 회전 애니메이션 정의 */
+@keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+}
