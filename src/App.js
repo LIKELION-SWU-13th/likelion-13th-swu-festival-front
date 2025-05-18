@@ -53,6 +53,7 @@ export default function App() {
         <Route path="/constellation" element={isAuthenticated ? <ConstellationPage /> : <Navigate to="/signup" replace />} />
         <Route path="/quiz/:quizId" element={isAuthenticated ? <QuizPage /> : <Navigate to="/signup" replace />} />
         <Route path="/coupon" element={<CouponPage />} />
+        <Route path="/quiz/type" element={isAuthenticated ? <QuizType /> : <Navigate to="/signup" replace />} />
         <Route path="/artist/:artistId" element={isAuthenticated ? <ArtistPage /> : <Navigate to="/signup" replace />} />
         <Route path="/artist/:artistId/song/:songId" element={isAuthenticated ? <SongPage /> : <Navigate to="/signup" replace />} />
         
