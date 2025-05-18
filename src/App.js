@@ -6,6 +6,8 @@ import PerformPage from './Perform/pages/PerformPage';
 import ArtistPage from './Perform/pages/ArtistPage';
 import SongPage from './Perform/components/SongModal';
 import Signup from './Signup/Signup';
+import ConstellationPage from './Constellation/pages/ConstellationPage';
+import QuizPage from './Constellation/pages/QuizPage';
 
 export default function App() {
   return (
@@ -15,6 +17,8 @@ export default function App() {
         <Route path="/booth" element={<BoothPage />} />
         <Route path="/star" element={<StarPage />} />
         <Route path="/perform" element={<PerformPage />} />
+        <Route path="/constellation" element={<ConstellationPage />} />
+        <Route path="/quiz/:quizId" element={<QuizPage />} />
 
         {/* 아티스트별 페이지 */}
         <Route path="/artist/:artistId" element={<ArtistPage />} />
