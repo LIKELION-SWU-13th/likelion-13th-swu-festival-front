@@ -4,6 +4,9 @@ import Confirmation from './components/Confirmation';
 import Success from './components/Success';
 import './Signup.css';
 
+// 뒤로가기
+import arrowBackIcon from './assets/icon-back.svg';
+
 // 각 스텝별 배경 이미지 import
 import bgStart from './assets/bg-upload-start.svg';
 import bgPlaceholder from './assets/bg-placeholder.svg';
@@ -90,6 +93,27 @@ const Signup = () => {
         backgroundImage: `url(${getBackgroundImage()})`,
       }}
     >
+
+      {/* ← 뒤로가기 버튼 */}
+      {(step > 1 || (step === 1 && isReadyToUpload)) && (
+        <button
+          className="back-button"
+          onClick={() => {
+            if (step === 3) {
+              setStep(2);
+            } else if (step === 2) {
+              setStep(1);
+              setIsReadyToUpload(true); // 사진 업로드 상태 유지
+            } else if (step === 1 && isReadyToUpload) {
+              setSelectedFile(null);
+              setIsReadyToUpload(false);
+            }
+          }}
+        >
+          <img src={arrowBackIcon} alt="뒤로가기" />
+        </button>
+      )}
+
       {/* 상단 진행 상태 인디케이터 */}
       <div className="step-indicator">
         <img src={step === 1 ? step1Active : step1Inactive} alt="step1" />

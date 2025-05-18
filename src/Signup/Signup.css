@@ -336,3 +336,20 @@
   justify-content: center;
   z-index: 10;
 }
+
+/* === 뒤로가기 버튼 === */
+.back-button {
+  position: absolute;
+  top: 68px;
+  left: 16px;
+  background: none;
+  border: none;
+  padding: 0;
+  z-index: 20;
+  cursor: pointer;
+}
+
+.back-button img {
+  width: 24px;
+  height: 24px;
+}
