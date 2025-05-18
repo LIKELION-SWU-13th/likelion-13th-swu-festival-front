@@ -7,6 +7,7 @@ import SongPage from './Perform/components/SongModal';
 import Signup from './Signup/Signup';
 import ConstellationPage from './Constellation/pages/ConstellationPage';
 import QuizPage from './Constellation/pages/QuizPage';
+import CouponPage from './Constellation/pages/CouponPage';
 
 export default function App() {
   // 초기 상태는 localStorage에서 토큰이 있는지로 판단
@@ -51,6 +52,7 @@ export default function App() {
         <Route path="/perform" element={isAuthenticated ? <PerformPage /> : <Navigate to="/signup" replace />} />
         <Route path="/constellation" element={isAuthenticated ? <ConstellationPage /> : <Navigate to="/signup" replace />} />
         <Route path="/quiz/:quizId" element={isAuthenticated ? <QuizPage /> : <Navigate to="/signup" replace />} />
+        <Route path="/coupon" element={<CouponPage />} />
         <Route path="/artist/:artistId" element={isAuthenticated ? <ArtistPage /> : <Navigate to="/signup" replace />} />
         <Route path="/artist/:artistId/song/:songId" element={isAuthenticated ? <SongPage /> : <Navigate to="/signup" replace />} />
         
