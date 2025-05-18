@@ -1,47 +1,44 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import styled from 'styled-components';
+import './TopTabs.css';
 
-const TopTabs = () => {
+// svg
+import zodiacIcon from '../assets/iconoir_planet.svg';
+import boothIcon  from '../assets/icon-park-outline_booth.svg';
+import showIcon   from '../assets/ph_microphone-stage.svg';
+
+// 탭들 설정값
+const TABS = [
+  { id: 'constellation', label: '별별 취향',  iconSrc: zodiacIcon },
+  { id: 'booth',  label: '부스 배치도', iconSrc: boothIcon  },
+  { id: 'perform',   label: '공연 정보',   iconSrc: showIcon   },
+];
+
+export default function TopTabs() {
   const navigate = useNavigate();
   const location = useLocation();
-
-  const tabs = [
-    { name: '부스', path: '/booth' },
-    { name: '별별취향', path: '/constellation' },
-    { name: '공연', path: '/perform' },
-  ];
+  const activeTab = location.pathname.replace('/', '') || 'booth';
 
   return (
-    <TabContainer>
-      {tabs.map((tab) => (
-        <Tab
-          key={tab.name}
-          active={location.pathname === tab.path}
-          onClick={() => navigate(tab.path)}
-        >
-          {tab.name}
-        </Tab>
-      ))}
-    </TabContainer>
+    <div className="top-tabs">
+      {TABS.map(tab => {
+        const isActive = tab.id === activeTab;
+        return (
+          <button
+            key={tab.id}
+            className={`tab-item ${isActive ? 'active' : ''}`}
+            onClick={() => navigate(`/${tab.id}`)}
+          >
+            <img
+              src={tab.iconSrc}
+              className="tab-icon"
+              alt={tab.label}
+            />
+            
+            {isActive && <span className="tab-label">{tab.label}</span>}
+          </button>
+        );
+      })}
+    </div>
   );
-};
-
-const TabContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  padding: 20px;
-`;
-
-const Tab = styled.button`
-  background: ${props => props.active ? '#4A4E96' : 'transparent'};
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 16px;
-`;
-
-export default TopTabs; 
+}
