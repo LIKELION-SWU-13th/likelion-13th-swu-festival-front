@@ -34,7 +34,7 @@ const festivalDates = [
 ];
 
 const artistIdMap = {
-  '박지현': 'parkjihyun',
+  '주창윤 교수님': 'juchang',
   '유다빈 밴드': 'yudabin',
   '이채연': 'ichaeyeon'
 };
@@ -88,7 +88,7 @@ export default function SchedulePage({ guestSchedules }) {
 
       {/* 오늘의 아티스트 / 토크쇼 */}
       <h2 className="section-title">
-        {selectedDate === '21' ? '오늘의 토크쇼' : '오늘의 아티스트'}
+        {selectedDate === '21' ? '서랑제 특별 토크 콘서트' : '오늘의 아티스트'}
       </h2>
 
       {selectedArtist ? (
@@ -96,13 +96,32 @@ export default function SchedulePage({ guestSchedules }) {
           <img src={selectedArtist.imageUrl} alt={selectedArtist.event} className="artist-img" />
           <div className="artist-info">
             <div className="artist-header">{selectedArtist.event}</div>
-            <div className="artist-time">{selectedArtist.time}</div>
+            <div
+  className={
+    selectedArtist
+      ? (selectedDate === '21'
+          ? 'artist-time artist-time-special'
+          : 'artist-time')
+      : 'artist-time'
+  }
+>
+  {selectedArtist.time}
+      </div>
           </div>
           <button className="artist-button">
-            {artistRouteId ? (
-              <Link to={`/artist/${artistRouteId}`} className="artist-link">대표곡 정보 보기</Link>
-            ) : '대표곡 정보 보기'}
-          </button>
+              {artistRouteId ? (
+                <Link to={`/artist/${artistRouteId}`} className="artist-link">
+                  {selectedArtist.event === '주창윤 교수님'
+                    ? '블로그 아카이빙 보기'
+                    : '대표곡 정보 보기'}
+                </Link>
+              ) : (
+                selectedArtist.event === '주창윤 교수님'
+                  ? '블로그 아카이빙 보기'
+                  : '대표곡 정보 보기'
+              )}
+            </button>
+
         </div>
       ) : (
         <div className="no-events">

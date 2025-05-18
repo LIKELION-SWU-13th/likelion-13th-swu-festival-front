@@ -5,15 +5,23 @@
     min-height: 100vh;
   }
   
+  .artist-header {
+    display: flex;
+    align-items: flex-start; 
+    flex-direction: column;   
+    margin-bottom: 16px; /* 원래 제목과 카드 사이 여백 재현 */
+  }
+
   /* 뒤로가기 버튼 */
   .back-button {
     background: none;
-    border: none;
-    padding: 0;
-    display: inline-flex;
-    align-items: center;
-    cursor: pointer;
-    margin-bottom: 5px;
+  border: none;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  margin: 0;           /* ← margin-bottom 제거 */
+  margin-bottom: 10px; /* 제목과 간격 */
   }
   .back-button svg {
     width: 24px;
@@ -26,7 +34,7 @@
     color: #FAFAFA;
     font-size: 20px;
     font-weight: 600;
-    margin-bottom: 16px;
+    margin: 0;
   }
   
   /* 리스트 초기화 */
