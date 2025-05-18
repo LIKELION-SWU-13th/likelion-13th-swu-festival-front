@@ -122,14 +122,14 @@ const QRUpload = ({
 
         {/* 하단 버튼 */}
         {!isReadyToUpload ? (
-          <button className="qr-upload-button" onClick={handleInitialClick}>
+          <button className="common-fixed-button" onClick={handleInitialClick}>
             다음으로
           </button>
         ) : (
           <button
             onClick={handleSubmit}
             disabled={loading || !selectedFile}
-            className="qr-upload-button"
+            className="common-fixed-button"
           >
             {loading ? '처리중...' : '사진 업로드'}
           </button>
