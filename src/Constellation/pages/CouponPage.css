@@ -1,0 +1,133 @@
+/* 쿠폰 페이지 스타일 */
+.coupon-container {
+  min-height: 100vh;
+  background-color: #303036;
+  color: white;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.coupon-content {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+}
+
+/* 뒤로가기 버튼 */
+.back-button {
+  background: none;
+  border: none;
+  color: white;
+  padding: 8px 0;
+  margin-bottom: 36px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  width: 40px;
+}
+
+.back-button img {
+  width: 24px;
+  height: 24px;
+}
+
+/* 제목 스타일 */
+.coupon-title {
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: white;
+  margin-top: 100px;
+}
+
+.emoji {
+  margin-right: 8px;
+  font-size: 24px;
+}
+
+/* 설명 텍스트 */
+.coupon-description {
+  color: #ccc;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+/* 쿠폰 이미지  */
+.coupon-image {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  display: block;
+  margin: 0 auto 24px;
+  /* 이미지 저장 시 사용자가 저장 옵션을 볼 수 있도록 -webkit-touch-callout 속성 활성화 */
+  -webkit-touch-callout: default;
+  /* 길게 누르기 시 컨텍스트 메뉴가 표시되도록 user-select 속성 활성화 */
+  user-select: text;
+}
+
+/* 인스타그램 바로가기 버튼 */
+.instagram-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #60606C;
+  border: 1px solid #484851;
+  border-radius: 100px;
+  color: white;
+  margin: 0 auto 20px; /* 좌우 가운데 정렬 */
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 256px;
+  height: 40px;
+}
+
+.instagram-button:hover {
+  opacity: 0.9;
+}
+
+.instagram-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 0; /* 마진 제거 */
+}
+
+.arrow-icon {
+  width: 14px;
+  height: 14px;
+  margin-left: 4px;
+}
+
+/* 홈 화면 버튼 */
+.home-button {
+  width: 100%;
+  padding: 16px 24px;
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  margin-top: auto;
+  height: 56px;
+  border-radius: 100px;
+  box-sizing: border-box;
+  transition: transform 0.2s;
+}
+
+.home-button:hover {
+  transform: translateY(-2px);
+}
+
+.home-button:active {
+  transform: translateY(0);
+}
