@@ -6,26 +6,41 @@
   padding: 24px;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 /* 헤더 영역 - 뒤로가기 버튼과 타이틀 포함 */
 .type-header {
   display: flex;
   flex-direction: column;
-  margin-bottom: 16px;
+  margin-bottom: 32px;
+  position: relative;
+  padding-top: 8px;
+}
+
+/* 컨텐츠 영역 */
+.type-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-top: 48px;
 }
 
 /* 뒤로가기 버튼 */
 .back-button {
+  position: absolute;
+  top: 16px;
+  left: 12px;
   background: none;
   border: none;
-  color: white;
-  width: 40px;
-  height: 40px;
-  padding: 8px;
-  margin-bottom: 16px;
+  padding: 0;
+  z-index: 20;
   cursor: pointer;
-  align-self: flex-start; /* 왼쪽 정렬 */
+}
+
+.back-button img {
+  width: 24px;
+  height: 24px;
 }
 
 /* 타이틀 텍스트 */
@@ -33,6 +48,7 @@
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 16px;
+  text-align: left;
 }
 
 /* 설명 텍스트  */
@@ -41,16 +57,23 @@
   font-size: 16px;
   line-height: 1.5;
   margin-bottom: 24px;
+  text-align: left;
 }
 
 /* 유형 결과 이미지 */
 .type-image {
   width: 100%;
-  max-width: 500px; /* 큰 화면에서는 최대 너비 제한 */
+  max-width: 500px;
   height: auto;
   border-radius: 16px;
-  margin: 0 auto 24px; /* 가운데 정렬 및 아래 여백 */
+  margin: 0 auto;
   display: block;
+}
+
+/* 버튼 컨테이너 */
+.button-container {
+  margin-top: 60px;
+  padding-bottom: 24px;
 }
 
 /* 인스타그램 바로가기 버튼 */
@@ -64,7 +87,6 @@
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
-  margin-top: auto; /* 남은 공간을 위쪽에 배치하여 버튼을 하단으로 밀기 */
   text-align: center;
   height: 56px;
 }
