@@ -37,7 +37,7 @@ export const submitQuizAnswer = async (quizId, choiceStr) => {
 
 // 퀴즈 결과 타입 조회
 export const getQuizType = async () => {
-  const response = await api.get('/quiz/type');
+  const response = await api.get('/user/type');
   return response.data;
 };
 
