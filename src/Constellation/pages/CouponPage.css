@@ -13,6 +13,8 @@
   display: flex;
   flex-direction: column;
   padding: 16px;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 /* 뒤로가기 버튼 */
@@ -41,7 +43,7 @@
   font-weight: 600;
   margin-bottom: 16px;
   color: white;
-  margin-top: 120px;
+  margin-top: 60px;
   margin-left: 9px;
 }
 
@@ -56,7 +58,7 @@
   font-size: 16px;
   line-height: 1.5;
   margin-left: 9px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   text-align: left;
 }
 
@@ -66,7 +68,7 @@
   max-width: 500px;
   height: auto;
   display: block;
-  margin: 0 auto 24px;
+  margin: 0 auto 20px;
   /* 이미지 저장 시 사용자가 저장 옵션을 볼 수 있도록 -webkit-touch-callout 속성 활성화 */
   -webkit-touch-callout: default;
   /* 길게 누르기 시 컨텍스트 메뉴가 표시되도록 user-select 속성 활성화 */
@@ -83,7 +85,7 @@
   border: 1px solid #484851 !important;
   border-radius: 100px;
   color: white;
-  margin: 0 auto 20px;
+  margin: 0 auto 16px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -117,6 +119,7 @@
 /* 홈 화면 버튼 */
 .home-button {
   width: 100%;
+  max-width: 343px;
   padding: 16px 24px;
   background-color: transparent;
   border: none;
@@ -125,11 +128,12 @@
   font-weight: 700;
   cursor: pointer;
   text-align: center;
-  margin-top: 15px;
+  margin: 10px auto;
   height: 56px;
   border-radius: 100px;
   box-sizing: border-box;
   transition: transform 0.2s;
+  position: relative;
 }
 
 .home-button:hover {
