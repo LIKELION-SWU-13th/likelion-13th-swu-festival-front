@@ -28,17 +28,14 @@ const QuizPage = () => {
         setQuizData(data);
         
         // 이미 응답했는지 확인
-        try {
-          const percentData = await getQuizPercent(quizId);
-          if (percentData.choice) {
-            setResult(percentData); // 응답 결과 저장
-          }
-        } catch (error) {
-          // 응답이 없으면 무시 (정상 흐름)
-          console.log(`퀴즈 ${quizId}에 아직 응답하지 않았습니다.`);
+        const percentData = await getQuizPercent(quizId);
+        
+        // choice가 있으면 응답이 있는 것
+        if (percentData && percentData.choice) {
+          setResult(percentData); // 응답 결과 저장
         }
       } catch (error) {
-        console.error('퀴즈 정보 가져오기 실패:', error);
+        // 오류 무시
       } finally {
         setIsLoading(false);
       }
@@ -67,8 +64,7 @@ const QuizPage = () => {
       // 최신 결과 데이터 저장
       setResult(latestData);
     } catch (error) {
-      console.error('응답 제출 실패:', error);
-      // 에러 발생 시 모달 표시하지 않고 결과도 저장하지 않음
+      // 오류 무시 - 에러 발생 시 모달 표시하지 않고 결과도 저장하지 않음
     }
   };
 

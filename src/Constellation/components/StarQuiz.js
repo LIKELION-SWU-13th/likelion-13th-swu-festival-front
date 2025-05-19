@@ -24,20 +24,20 @@ const StarQuiz = ({ quizId, isOpen, isCompleted, onComplete, isNext, quizData, s
   const checkIfCompleted = async () => {
     try {
       const data = await getQuizPercent(quizId);
-      // 응답이 있으면 완료 처리
+      
+      // 응답이 있고 choice 속성이 있으면 완료 처리
       if (data && data.choice) {
         onComplete(quizId);
-      }
+      } 
     } catch (error) {
-      // 응답이 없는 경우 - 에러는 정상 케이스
-      console.log(`퀴즈 ${quizId}에 아직 응답하지 않았습니다.`);
+      // 오류 무시
     }
   };
 
   // 별 클릭 이벤트 핸들러
   const handleStarClick = () => {
     if (isOpen) {
-      // 해당 퀴즈 페이지로 이동
+      // 해당 퀴즈 페이지로 이동 (이미 완료했어도 열려있다면 이동 가능)
       navigate(`/quiz/${quizId}`);
     }
   };
