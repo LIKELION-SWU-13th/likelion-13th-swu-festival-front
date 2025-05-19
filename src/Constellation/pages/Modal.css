@@ -18,11 +18,11 @@
 
 /* 모달 내용 */
 .modal-content {
-  background: linear-gradient(150deg, rgba(96, 104, 218, 0.9), rgba(124, 134, 255, 0.9));
+  background: #fff;
   border-radius: 20px;
-  padding: 24px;
+  padding: 20px;
   width: 85%;
-  max-width: 320px;
+  max-width: 323px;
   text-align: center;
   position: relative;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
@@ -38,35 +38,37 @@
   justify-content: center;
   align-items: center;
   font-size: 22px;
-  margin-bottom: 16px;
-  color: white;
-  font-weight: 700;
+  color: #303036;
+  font-weight: 600;
 }
 
 .modal-title-emoji {
-  font-size: 24px;
+  font-size: 28px;
   margin: 0 8px;
 }
 
 /* 모달 메시지 */
 .modal-message {
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.5;
-  margin-bottom: 24px;
-  color: rgba(255, 255, 255, 0.9);
+  margin-top: 8px;
+  margin-bottom: 16px;
+  color: #484851;
+  font-weight: 400;
 }
 
 /* 모달 버튼 공통 스타일 */
 .modal-button-success,
 .modal-button-fail {
-  width: 100%;
+  width: 299px;
+  height: 52px;
   padding: 14px 20px;
   border: none;
   border-radius: 100px;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
-  color: white;
+  color: #F1F1F3;
   transition: transform 0.2s;
 }
 
