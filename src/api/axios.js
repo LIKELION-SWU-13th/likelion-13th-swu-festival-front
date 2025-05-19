@@ -34,65 +34,6 @@ export const refreshAccessToken = async (refreshToken) => {
   }
   
   try {
-    // 로그인 시간을 확인하여 3분이 지났으면 완전히 새 로그인 시도 (더 빠르게 설정)
-    const loginTime = localStorage.getItem('login_time');
-    const now = new Date().getTime();
-    const elapsed = loginTime ? now - parseInt(loginTime) : 0;
-    
-    // 3분이 지났으면 새 로그인 시도 (타이밍을 더 앞당김)
-    if (loginTime && elapsed > 180000) { // 3분 = 180,000 밀리초
-      // 현재 저장된 사용자 정보로 새 로그인 시도
-      const studentNum = localStorage.getItem('student_num');
-      const name = localStorage.getItem('name');
-      const major = localStorage.getItem('major');
-      
-      if (studentNum && name && major) {
-        try {
-          // 직접 axios 호출로 변경 (instance 대신 axios 사용)
-          const response = await axios.post('https://api.likelion13th-swu.site/user/login', {
-            student_num: studentNum,
-            name: name,
-            major: major
-          }, {
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          });
-          
-          if (response.status === 200 && response.data) {
-            const { access_token, refresh_token } = response.data;
-            
-            if (!access_token || !refresh_token) {
-              throw new Error('토큰이 없습니다');
-            }
-            
-            // 토큰 저장
-            localStorage.setItem('access_token', access_token);
-            localStorage.setItem('refresh_token', refresh_token);
-            localStorage.setItem('login_time', new Date().getTime().toString());
-            
-            // 세션 스토리지에도 저장
-            sessionStorage.setItem('access_token', access_token);
-            sessionStorage.setItem('refresh_token', refresh_token);
-            sessionStorage.setItem('auth_checked', 'true');
-            localStorage.setItem('auth_forced', 'true');
-            
-            // 인증 상태 변경 알림
-            window.dispatchEvent(new Event('auth-change'));
-            
-            return { 
-              accessToken: access_token, 
-              refreshToken: refresh_token 
-            };
-          } else {
-            throw new Error('로그인 실패');
-          }
-        } catch (error) {
-          // 새 로그인 실패시 일반 갱신으로 계속 진행
-        }
-      }
-    }
-    
     // 일반 토큰 갱신 프로세스
     const response = await axios({
       method: 'get',

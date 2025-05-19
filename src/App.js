@@ -199,8 +199,8 @@ export default function App() {
       const nowTime = new Date().getTime();
       const timeUntilExpiry = accessTokenExpiry - nowTime;
       
-      // 4분 만료 토큰이므로 1분 후(만료 시간의 75% 지점)에 갱신 시도 (최소 10초, 최대 설정 분 -5초)
-      const refreshTime = Math.min(Math.max(timeUntilExpiry * 0.25, 10000), timeUntilExpiry - 5000);
+      // 액세스 토큰 만료 30초 전에 갱신 시도
+      const refreshTime = Math.max(timeUntilExpiry - 30000, 10000);
 
       // 이전 타이머 제거
       if (tokenRefreshTimer) {
