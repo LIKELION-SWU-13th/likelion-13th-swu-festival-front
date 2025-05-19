@@ -197,6 +197,7 @@
 .check-icon-completed {
   width: 32px;
   height: 32px;
+  margin-top: 24px;
 }
 
 /* — 모달 CSS (원본 그대로) — */
@@ -265,4 +266,15 @@
   color: #F1F1F3;
   font-size: 18px;
   font-weight: 600;
+}
+.star-icon {
+  width: 16px;
+  height: 16px;
+  margin-left: 4px;
+}
+
+.star-icon-small {
+  width: 12px;
+  height: 12px;
+  margin-left: 4px;
 }

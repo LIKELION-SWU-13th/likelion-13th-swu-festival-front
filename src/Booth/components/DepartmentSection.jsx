@@ -1,11 +1,12 @@
-// DepartmentSection.jsx
+// src/Booth/components/DepartmentSection.jsx
+
 import React, { useState, useEffect } from 'react';
 import { ReactComponent as ClockIcon } from '../../assets/Clock.svg';
 import { ReactComponent as CheckIcon } from '../../assets/Check.svg';
+import { ReactComponent as StarIcon } from '../../assets/iconoir_bright-star.svg';
+import instance from '../../api/axios';
+import { useNavigate } from 'react-router-dom';
 import './DepartmentSection.css';
-
-const API_BASE = 'https://api.likelion13th-swu.site';
-const TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMDIyMTExMzY4IiwibmFtZSI6IuuCqOyYiOydgCIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3NDcyNzI1NTIsImV4cCI6MTc0ODEzNjU1Mn0.ovlJ-iPMh0_bJTSNNLX5H-6KsrpEjGmhMJtalzlP2P0';
 
 // 날짜별 블록 레이아웃 정의
 const LAYOUTS = [
@@ -13,7 +14,7 @@ const LAYOUTS = [
   [
     { id: 'left',       numbers: [10,9,8,7,6,5,4,3,2,1], style: { top:'0%', left:'5%',  width:'40px',  height:'240px', flexDirection:'column' } },
     { id: 'middle-top', numbers: [14,15,16,17,18,19],  style: { top:'0%', left:'30%', transform:'translateX(-50%)', width:'150px', height:'40px', flexDirection:'row' } },
-    { id: 'middle',     numbers: [11,12,13],           style: { top:'20%', left:'38%', transform:'translateX(-50%)', width:'100px', height:'40px', flexDirection:'row' } },
+    { id: 'middle',     numbers: [11,12,13],           style: { top:'20%', left:'36%', transform:'translateX(-50%)', width:'100px', height:'40px', flexDirection:'row' } },
     { id: 'right',      numbers: [20,21,22,23,24,25,26,27,28], style:{top:'0%', left:'85%', transform:'translateX(-100%)', width:'40px', height:'240px', flexDirection:'column'} },
   ],
   // 5/22 레이아웃
@@ -35,28 +36,26 @@ const LAYOUTS = [
 ];
 
 export default function DepartmentSection() {
+  const navigate = useNavigate();
   const [departmentList, setDepartmentList]   = useState([]);
   const [completedBooths, setCompletedBooths] = useState([]);
+  const [majorName, setMajorName]             = useState('');
   const [selectedBlock, setSelectedBlock]     = useState(null);
   const [activeBooth, setActiveBooth]         = useState(null);
   const [showModal, setShowModal]             = useState(false);
 
-  // 날짜 배열과 라벨 매핑
+  // 날짜 매핑
   const days = [
     { date:'5/21 수요일', label:'Day 1' },
     { date:'5/22 목요일', label:'Day 2' },
     { date:'5/23 금요일', label:'Day 3' },
   ];
-
-  // 오늘 인덱스 계산
   const todayDate = new Date().getDate();
   const todayIndex = todayDate === 21 ? 0
                    : todayDate === 22 ? 1
                    : todayDate === 23 ? 2
                    : 0;
   const today = days[todayIndex];
-
-  // 오늘 레이아웃 선택
   const BLOCK_LAYOUT = LAYOUTS[todayIndex];
 
   // 운영 상태 계산
@@ -71,45 +70,53 @@ export default function DepartmentSection() {
 
   // 데이터 로드
   useEffect(() => {
-    Promise.all([
-      fetch(`${API_BASE}/booth/info`,     { headers:{ Authorization:TOKEN } }),
-      fetch(`${API_BASE}/booth/complete`, { headers:{ Authorization:TOKEN } }),
-    ])
-    .then(([r1,r2]) => {
-      if (!r1.ok||!r2.ok) throw new Error();
-      return Promise.all([r1.json(), r2.json()]);
-    })
-    .then(([deptData, compData]) => {
-      setDepartmentList(deptData.department_list);
-      setCompletedBooths(compData);
-    })
-    .catch(console.error);
-  }, []);
+    // 로컬스토리지에 토큰 확인
+    const token = localStorage.getItem('access_token');
+    if (!token) {
+      navigate('/signup');
+      return;
+    }
+    // 부스 정보 호출
+    instance.get('/booth/info')
+      .then(res => {
+        const { department_list, major } = res.data;
+        setDepartmentList(department_list);
+        setMajorName(major);
+      })
+      .catch(console.error);
 
+    // 완료된 부스 호출
+    instance.get('/booth/complete')
+      .then(res => setCompletedBooths(res.data))
+      .catch(console.error);
+  }, [navigate]);
+
+  // 블록 클릭 핸들러
   const onBlockClick = block => {
     setSelectedBlock(prev => prev?.id === block.id ? null : block);
     setActiveBooth(null);
     setShowModal(false);
   };
 
-  // 선택된 블록의 부스 번호 렌더 순서 결정 (항상 오름차순)
-  const getRenderNumbers = () => {
-    if (!selectedBlock) return [];
-    return [...selectedBlock.numbers].sort((a, b) => a - b);
-  };
+  // 선택된 블록 내 부스 번호 정렬
+  const getRenderNumbers = () => selectedBlock
+    ? [...selectedBlock.numbers].sort((a, b) => a - b)
+    : [];
 
+  // 모달 핸들링
   const openCompleteModal = num => { setActiveBooth(num); setShowModal(true); };
   const closeModal        = ()  => setShowModal(false);
   const confirmComplete   = ()  => {
-    fetch(`${API_BASE}/booth/${activeBooth}/participate`, {
-      method:'POST',
-      headers:{ Authorization:TOKEN,'Content-Type':'application/json' }
-    })
-    .then(r=>{ if(!r.ok) throw new Error(); return r; })
-    .then(()=> setCompletedBooths(prev=>[...prev, activeBooth]))
-    .catch(console.error)
-    .finally(()=> setShowModal(false));
+    instance.post(`/booth/${activeBooth}/participate`)
+      .then(() => setCompletedBooths(prev => [...prev, activeBooth]))
+      .catch(console.error)
+      .finally(() => setShowModal(false));
   };
+
+  // 좌우 리스트 분할
+  const mid = Math.ceil(departmentList.length / 2);
+  const leftList  = departmentList.slice(0, mid);
+  const rightList = departmentList.slice(mid);
 
   return (
     <div className="dept-section">
@@ -121,7 +128,7 @@ export default function DepartmentSection() {
         </div>
       </div>
 
-      {/* 블록 레이아웃 */}
+      {/* 레이아웃 영역 */}
       <div className="dept-layout">
         {BLOCK_LAYOUT.map(block => (
           <div
@@ -134,9 +141,10 @@ export default function DepartmentSection() {
               width: block.style.width,
               height: block.style.height,
               display: 'flex',
-              flexDirection: block.style.flexDirection,
+              flexDirection: block.style.flexDirection
             }}
-            onClick={() => onBlockClick(block)}>
+            onClick={() => onBlockClick(block)}
+          >
             {block.numbers.map(n => (
               <span key={n} className="block-number">{n}</span>
             ))}
@@ -144,54 +152,57 @@ export default function DepartmentSection() {
         ))}
       </div>
 
+      {/* 부스 목록 */}
       <h3 className="booth-list-title">부스 목록</h3>
 
-      {/* 선택 전 텍스트 리스트 */}
-      {!selectedBlock && (
+      {!selectedBlock ? (
         <div className="text-list-container">
           <ul className="text-list-col">
-            {departmentList.slice(0,9).map((name, idx) => (
-              <li key={idx}>
-                <span className="text-list-index">{idx+1}&nbsp;</span>
+            {leftList.map((name, idx) => (
+              <li key={idx} className="text-list-item">
+                <span className="text-list-index">{idx + 1}&nbsp;</span>
                 {name}
+                {name === majorName && <StarIcon className="star-icon" />}
               </li>
             ))}
           </ul>
           <ul className="text-list-col">
-            {departmentList.slice(9).map((name, idx) => (
-              <li key={idx+9}>
-                <span className="text-list-index">{idx+10}&nbsp;</span>
+            {rightList.map((name, idx) => (
+              <li key={idx + mid} className="text-list-item">
+                <span className="text-list-index">{idx + mid + 1}&nbsp;</span>
                 {name}
+                {name === majorName && <StarIcon className="star-icon" />}
               </li>
             ))}
           </ul>
         </div>
-      )}
-
-      {/* 선택 후 카드 리스트 */}
-      {selectedBlock && (
+      ) : (
         <div className="booth-list-container">
           {getRenderNumbers().map(num => {
-            const name = departmentList[num-1] || '로딩 중…';
+            const name = departmentList[num - 1] || '로딩 중…';
             const done = completedBooths.includes(num);
             return (
               <div key={num} className="booth-card">
                 <div className="card-header">
                   <span className="card-index">{num}</span>
-                  <span className="card-name">{name}</span>
+                  <span className="card-name">
+                    {name}
+                    {name === majorName && <StarIcon className="star-icon-small" />} 
+                  </span>
                 </div>
                 <div className="card-status">
                   <ClockIcon className="clock-icon" />
                   <span>{statusText}</span>
-                  <span className={['status-dot', statusText==='운영중'?'':'dot-inactive'].join(' ')} />
+                  <span className={`status-dot ${statusText === '운영중' ? '' : 'dot-inactive'}`} />
                 </div>
                 <div className="card-action">
-                  {done
-                    ? <CheckIcon className="check-icon-completed" />
-                    : <button className="complete-btn-detail" onClick={()=>openCompleteModal(num)}>
-                        체험 완료
-                      </button>
-                  }
+                  {done ? (
+                    <CheckIcon className="check-icon-completed" />
+                  ) : (
+                    <button className="complete-btn-detail" onClick={() => openCompleteModal(num)}>
+                      체험 완료
+                    </button>
+                  )}
                 </div>
               </div>
             );
@@ -203,7 +214,9 @@ export default function DepartmentSection() {
       {showModal && (
         <div className="bottom-sheet">
           <div className="complete-modal">
-            <div className="modal-header"><h3>✔️ 체험 완료 처리</h3></div>
+            <div className="modal-header">
+              <h3>✔️ 체험 완료 처리</h3>
+            </div>
             <div className="modal-body">
               <p>부스 활동은 즐거우셨나요?</p>
               <p>체험 완료 처리를 해주세요!</p>

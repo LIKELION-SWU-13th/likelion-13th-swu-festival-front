@@ -4,7 +4,7 @@ import './FoodTruckSection.css';
 
 const TRUCKS = {
   1: {
-    label: '타코타코',
+    label: '닭강정',
     menu: [
       { name: '오사카식 타코야끼',        price: '4,800원' },
       { name: '불닭 타코야끼',            price: '5,000원' },
@@ -13,7 +13,7 @@ const TRUCKS = {
     ],
   },
   2: {
-    label: '버거 바이츠',
+    label: '야끼소바',
     menu: [
       { name: '브리스켓 버거',            price: '6,000원' },
       { name: '소시지 핫도그',            price: '4,500원' },
@@ -21,42 +21,42 @@ const TRUCKS = {
     ],
   },
   3: {
-    label: '순대야 놀자',
+    label: '바베큐 닭꼬치',
     menu: [
       { name: '수제 냉동 순대볶음',        price: '5,500원' },
       { name: '떡볶이 컵',               price: '3,200원' },
     ],
   },
   4: {
-    label: '치즈팡팡',
+    label: '닭꼬치 OR 타코야끼',
     menu: [
       { name: '모짜렐라 치즈스틱',        price: '4,200원' },
       { name: '허니버터 감자칩',          price: '2,800원' },
     ],
   },
   5: {
-    label: '그린연어 덮밥',
+    label: '불초밥',
     menu: [
       { name: '아보카도 연어 덮밥',        price: '7,500원' },
       { name: '연어 샐러드',             price: '6,800원' },
     ],
   },
   6: {
-    label: '그린연어 덮밥',
+    label: '콩고기덥밥',
     menu: [
       { name: '아보카도 연어 덮밥',        price: '7,500원' },
       { name: '연어 샐러드',             price: '6,800원' },
     ],
   },
   7: {
-    label: '그린연어 덮밥',
+    label: '크레페',
     menu: [
       { name: '아보카도 연어 덮밥',        price: '7,500원' },
       { name: '연어 샐러드',             price: '6,800원' },
     ],
   },
   8: {
-    label: '그린연어 덮밥',
+    label: '아이스크림+츄러스',
     menu: [
       { name: '아보카도 연어 덮밥',        price: '7,500원' },
       { name: '연어 샐러드',             price: '6,800원' },
