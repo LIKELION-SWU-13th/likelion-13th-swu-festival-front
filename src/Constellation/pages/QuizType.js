@@ -3,12 +3,13 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { getQuizType } from '../../api/quiz';
 import './QuizType.css';
 import buttonBg from '../../Signup/assets/button-bg.svg';
+import backIcon from '../../Signup/assets/icon-back.svg';
 
 // 유형별 이미지 import
-import type1Image from '../assets/types/type1.png';
-import type2Image from '../assets/types/type2.png';
-import type3Image from '../assets/types/type3.png';
-import type4Image from '../assets/types/type4.png';
+import type1Image from '../assets/types/type1.svg';
+import type2Image from '../assets/types/type2.svg';
+import type3Image from '../assets/types/type3.svg';
+import type4Image from '../assets/types/type4.svg';
 
 const QuizType = () => {
   const navigate = useNavigate();
@@ -122,38 +123,39 @@ const QuizType = () => {
 
   return (
     <div className="type-container">
-      <div className="type-header">
-        <button className="back-button" onClick={() => navigate(-1)}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M15 18L9 12L15 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+      <div className="type-content">
+        <button className="back-button" onClick={() => navigate('/constellation')}>
+          <img src={backIcon} alt="뒤로가기" />
         </button>
+
         <h1 className="type-title">✨ 슈니의 유형은?</h1>
+        
+        <p className="type-description">
+          이 페이지를 캡쳐해서 스토리에 올리면<br />
+          추첨을 통해 컴포즈 커피 쿠폰을 드립니다!
+        </p>
+
+        <img 
+          src={typeInfo[userType].image} 
+          alt={`유형 ${userType} 결과`} 
+          className="type-image"
+        />
+
+        <div className="button-container">
+          <button 
+            className="instagram-button"
+            onClick={() => window.open('https://www.instagram.com/likelion_swu/', '_blank')}
+            style={{ 
+              backgroundImage: `url(${buttonBg})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center',
+              backgroundSize: 'cover'
+            }}
+          >
+            멋사 인스타그램 바로가기
+          </button>
+        </div>
       </div>
-
-      <p className="type-description">
-        이 페이지를 캡쳐해서 스토리에 올리면<br />
-        추첨을 통해 컴포즈 커피 쿠폰을 드립니다!
-      </p>
-
-      <img 
-        src={typeInfo[userType].image} 
-        alt={`유형 ${userType} 결과`} 
-        className="type-image"
-      />
-
-      <button 
-        className="instagram-button"
-        onClick={() => window.open('https://www.instagram.com/likelion_swu/', '_blank')}
-        style={{ 
-          backgroundImage: `url(${buttonBg})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
-          backgroundSize: 'cover'
-        }}
-      >
-        멋사 인스타그램 바로가기
-      </button>
     </div>
   );
 };
