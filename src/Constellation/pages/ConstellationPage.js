@@ -224,17 +224,10 @@ const ConstellationPage = () => {
       
       {/* 12개 퀴즈 모두 완료 시 유형 확인 버튼 */}
       {showTypeButton && (
-        <div className="floating-button-container">
-          <button
-            className="type-floating-button"
-            onClick={checkQuizType}
-          >
-            <img src={buttonFloating} alt="유형 확인하기" />
-          </button>
-          
-          <div className="type-tooltip">
-            <img src={tooltip} alt="tooltip" />
-            <span>축제를 즐기는 유형을 확인해보세요</span>
+        <div className="type-tooltip-row">
+          <img src={buttonFloating} alt="유형 확인" className="tooltip-icon" />
+          <div className="tooltip-bubble">
+            축제를 즐기는 유형을 확인해보세요
           </div>
         </div>
       )}

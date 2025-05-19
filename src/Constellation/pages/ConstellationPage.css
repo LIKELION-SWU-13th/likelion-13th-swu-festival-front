@@ -210,3 +210,40 @@
 .retry-button:hover {
   background-color: #4926b5;
 }
+
+.type-tooltip-row {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.tooltip-icon {
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  min-height: 50px;
+  margin-right: 10px;
+  display: block;
+}
+
+.tooltip-bubble {
+  position: relative;
+  background: #906CF9;
+  color: #fff;
+  padding: 6px 11px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-block;
+}
+.tooltip-bubble::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0; height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 6px solid #906CF9;
+}
