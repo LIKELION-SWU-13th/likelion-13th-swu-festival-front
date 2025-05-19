@@ -12,7 +12,7 @@
 .coupon-content {
   display: flex;
   flex-direction: column;
-  padding: 24px;
+  padding: 16px;
 }
 
 /* 뒤로가기 버튼 */
@@ -21,7 +21,7 @@
   border: none;
   color: white;
   padding: 8px 0;
-  margin-bottom: 36px;
+  margin-top: 12px;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -41,7 +41,8 @@
   font-weight: 600;
   margin-bottom: 16px;
   color: white;
-  margin-top: 100px;
+  margin-top: 120px;
+  margin-left: 9px;
 }
 
 .emoji {
@@ -54,6 +55,7 @@
   color: #ccc;
   font-size: 16px;
   line-height: 1.5;
+  margin-left: 9px;
   margin-bottom: 24px;
   text-align: left;
 }
@@ -72,26 +74,32 @@
 }
 
 /* 인스타그램 바로가기 버튼 */
-.instagram-button {
+.coupon-container .coupon-content .instagram-button {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background-color: #60606C;
-  border: 1px solid #484851;
+  background-color: #60606C !important;
+  border: 1px solid #484851 !important;
   border-radius: 100px;
   color: white;
-  margin: 0 auto 20px; /* 좌우 가운데 정렬 */
+  margin: 0 auto 20px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s;
-  width: 256px;
-  height: 40px;
+  transition: all 0.2s ease;
+  width: 230px !important;
+  height: 36px !important;
 }
 
-.instagram-button:hover {
+.coupon-container .coupon-content .instagram-button:hover {
   opacity: 0.9;
+  border-color: #484851 !important;
+  transform: translateY(-2px);
+}
+
+.coupon-container .coupon-content .instagram-button:active {
+  transform: translateY(0);
 }
 
 .instagram-icon {
@@ -103,7 +111,7 @@
 .arrow-icon {
   width: 14px;
   height: 14px;
-  margin-left: 4px;
+  margin-right: 0;
 }
 
 /* 홈 화면 버튼 */
@@ -117,7 +125,7 @@
   font-weight: 700;
   cursor: pointer;
   text-align: center;
-  margin-top: auto;
+  margin-top: 15px;
   height: 56px;
   border-radius: 100px;
   box-sizing: border-box;
