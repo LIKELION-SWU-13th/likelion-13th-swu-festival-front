@@ -4,7 +4,7 @@ import axios from 'axios';
 const instance = axios.create({
   baseURL: 'https://api.likelion13th-swu.site',
   withCredentials: true,
-  timeout: 10000,
+  timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -85,6 +85,21 @@ instance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+
+    // 네트워크 오류 처리 (서버 연결 실패)
+    if (!error.response) {
+      console.error('네트워크 오류:', error.message);
+      
+      // 네트워크 오류 이벤트 발생
+      window.dispatchEvent(new CustomEvent('network-error', { 
+        detail: { 
+          message: '서버에 연결할 수 없습니다. 네트워크 연결을 확인해주세요.',
+          originalError: error
+        } 
+      }));
+      
+      return Promise.reject(error);
+    }
 
     // 토큰 관련 에러 (401, 403) 및 재시도하지 않은 요청인 경우
     if ((error.response?.status === 401 || (error.response?.status === 403 && error.response?.data?.message?.includes('만료'))) && !originalRequest._retry) {

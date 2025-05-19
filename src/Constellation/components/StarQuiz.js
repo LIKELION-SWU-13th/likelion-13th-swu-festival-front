@@ -1,38 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getQuizPercent } from '../../api/quiz';
 import './StarQuiz.css';
 
 const StarQuiz = ({ quizId, isOpen, isCompleted, onComplete, isNext, quizData, starImages }) => {
   const navigate = useNavigate();
   const [nextQuizTime, setNextQuizTime] = useState(null); // 다음 퀴즈 오픈 시간
 
+  // 다음 퀴즈인 경우에만 시간 정보 계산
   useEffect(() => {
-    // 퀴즈가 열려있고 아직 완료하지 않았다면 완료 여부 체크
-    if (isOpen && !isCompleted) {
-      checkIfCompleted();
-    }
-    
-    // 다음 퀴즈인 경우 시간 추출
     if (isNext && quizData?.open_time) {
       const openTime = new Date(quizData.open_time);
       setNextQuizTime(openTime.getHours());
     }
-  }, [isOpen, isNext, quizId, quizData, isCompleted]);
-
-  // 이미 응답했는지 확인하는 메서드
-  const checkIfCompleted = async () => {
-    try {
-      const data = await getQuizPercent(quizId);
-      
-      // 응답이 있고 choice 속성이 있으면 완료 처리
-      if (data && data.choice) {
-        onComplete(quizId);
-      } 
-    } catch (error) {
-      // 오류 무시
-    }
-  };
+  }, [isNext, quizData]);
 
   // 별 클릭 이벤트 핸들러
   const handleStarClick = () => {

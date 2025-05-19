@@ -4,14 +4,33 @@ import api from './axios';
 export const getCompletedQuizzes = async () => {
   try {
     const response = await api.get('/quiz/star');
-    return response.data;
+    
+    // 응답 데이터가 배열인지 확인
+    if (Array.isArray(response.data)) {
+      return response.data;
+    } else if (response.data && Array.isArray(response.data.quizzes)) {
+      // 응답 형식이 다른 경우 (quizzes 배열)
+      return response.data.quizzes;
+    } else {
+      // 예상치 못한 응답 형식
+      console.error('Unexpected response format:', response.data);
+      return [];
+    }
   } catch (error) {
+    // 오류 콘솔 표시
+    console.error('Failed to fetch completed quizzes:', error);
+    
     // 403 에러는 권한 문제 - 빈 배열 반환
     if (error.response?.status === 403) {
       return []; // 일단 빈 배열 반환
     }
     
-    return []; // 어떤 경우든 빈 배열 반환
+    // 네트워크 오류 등의 경우 예외를 상위로 전파해 타임아웃 처리가 동작할 수 있게 함
+    if (!error.response) {
+      throw error;
+    }
+    
+    return []; // 다른 오류의 경우 빈 배열 반환
   }
 };
 
@@ -74,16 +93,16 @@ const getQuizOpenTime = (quizId) => {
     4: '2025-05-19T18:00:00',
     
     // 둘째날: 5/22(목)
-    5: '2025-05-22T11:00:00',
-    6: '2025-05-22T14:00:00',
-    7: '2025-05-22T16:00:00',
-    8: '2025-05-22T18:00:00',
+    5: '2025-05-19T11:00:00',
+    6: '2025-05-19T14:00:00',
+    7: '2025-05-19T16:00:00',
+    8: '2025-05-19T18:00:00',
     
     // 셋째날: 5/23(금)
-    9: '2025-05-23T11:00:00',
-    10: '2025-05-23T14:00:00',
-    11: '2025-05-23T16:00:00',
-    12: '2025-05-23T18:00:00'
+    9: '2025-05-19T11:00:00',
+    10: '2025-05-19T14:00:00',
+    11: '2025-05-19T16:00:00',
+    12: '2025-05-19T18:00:00'
   };
 
   return quizOpenTimes[quizId] || null;

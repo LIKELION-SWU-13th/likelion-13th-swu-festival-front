@@ -1,0 +1,114 @@
+/* 유형 결과 페이지 전체 컨테이너 */
+.type-container {
+  min-height: 100vh;
+  background-color: #151531;
+  color: white;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 헤더 영역 - 뒤로가기 버튼과 타이틀 포함 */
+.type-header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+/* 뒤로가기 버튼 */
+.back-button {
+  background: none;
+  border: none;
+  color: white;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  align-self: flex-start; /* 왼쪽 정렬 */
+}
+
+/* 타이틀 텍스트 */
+.type-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+/* 설명 텍스트  */
+.type-description {
+  color: #ccc;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+/* 유형 결과 이미지 */
+.type-image {
+  width: 100%;
+  max-width: 500px; /* 큰 화면에서는 최대 너비 제한 */
+  height: auto;
+  border-radius: 16px;
+  margin: 0 auto 24px; /* 가운데 정렬 및 아래 여백 */
+  display: block;
+}
+
+/* 인스타그램 바로가기 버튼 */
+.instagram-button {
+  width: 100%;
+  padding: 16px;
+  background-color: transparent;
+  border: none;
+  border-radius: 100px;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: auto; /* 남은 공간을 위쪽에 배치하여 버튼을 하단으로 밀기 */
+  text-align: center;
+  height: 56px;
+}
+
+/* 로딩 화면 */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: white;
+  font-size: 18px;
+  background-color: #151531;
+}
+
+/* 에러 메시지 스타일 */
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: white;
+  text-align: center;
+  background-color: #151531;
+  padding: 24px;
+}
+
+.error p {
+  font-size: 18px;
+  margin-bottom: 24px;
+}
+
+.error button {
+  padding: 12px 24px;
+  background: rgba(157, 164, 251, 0.2);
+  border: 1px solid rgba(157, 164, 251, 0.7);
+  border-radius: 100px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.error button:hover {
+  background: rgba(157, 164, 251, 0.3);
+}

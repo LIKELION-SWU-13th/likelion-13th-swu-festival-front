@@ -5,6 +5,19 @@ import './QuizPage.css';
 import './Modal.css';
 import buttonBg from '../../Signup/assets/button-bg.svg';
 
+// API 요청 타임아웃(밀리초)
+const API_TIMEOUT = 5000;
+
+// 타임아웃 처리된 API 호출 함수
+const callWithTimeout = (apiPromise) => {
+  return Promise.race([
+    apiPromise,
+    new Promise((_, reject) => 
+      setTimeout(() => reject(new Error('요청 시간이 초과되었습니다.')), API_TIMEOUT)
+    )
+  ]);
+};
+
 const QuizPage = () => {
   const { quizId } = useParams(); // URL 파라미터에서 퀴즈 ID 추출
   const navigate = useNavigate(); // 페이지 이동을 위한 훅
@@ -16,26 +29,34 @@ const QuizPage = () => {
   const [selectedChoice, setSelectedChoice] = useState(null);  // 선택된 항목 상태
   const [showModal, setShowModal] = useState(false);  // 모달 표시 여부
   const [isSuccessful, setIsSuccessful] = useState(false);  // 선착순 성공 여부
+  const [error, setError] = useState(null);  // 오류 상태
 
   // 퀴즈 데이터 불러오기
   useEffect(() => {
     const loadQuizData = async () => {
       try {
         setIsLoading(true);
+        setError(null);
 
-        // 퀴즈 내용 불러오기
-        const data = await getQuizDetail(quizId);
+        // 퀴즈 내용 불러오기 - 타임아웃 적용
+        const data = await callWithTimeout(getQuizDetail(quizId));
         setQuizData(data);
         
         // 이미 응답했는지 확인
-        const percentData = await getQuizPercent(quizId);
-        
-        // choice가 있으면 응답이 있는 것
-        if (percentData && percentData.choice) {
-          setResult(percentData); // 응답 결과 저장
+        try {
+          const percentData = await callWithTimeout(getQuizPercent(quizId));
+          
+          if (percentData && percentData.choice) {
+            setResult(percentData); // 응답 결과 저장
+          }
+        } catch (error) {
+          // 응답이 없으면 무시 (정상 흐름)
+          console.log('아직 응답하지 않은 퀴즈입니다.');
         }
       } catch (error) {
-        // 오류 무시
+        // 오류 처리
+        console.error('퀴즈 데이터 로드 실패:', error);
+        setError('퀴즈 정보를 불러오는데 실패했습니다. 다시 시도해주세요.');
       } finally {
         setIsLoading(false);
       }
@@ -46,25 +67,48 @@ const QuizPage = () => {
 
   // 응답 제출 처리
   const handleAnswer = async (choice) => {
+    // 이미 선택 중이면 중복 실행 방지
+    if (selectedChoice !== null) {
+      return;
+    }
+    
     setSelectedChoice(choice); // 선택한 항목 표시
     
     try {
-      // 선택한 답변을 서버에 제출
-      const data = await submitQuizAnswer(quizId, choice);
+      // 선택한 답변을 서버에 제출 - 타임아웃 적용
+      const data = await callWithTimeout(submitQuizAnswer(quizId, choice));
       
       // API 응답에서 당첨 여부 확인
       const isWinner = data._win === true;
       setIsSuccessful(isWinner);
       setShowModal(true); // 모달 표시
       
-      // 1초 대기 후 최신 퍼센트 데이터 가져오기
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      const latestData = await getQuizPercent(quizId);
-      
-      // 최신 결과 데이터 저장
-      setResult(latestData);
+      // 선택한 결과 저장 (API 응답에 비율 정보 있는 경우)
+      if (data.a_rate !== undefined && data.b_rate !== undefined) {
+        setResult({
+          choice: choice,
+          a_rate: data.a_rate, 
+          b_rate: data.b_rate
+        });
+      } else {
+        // API 호출해서 가져오기 - 타임아웃 적용
+        try {
+          const percentData = await callWithTimeout(getQuizPercent(quizId));
+          setResult(percentData);
+        } catch (error) {
+          // 퍼센트 가져오기 실패 시 기본값 설정
+          setResult({
+            choice: choice,
+            a_rate: 50,
+            b_rate: 50
+          });
+        }
+      }
     } catch (error) {
-      // 오류 무시 - 에러 발생 시 모달 표시하지 않고 결과도 저장하지 않음
+      // 오류 발생 시 선택 상태 초기화
+      setSelectedChoice(null);
+      setError('응답 제출에 실패했습니다. 다시 시도해주세요.');
+      alert('응답 제출에 실패했습니다. 다시 시도해주세요.');
     }
   };
 
@@ -77,6 +121,27 @@ const QuizPage = () => {
       navigate('/coupon');
     }
   };
+
+  // 오류 발생 시
+  if (error) {
+    return (
+      <div className="quiz-error">
+        <p>{error}</p>
+        <button 
+          className="retry-button" 
+          onClick={() => window.location.reload()}
+          style={{ 
+            backgroundImage: `url(${buttonBg})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            backgroundSize: 'cover'
+          }}
+        >
+          다시 시도하기
+        </button>
+      </div>
+    );
+  }
 
   // 로딩 중일 때
   if (isLoading || !quizData) {
@@ -97,16 +162,20 @@ const QuizPage = () => {
             <button
               className={`choice-button ${selectedChoice === 'A' ? 'selected' : ''}`}
               onClick={() => handleAnswer('A')}
+              disabled={selectedChoice !== null}
             >
               <span className="choice-label">A.</span>
               <span className="choice-text">{quizData.a_body}</span>
+              {selectedChoice === 'A' && <span className="loading-indicator">처리 중...</span>}
             </button>
             <button
               className={`choice-button ${selectedChoice === 'B' ? 'selected' : ''}`}
               onClick={() => handleAnswer('B')}
+              disabled={selectedChoice !== null}
             >
               <span className="choice-label">B.</span>
               <span className="choice-text">{quizData.b_body}</span>
+              {selectedChoice === 'B' && <span className="loading-indicator">처리 중...</span>}
             </button>
           </div>
         ) : (

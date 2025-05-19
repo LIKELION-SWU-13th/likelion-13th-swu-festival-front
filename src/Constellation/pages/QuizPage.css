@@ -211,3 +211,84 @@
   box-sizing: border-box;
   border-radius: 100px;
 }
+
+/* 로딩 인디케이터 스타일 추가 */
+.loading-indicator {
+  display: inline-block;
+  position: relative;
+  margin-left: 10px;
+  font-size: 14px;
+  color: #fff;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+
+/* 제출 중 버튼 스타일 */
+.choice-button.submitting {
+  opacity: 0.8;
+  pointer-events: none;
+  position: relative;
+}
+
+/* 오류 메시지 컨테이너 */
+.quiz-error-message {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: 1px solid #ff6b6b;
+  border-radius: 8px;
+  padding: 12px;
+  margin: 12px 0;
+  color: #ff6b6b;
+  text-align: center;
+}
+
+/* 다시 시도 버튼 */
+.retry-button {
+  background-color: #7B7FD6;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  margin-top: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.retry-button:hover {
+  background-color: #6367c4;
+}
+
+/* 오류 페이지 */
+.quiz-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.quiz-error p {
+  font-size: 18px;
+  color: #ff6b6b;
+  margin-bottom: 20px;
+}
+
+.quiz-error .retry-button {
+  width: 200px;
+  height: 50px;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
