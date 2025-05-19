@@ -72,8 +72,45 @@ export const getQuizPercent = async (quizId) => {
 
 // 퀴즈 응답 제출
 export const submitQuizAnswer = async (quizId, choiceStr) => {
-  const response = await api.post(`/answers/sendAnswer/${quizId}`, { choiceStr });
-  return response.data;
+  try {
+    // 타임아웃 추가: 3초로 설정
+    const response = await api.post(`/answers/sendAnswer/${quizId}`, 
+      { choiceStr }, 
+      { 
+        timeout: 3000,  // 3초 타임아웃
+        headers: {
+          'Cache-Control': 'no-cache',  // 캐시 방지
+        }
+      }
+    );
+    
+    return response.data;
+  } catch (error) {
+    console.error('퀴즈 응답 제출 실패:', error);
+    
+    // 타임아웃 발생 시
+    if (error.code === 'ECONNABORTED') {
+      throw new Error('서버 응답 시간이 초과되었습니다.');
+    }
+    
+    // 서버 응답이 있는 에러
+    if (error.response) {
+      const status = error.response.status;
+      
+      // 403이면 이미 응답한 퀴즈
+      if (status === 403) {
+        throw new Error('이미 답변한 퀴즈입니다.');
+      }
+      
+      // 401이면 로그인 필요
+      if (status === 401) {
+        throw new Error('로그인이 필요합니다.');
+      }
+    }
+    
+    // 서버 응답이 없는 경우 (네트워크 오류)
+    throw new Error('서버 연결에 실패했습니다. 네트워크 상태를 확인해주세요.');
+  }
 };
 
 // 퀴즈 결과 타입 조회
@@ -82,30 +119,31 @@ export const getQuizType = async () => {
   return response.data;
 };
 
-// 퀴즈 오픈 시간 계산 함수
-const getQuizOpenTime = (quizId) => {
-  // 퀴즈 ID에 따른 오픈 시간 매핑
-  const quizOpenTimes = {
-    // 축제 첫째날: 5/21(수)
-    1: '2025-05-19T11:00:00',
-    2: '2025-05-19T14:00:00',
-    3: '2025-05-19T16:00:00',
-    4: '2025-05-19T18:00:00',
-    
-    // 둘째날: 5/22(목)
-    5: '2025-05-19T11:00:00',
-    6: '2025-05-19T14:00:00',
-    7: '2025-05-19T16:00:00',
-    8: '2025-05-19T18:00:00',
-    
-    // 셋째날: 5/23(금)
-    9: '2025-05-19T11:00:00',
-    10: '2025-05-19T14:00:00',
-    11: '2025-05-19T16:00:00',
-    12: '2025-05-19T18:00:00'
-  };
+// 퀴즈 오픈 시간 매핑
+// TODO: 개발 중 퀴즈 오픈 시간 테스트용 매핑 추후 수정 필요
+export const QUIZ_OPEN_TIMES = {
+  // 축제 첫째날: 5/21(수)
+  1: '2025-05-19T11:00:00',
+  2: '2025-05-19T14:00:00',
+  3: '2025-05-19T16:00:00',
+  4: '2025-05-19T18:00:00',
+  
+  // 둘째날: 5/22(목)
+  5: '2025-05-20T11:00:00',
+  6: '2025-05-20T14:00:00',
+  7: '2025-05-20T16:00:00',
+  8: '2025-05-22T18:00:00',
+  
+  // 셋째날: 5/23(금)
+  9: '2025-05-23T11:00:00',
+  10: '2025-05-23T14:00:00',
+  11: '2025-05-23T16:00:00',
+  12: '2025-05-23T18:00:00'
+};
 
-  return quizOpenTimes[quizId] || null;
+// 퀴즈 오픈 시간 계산 함수
+export const getQuizOpenTime = (quizId) => {
+  return QUIZ_OPEN_TIMES[quizId] || null;
 };
 
 // 퀴즈가 열려 있는지 확인 (현재 시간과 비교해서)
