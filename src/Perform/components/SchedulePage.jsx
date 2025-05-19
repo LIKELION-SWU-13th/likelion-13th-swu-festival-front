@@ -97,14 +97,14 @@ export default function SchedulePage({ guestSchedules }) {
           <div className="artist-info">
             <div className="artist-header">{selectedArtist.event}</div>
             <div
-  className={
-    selectedArtist
-      ? (selectedDate === '21'
-          ? 'artist-time artist-time-special'
-          : 'artist-time')
-      : 'artist-time'
-  }
->
+              className={
+                selectedArtist
+                  ? (selectedDate === '21'
+                      ? 'artist-time artist-time-special'
+                      : 'artist-time')
+                  : 'artist-time'
+                      }
+                    >
   {selectedArtist.time}
       </div>
           </div>

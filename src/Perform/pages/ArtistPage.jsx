@@ -871,7 +871,7 @@ export default function ArtistPage() {
 
   return (
     <div className="artist-page">
-      <div className="artist-header">
+      <div className="artist-page-header">
         <button className="back-button" onClick={() => navigate(-1)}>
           <ArrowIcon />
         </button>
@@ -912,7 +912,7 @@ export default function ArtistPage() {
                   style={{ marginLeft: artistId === 'juchang' ? 0 : '12px' }}
                 >
                   <div className="song-name">{song.title}</div>
-                  <div className="artist-name">{displayName}</div>
+                  <div className="artist-page-name">{displayName}</div>
                 </div>
                 <div className="arrow-wrapper">
                   <ArrowIcon />
