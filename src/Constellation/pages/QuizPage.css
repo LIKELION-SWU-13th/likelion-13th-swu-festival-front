@@ -76,9 +76,11 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  transform: scale(1);
   box-sizing: border-box;
   box-shadow: 0 0 10px rgba(157, 164, 251, 0.3); /* 테두리 발광 효과 */
+  will-change: background-color; /* 변경될 속성 힌트 */
+  -webkit-tap-highlight-color: transparent; /* 모바일에서 탭 하이라이트 제거 */
+  position: relative;
 }
 
 /* 버튼 hover 시 효과 */
@@ -87,7 +89,7 @@
 }
 
 .choice-button:active {
-  transform: scale(0.97);
+  transform: translateY(1px); /* scale 대신 더 가벼운 변환 사용 */
 }
 
 /* 선택된 버튼 */
@@ -95,9 +97,7 @@
   background: linear-gradient(90deg, rgba(157, 164, 251, 0.9), rgba(206, 209, 253, 0.9)); /* 그라데이션 배경 */
   border: 1px solid rgba(255, 255, 255, 0.4);
   color: #FFFFFF;
-  transform: scale(1.02);
-  transition: all 0.3s ease;
-  box-shadow: 0 0 15px rgba(157, 164, 251, 0.5); /* 발광 효과 증가 */
+  pointer-events: none; /* 선택 후 클릭 방지 */
 }
 
 .choice-button.selected .choice-label,
@@ -163,7 +163,8 @@
   opacity: 1; /* 불투명도 증가 */
   z-index: 0;
   border-radius: 0; /* 왼쪽에서 시작하므로 둥근 모서리 제거 */
-  transition: width 1s ease; /* 애니메이션 효과 추가 */
+  transition: width 0.8s ease; /* 애니메이션 시간 단축 */
+  will-change: width; /* 변경될 속성 힌트 */
   display: block;
 }
 
@@ -212,14 +213,30 @@
   border-radius: 100px;
 }
 
-/* 로딩 인디케이터 스타일 추가 */
+/* 로딩 인디케이터 스타일 개선 */
 .loading-indicator {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   position: relative;
   margin-left: 10px;
   font-size: 14px;
   color: #fff;
   animation: pulse 1.5s infinite;
+  will-change: opacity; /* 애니메이션 성능 향상 */
+}
+
+.loading-indicator::after {
+  content: '...';
+  animation: dots 1.5s infinite;
+  letter-spacing: 2px;
+}
+
+@keyframes dots {
+  0% { content: '.'; }
+  33% { content: '..'; }
+  66% { content: '...'; }
+  100% { content: '.'; }
 }
 
 @keyframes pulse {
@@ -230,36 +247,61 @@
 
 /* 제출 중 버튼 스타일 */
 .choice-button.submitting {
-  opacity: 0.8;
-  pointer-events: none;
-  position: relative;
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: scale(0.98);
 }
 
-/* 오류 메시지 컨테이너 */
+.choice-button .loading-indicator {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
+
 .quiz-error-message {
-  background-color: rgba(255, 0, 0, 0.1);
-  border: 1px solid #ff6b6b;
+  margin-top: 16px;
+  padding: 12px 16px;
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  padding: 12px;
-  margin: 12px 0;
-  color: #ff6b6b;
   text-align: center;
 }
 
-/* 다시 시도 버튼 */
-.retry-button {
-  background-color: #7B7FD6;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  padding: 8px 16px;
-  margin-top: 8px;
-  cursor: pointer;
+.quiz-error-message p {
+  margin: 0;
+  color: #ff6b6b;
   font-size: 14px;
+  line-height: 1.5;
 }
 
-.retry-button:hover {
-  background-color: #6367c4;
+.quiz-error-message .error-sub-message {
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+}
+
+/* 선택 버튼 비활성화 스타일 */
+.choice-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.choice-button:disabled:hover {
+  transform: none;
+  box-shadow: none;
 }
 
 /* 오류 페이지 */
@@ -291,4 +333,48 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* 퀴즈 로딩 화면 */
+.quiz-loading-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  width: 100%;
+}
+
+.quiz-loading {
+  text-align: center;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 40px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loading-dots {
+  margin-top: 10px;
+  display: inline-block;
+  position: relative;
+  width: 60px;
+  height: 10px;
+}
+
+.loading-dots::after {
+  content: '.';
+  position: absolute;
+  left: 25px;
+  color: white;
+  font-size: 28px;
+  animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+  0% { content: '.'; }
+  33% { content: '..'; }
+  66% { content: '...'; }
+  100% { content: '.'; }
 }
