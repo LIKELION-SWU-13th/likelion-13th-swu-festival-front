@@ -52,17 +52,40 @@ const QUIZ_OPEN_TIMES = {
   4: '2025-05-19T18:00:00',
   
   // 둘째날: 5/22(목)
-  5: '2025-05-19T11:00:00',
-  6: '2025-05-19T14:00:00',
-  7: '2025-05-19T16:00:00',
-  8: '2025-05-19T18:00:00',
+  5: '2025-05-22T11:00:00',
+  6: '2025-05-22T14:00:00',
+  7: '2025-05-22T16:00:00',
+  8: '2025-05-22T18:00:00',
   
   // 셋째날: 5/23(금)
-  9: '2025-05-19T11:00:00',
-  10: '2025-05-19T14:00:00',
-  11: '2025-05-19T16:00:00',
-  12: '2025-05-19T18:00:00'
+  9: '2025-05-23T11:00:00',
+  10: '2025-05-23T14:00:00',
+  11: '2025-05-23T16:00:00',
+  12: '2025-05-23T18:00:00'
 };
+
+// 별마다 툴팁 위치 지정 (1번 별은 툴팁 없음)
+const STAR_TOOLTIP = {
+  2: { position: 'left' },    // 꼬리 오른쪽
+  3: { position: 'top' },     // 꼬리 아래
+  4: { position: 'left' },    // 꼬리 오른쪽
+  5: { position: 'top' },     // 꼬리 아래
+  6: { position: 'right' },   // 꼬리 왼쪽
+  7: { position: 'right' },   // 꼬리 왼쪽
+  8: { position: 'top' },     // 꼬리 아래
+  9: { position: 'left' },    // 꼬리 오른쪽
+  10: { position: 'top' },    // 꼬리 아래
+  11: { position: 'bottom' }, // 꼬리 위
+  12: { position: 'top' },    // 꼬리 아래
+};
+
+// 오픈 시간에서 시만 추출
+function getOpenHourStr(quizId) {
+  const iso = QUIZ_OPEN_TIMES[quizId];
+  if (!iso) return '';
+  const date = new Date(iso);
+  return `${date.getHours()}시`;
+}
 
 const ConstellationPage = () => {
   const navigate = useNavigate();
@@ -237,7 +260,6 @@ const ConstellationPage = () => {
         <div className="constellation-background">
           <img src={constellationLines} alt="constellation lines" />
         </div>
-        
         {/* 별들 */}
         {STAR_POSITIONS.map((position) => (
           <div
@@ -263,7 +285,14 @@ const ConstellationPage = () => {
                 completed: starCompleted,
                 tooltip: tooltip
               }}
+              hideTooltip={true}
             />
+            {/* 다음 열릴 퀴즈 1개에만 커스텀 툴팁 표시 */}
+            {position.id === nextQuizId && STAR_TOOLTIP[position.id] && (
+              <div className={`star-tooltip-bubble star-tooltip-bubble-${STAR_TOOLTIP[position.id].position}`}>
+                다음 퀴즈는 {getOpenHourStr(position.id)}에 열려요!
+              </div>
+            )}
           </div>
         ))}
       </div>
