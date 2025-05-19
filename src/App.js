@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import BoothPage from './Booth/pages/BoothPage';
 import PerformPage from './Perform/pages/PerformPage';
@@ -9,15 +9,20 @@ import ConstellationPage from './Constellation/pages/ConstellationPage';
 import QuizPage from './Constellation/pages/QuizPage';
 import CouponPage from './Constellation/pages/CouponPage';
 import QuizType from './Constellation/pages/QuizType'
-import { checkAuth, default as instance } from './api/axios';
+import { checkAuth, default as instance, getTokenExpiry } from './api/axios';
+import axios from 'axios';
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [tokenRefreshTimer, setTokenRefreshTimer] = useState(null);
-  const [pendingRequests, setPendingRequests] = useState([]);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  
+  // 함수 참조를 저장하기 위한 ref 생성
+  const refreshTokenRef = useRef(null);
+  const handleLogoutRef = useRef(null);
 
-  // 로그아웃 처리 함수를 먼저 정의
+  // 로그아웃 처리 함수
   const handleLogout = useCallback(() => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
@@ -28,29 +33,66 @@ export default function App() {
     setIsAuthenticated(false);
     if (tokenRefreshTimer) {
       clearTimeout(tokenRefreshTimer);
+      setTokenRefreshTimer(null);
     }
     window.location.href = '/signup';
   }, [tokenRefreshTimer]);
+  
+  // 함수 참조 업데이트
+  handleLogoutRef.current = handleLogout;
 
   // 토큰 갱신 함수
   const refreshToken = useCallback(async () => {
+    // 이미 갱신 중이라면 건너뛰기
+    if (isRefreshing) return;
+    
     try {
+      // 갱신 상태 설정
+      setIsRefreshing(true);
+      
       const refreshToken = localStorage.getItem('refresh_token');
       if (!refreshToken) {
-        handleLogout();
+        handleLogoutRef.current();
         return;
       }
 
-      const response = await instance.post('/user/refresh', null, {
-        headers: {
-          Authorization: `Bearer ${refreshToken}`
-        }
-      });
+      // 토큰 만료 확인
+      const refreshTokenExpiry = getTokenExpiry(refreshToken);
+      if (!refreshTokenExpiry) {
+        handleLogoutRef.current();
+        return;
+      }
+      
+      const currentTime = new Date().getTime();
+      if (currentTime >= refreshTokenExpiry) {
+        handleLogoutRef.current();
+        return;
+      }
+
+      // 백엔드 토큰 갱신 요청 시도
+      let response = null;
+      
+      try {
+        response = await axios({
+          method: 'get',
+          url: 'https://api.likelion13th-swu.site/user/refresh',
+          headers: {
+            Authorization: `Bearer ${refreshToken}`,
+            'Content-Type': 'application/json'
+          }
+        });
+      } catch (err) {
+        throw err;
+      }
+
+      if (!response) {
+        throw new Error('토큰 갱신 응답이 없습니다.');
+      }
 
       // /user/refresh API는 camelCase 응답 형식
       const { accessToken, refreshToken: newRefreshToken } = response.data;
       if (!accessToken) {
-        handleLogout();
+        handleLogoutRef.current();
         return;
       }
 
@@ -63,13 +105,12 @@ export default function App() {
       }
 
       // 다음 갱신 타이머 설정
-      const tokenData = JSON.parse(atob(accessToken.split('.')[1]));
-      const expirationTime = tokenData.exp * 1000; // 밀리초로 변환
-      const now = new Date().getTime();
-      const timeUntilExpiry = expirationTime - now;
+      const accessTokenExpiry = getTokenExpiry(accessToken);
+      const nowTime = new Date().getTime();
+      const timeUntilExpiry = accessTokenExpiry - nowTime;
       
-      // 만료 30초 전에 갱신
-      const refreshTime = Math.max(timeUntilExpiry - 30000, 0);
+      // 만료 30초 전에 갱신 (최소 10초, 최대 설정 분 -5초)
+      const refreshTime = Math.min(Math.max(timeUntilExpiry - 30000, 10000), timeUntilExpiry - 5000);
 
       // 이전 타이머 제거
       if (tokenRefreshTimer) {
@@ -77,25 +118,30 @@ export default function App() {
       }
 
       // 새로운 타이머 설정
-      const timer = setTimeout(refreshToken, refreshTime);
+      const timer = setTimeout(() => {
+        if (refreshTokenRef.current) {
+          refreshTokenRef.current();
+        }
+      }, refreshTime);
       setTokenRefreshTimer(timer);
 
       // 인증 상태 변경 이벤트 발생
       window.dispatchEvent(new Event('auth-change'));
-
-      // 대기 중인 요청들 재시도
-      if (pendingRequests.length > 0) {
-        pendingRequests.forEach(request => {
-          request.headers.Authorization = `Bearer ${accessToken}`;
-          instance(request);
-        });
-        setPendingRequests([]);
-      }
+      
+      // 인증 상태 업데이트
+      setIsAuthenticated(true);
+      
     } catch (error) {
-      console.error('토큰 갱신 실패:', error);
-      handleLogout();
+      
+      // 인증 실패 시 로그아웃
+      handleLogoutRef.current();
+    } finally {
+      setIsRefreshing(false);
     }
-  }, [tokenRefreshTimer, pendingRequests, handleLogout]);
+  }, [isRefreshing, tokenRefreshTimer]);
+  
+  // 함수 참조 업데이트
+  refreshTokenRef.current = refreshToken;
 
   useEffect(() => {
     const verifyAuth = async () => {
@@ -108,32 +154,76 @@ export default function App() {
         if ((forcedAuth === 'true' || authChecked === 'true') && 
             (window.location.pathname === '/constellation' || window.location.pathname === '/')) {
           setIsAuthenticated(true);
+          
+          // 토큰 갱신 타이머 설정
+          const accessToken = localStorage.getItem('access_token');
+          if (accessToken) {
+            try {
+              const expirationTime = getTokenExpiry(accessToken);
+              const now = new Date().getTime();
+              
+              // 토큰이 곧 만료되거나 이미 만료된 경우
+              if (expirationTime - now < 60000) {
+                refreshToken(); // 즉시 갱신
+              } else {
+                // 만료 30초 전에 갱신 (최소 10초)
+                const refreshTime = Math.max(expirationTime - now - 30000, 10000);
+                
+                // 이전 타이머 제거
+                if (tokenRefreshTimer) {
+                  clearTimeout(tokenRefreshTimer);
+                }
+                
+                // 새로운 타이머 설정
+                const timer = setTimeout(() => {
+                  if (refreshTokenRef.current) {
+                    refreshTokenRef.current();
+                  }
+                }, refreshTime);
+                setTokenRefreshTimer(timer);
+              }
+            } catch (err) {
+              refreshToken(); // 오류 발생 시 즉시 갱신 시도
+            }
+          }
+          
           setIsLoading(false);
           return;
         }
         
-        const { isAuthenticated: authStatus, message } = await checkAuth();
+        const { isAuthenticated: authStatus } = await checkAuth();
         
         if (authStatus) {
           // 인증된 경우 토큰 갱신 타이머 설정
           const accessToken = localStorage.getItem('access_token');
           if (accessToken) {
-            const tokenData = JSON.parse(atob(accessToken.split('.')[1]));
-            const expirationTime = tokenData.exp * 1000;
-            const now = new Date().getTime();
-            const timeUntilExpiry = expirationTime - now;
-            
-            // 만료 30초 전에 갱신
-            const refreshTime = Math.max(timeUntilExpiry - 30000, 0);
-
-            // 이전 타이머 제거
-            if (tokenRefreshTimer) {
-              clearTimeout(tokenRefreshTimer);
+            try {
+              const expirationTime = getTokenExpiry(accessToken);
+              const now = new Date().getTime();
+              
+              // 토큰이 곧 만료되거나 이미 만료된 경우
+              if (expirationTime - now < 60000) {
+                refreshToken(); // 즉시 갱신
+              } else {
+                // 만료 30초 전에 갱신 (최소 10초)
+                const refreshTime = Math.max(expirationTime - now - 30000, 10000);
+                
+                // 이전 타이머 제거
+                if (tokenRefreshTimer) {
+                  clearTimeout(tokenRefreshTimer);
+                }
+                
+                // 새로운 타이머 설정
+                const timer = setTimeout(() => {
+                  if (refreshTokenRef.current) {
+                    refreshTokenRef.current();
+                  }
+                }, refreshTime);
+                setTokenRefreshTimer(timer);
+              }
+            } catch (err) {
+              refreshToken(); // 오류 발생 시 즉시 갱신 시도
             }
-
-            // 새로운 타이머 설정
-            const timer = setTimeout(refreshToken, refreshTime);
-            setTokenRefreshTimer(timer);
           }
         }
         
@@ -155,7 +245,9 @@ export default function App() {
 
     // 토큰 만료 이벤트 핸들러
     const handleTokenExpired = () => {
-      refreshToken();
+      if (refreshTokenRef.current) {
+        refreshTokenRef.current();
+      }
     };
 
     // 이벤트 리스너 등록
@@ -205,3 +297,4 @@ export default function App() {
     </BrowserRouter>
   );
 }
+

@@ -10,6 +10,63 @@ const instance = axios.create({
   },
 });
 
+// 토큰 갱신을 위한 전역 상태
+let isRefreshingToken = false;
+let failedQueue = [];
+
+// 대기 중인 요청들을 처리하는 함수
+const processQueue = (error, token = null) => {
+  failedQueue.forEach(prom => {
+    if (error) {
+      prom.reject(error);
+    } else {
+      prom.resolve(token);
+    }
+  });
+  
+  failedQueue = [];
+};
+
+// 리프레시 토큰으로 새 액세스 토큰 가져오기
+export const refreshAccessToken = async (refreshToken) => {
+  if (!refreshToken) {
+    throw new Error('리프레시 토큰이 없습니다');
+  }
+  
+  try {
+    const response = await axios({
+      method: 'get',
+      url: 'https://api.likelion13th-swu.site/user/refresh',
+      headers: {
+        Authorization: `Bearer ${refreshToken}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    
+    const { accessToken, refreshToken: newRefreshToken } = response.data;
+    
+    if (!accessToken) {
+      throw new Error('새 액세스 토큰이 없습니다');
+    }
+    
+    // 토큰 저장
+    localStorage.setItem('access_token', accessToken);
+    if (newRefreshToken) {
+      localStorage.setItem('refresh_token', newRefreshToken);
+    }
+    
+    // 인증 상태 변경 알림
+    window.dispatchEvent(new Event('auth-change'));
+    window.dispatchEvent(new Event('token-expired'));
+    
+    return { accessToken, refreshToken: newRefreshToken || refreshToken };
+  } catch (error) {
+    console.error('토큰 갱신 실패:', error);
+    throw error;
+  }
+};
+
 // 요청 인터셉터 - 토큰이 필요한 요청에 자동으로 토큰 추가
 instance.interceptors.request.use(
   (config) => {
@@ -32,44 +89,39 @@ instance.interceptors.response.use(
 
     // 토큰 만료 에러 (401) 및 재시도하지 않은 요청인 경우
     if (error.response?.status === 401 && !originalRequest._retry) {
+      if (isRefreshingToken) {
+        // 이미 토큰 갱신 중이라면 대기열에 추가
+        return new Promise((resolve, reject) => {
+          failedQueue.push({ resolve, reject });
+        })
+          .then(token => {
+            originalRequest.headers.Authorization = `Bearer ${token}`;
+            return instance(originalRequest);
+          })
+          .catch(err => {
+            return Promise.reject(err);
+          });
+      }
+      
       originalRequest._retry = true;
+      isRefreshingToken = true;
 
       try {
         // refresh 토큰으로 새로운 access 토큰 발급
         const refreshToken = localStorage.getItem('refresh_token');
-        if (!refreshToken) {
-          throw new Error('리프레시 토큰이 없습니다.');
-        }
-
-        const response = await instance.post('/user/refresh', null, {
-          headers: {
-            Authorization: `Bearer ${refreshToken}`
-          }
-        });
-
-        // /user/refresh API는 camelCase 응답 형식
-        const { accessToken, refreshToken: newRefreshToken } = response.data;
+        const { accessToken } = await refreshAccessToken(refreshToken);
         
-        // 신규 액세스 토큰 저장
-        if (accessToken) {
-          localStorage.setItem('access_token', accessToken);
-        } else {
-          throw new Error('새 액세스 토큰이 없습니다.');
-        }
+        // 대기 중인 요청들 처리
+        processQueue(null, accessToken);
         
-        // 신규 리프레시 토큰이 있는 경우 함께 저장
-        if (newRefreshToken) {
-          localStorage.setItem('refresh_token', newRefreshToken);
-        }
-        
-        // 인증 상태 변경 알림
-        window.dispatchEvent(new Event('auth-change'));
-
         // 새로운 토큰으로 원래 요청 재시도
         originalRequest.headers.Authorization = `Bearer ${accessToken}`;
         return instance(originalRequest);
       } catch (error) {
-        // refresh 토큰도 만료된 경우 로그아웃 처리
+        // 실패한 큐 처리
+        processQueue(error, null);
+        
+        // 액세스 토큰 만료 시 로그아웃 처리
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
         localStorage.removeItem('auth_forced');
@@ -78,11 +130,13 @@ instance.interceptors.response.use(
         sessionStorage.removeItem('auth_checked');
         window.location.href = '/signup';
         return Promise.reject(error);
+      } finally {
+        isRefreshingToken = false;
       }
     }
 
     // 403 Forbidden 에러 처리
-    if (error.response.status === 403) {
+    if (error.response?.status === 403) {
       // 에러만 반환하고 리다이렉트는 하지 않음
       return Promise.reject(new Error('권한이 없거나 로그인이 필요합니다.'));
     }
@@ -108,12 +162,7 @@ export const checkAuth = async () => {
 
     // 현재 시간이 만료 시간보다 이후인 경우
     if (now >= expirationTime) {
-      localStorage.removeItem('access_token');
-      localStorage.removeItem('refresh_token');
-      localStorage.removeItem('auth_forced');
-      sessionStorage.removeItem('access_token');
-      sessionStorage.removeItem('refresh_token');
-      sessionStorage.removeItem('auth_checked');
+      clearTokens();
       return { 
         isAuthenticated: false, 
         message: '리프레시 토큰이 만료되었습니다. 다시 로그인해주세요.' 
@@ -123,41 +172,56 @@ export const checkAuth = async () => {
     // 액세스 토큰이 없거나 만료된 경우 리프레시 시도
     if (!accessToken) {
       try {
-        // 헤더에 리프레시 토큰을 포함하여 요청
-        const response = await instance.post('/user/refresh', null, {
-          headers: {
-            Authorization: `Bearer ${refreshToken}`
-          }
-        });
-        
-        // /user/refresh API는 camelCase 응답 형식
-        const { accessToken: newAccessToken, refreshToken: newRefreshToken } = response.data;
-        
-        if (newAccessToken) {
-          localStorage.setItem('access_token', newAccessToken);
-          
-          // 새 리프레시 토큰이 있으면 함께 저장
-          if (newRefreshToken) {
-            localStorage.setItem('refresh_token', newRefreshToken);
-          }
-          
-          // 토큰 갱신 후 인증 상태 변경 이벤트 발생
-          window.dispatchEvent(new Event('auth-change'));
-        } else {
-          return { isAuthenticated: false, message: '새 액세스 토큰이 없습니다.' };
-        }
+        await refreshAccessToken(refreshToken);
+        return { isAuthenticated: true };
       } catch (error) {
+        console.error('인증 갱신 오류:', error);
         return { isAuthenticated: false, message: '토큰 갱신에 실패했습니다.' };
       }
     }
 
     return { isAuthenticated: true };
   } catch (error) {
+    console.error('인증 확인 오류:', error);
     return { 
       isAuthenticated: false, 
       message: '인증 확인 중 오류가 발생했습니다'
     };
   }
+};
+
+/**
+ * JWT 토큰의 만료 시간을 계산합니다.
+ * 
+ * 이 함수는 다음과 같은 상황에서 사용됩니다:
+ * 1. 토큰 자동 갱신 기능 - 토큰이 만료되기 전에 미리 갱신하기 위한 타이밍 계산
+ * 2. 클라이언트 측에서 토큰 유효성 빠른 확인 - 불필요한 API 요청 방지
+ * 3. 사용자 세션 관리 - 세션 만료 알림이나 자동 로그아웃 구현 시 활용
+ * 4. 디버깅 - 토큰 관련 이슈 발생 시 만료 시간 확인용
+ * 
+ * App.js 또는 다른 컴포넌트에서 토큰 만료 전에 갱신 타이머를 설정할 때 사용됩니다.
+ * 
+ * @param {string} token - 만료 시간을 계산할 JWT 토큰 (주로 액세스 토큰)
+ * @returns {number|null} 토큰의 만료 시간 (밀리초 단위 타임스탬프) 또는 에러 발생 시 null
+ */
+export const getTokenExpiry = (token) => {
+  try {
+    const tokenData = JSON.parse(atob(token.split('.')[1]));
+    return tokenData.exp * 1000; // Unix 타임스탬프(초)를 JavaScript 타임스탬프(밀리초)로 변환
+  } catch (error) {
+    console.error('토큰 만료 시간 계산 오류:', error);
+    return null;
+  }
+};
+
+// 토큰 클리어
+export const clearTokens = () => {
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('refresh_token');
+  localStorage.removeItem('auth_forced');
+  sessionStorage.removeItem('access_token');
+  sessionStorage.removeItem('refresh_token');
+  sessionStorage.removeItem('auth_checked');
 };
 
 // 로그인 처리 후 토큰 저장 및 인증 상태 변경 알림
