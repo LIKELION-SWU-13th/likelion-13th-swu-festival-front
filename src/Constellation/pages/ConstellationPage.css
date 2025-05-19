@@ -19,7 +19,7 @@
   pointer-events: none;
 }
 
-/* 별자리 그리드 - 가장 최근 버전 사용 */
+/* 별자리 그리드 */
 .constellation-grid {
   position: relative;
   width: 100%;
@@ -28,11 +28,11 @@
   margin: 0 auto;
 }
 
-/* 별자리 이미지 배경 - 가장 최근 버전 사용 */
+/* 별자리 이미지 배경 */
 .constellation-background {
   position: absolute;
-  top: 120px;    /* 피그마에서 확인한 정확한 위치 */
-  left: 53px; /* 피그마에서 확인한 정확한 위치 */
+  top: 60px;
+  left: 53px;
   width: 276.69px;
   height: 513.24px;
   z-index: 1;
