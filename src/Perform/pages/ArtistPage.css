@@ -5,24 +5,28 @@
     min-height: 100vh;
   }
   
-  .artist-header {
-    display: flex;
-    align-items: flex-start; 
-    flex-direction: column;   
-    margin-bottom: 16px; /* 원래 제목과 카드 사이 여백 재현 */
+  .artist-page-header {
+    position: relative;    /* 버튼의 기준이 될 부모 */
+    padding-top: 50px;     /* 헤더 전체 여백 */
+    padding-bottom: 20px;
+    /* flex 설정 유지할 필요 없으면 모두 지워도 됩니다 */
   }
-
   /* 뒤로가기 버튼 */
   .back-button {
+    position: absolute;
+    top: 0;                /* 부모 .artist-header 안에서 위쪽으로 딱 붙임 */
+    left: 0;               /* 필요에 따라 left: 16px; 처럼 조정 가능 */
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     background: none;
-  border: none;
-  padding: 0;
-  display: inline-flex;
-  align-items: center;
-  cursor: pointer;
-  margin: 0;           /* ← margin-bottom 제거 */
-  margin-bottom: 10px; /* 제목과 간격 */
+    border: none;
+    cursor: pointer;
+    z-index: 10;           /* 다른 요소 위에 떠 있도록 */
   }
+  
   .back-button svg {
     width: 24px;
     height: 24px;
@@ -93,7 +97,7 @@
     color: var(--Gray-0, #FAFAFA);
 
   }
-  .artist-name {
+  .artist-page-name {
     font-size: 14px;
     color: var(--Indigo-10, #9DA4FB);
     font-weight: 500;

@@ -35,8 +35,8 @@ code {
   #root {
     max-width: none;
     width: 400px;
-    height: 100vh;
-    overflow: visible;
+    height: auto !important;
+    overflow: auto !important;
     margin: 0 auto;
     border: none;
     position: static;

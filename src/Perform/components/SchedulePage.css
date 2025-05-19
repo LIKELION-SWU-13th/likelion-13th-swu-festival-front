@@ -132,6 +132,7 @@
   color: #FFFFFF;
   font-size: 186x;
   font-weight: 600;
+  padding-bottom: 20px;
 }
 .artist-time {
   color: var(--Indigo-10, #9DA4FB);
@@ -177,4 +178,16 @@
   padding: 24px 0;
   color: var(--Gray-40, #AEAEB7);
   font-size: 14px;
+}
+.schedule-artist-time {
+  /* 블록으로 아래로 내려오게 */
+  display: block;
+
+  /* 원하는 위치 조정: 아티스트 이름 아래로 8px 띄우기 */
+  margin-top: 10px;
+
+  /* 텍스트 색상/폰트 설정 */
+  color: var(--Indigo-10, #9DA4FB);
+  font-size: 14px;
+  font-weight: 500;
 }
