@@ -1,0 +1,294 @@
+/* 전체 페이지 스타일 */
+.quiz-container {
+  min-height: 100vh;
+  background: url('../assets/bg-quiz.svg') no-repeat center center;
+  background-size: cover;
+  color: white;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+/* 퀴즈 콘텐츠 정렬 */
+.quiz-content {
+  max-width: 343px; /* 선택지 버튼과 동일한 너비로 제한 */
+  margin: 0 auto;
+  padding: 48px 0 32px; /* 하단 패딩 감소 */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* 왼쪽 정렬 */
+  min-height: auto; /* 높이 자동 조정 */
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* 퀴즈 번호 */
+.quiz-number {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: #FFFFFF;
+  width: 100%; /* 전체 너비 사용 */
+}
+
+/* 구분선 */
+.quiz-separator {
+  width: 100%; /* 부모 요소 너비에 맞춤 (343px) */
+  height: 0;
+  border: none;
+  border-top: 2px solid #CACAD0;
+  margin: 0; /* 마진 제거 */
+}
+
+/* 퀴즈 질문 */
+.quiz-question {
+  font-size: 28px;
+  line-height: 1.5;
+  margin-bottom: 48px;
+  word-break: keep-all;
+  font-weight: 700;
+  color: #FFFFFF;
+  width: 100%; /* 전체 너비 사용 */
+  text-align: left;
+}
+
+/* 선택지 영역 */
+.quiz-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%; /* 전체 너비 사용 */
+}
+
+/* 선택지 버튼 스타일 */
+.choice-button {
+  width: 100%;
+  height: 56px;
+  padding: 0 24px;
+  border: 1px solid rgba(157, 164, 251, 0.7);
+  border-radius: 100px;
+  background: rgba(250, 250, 250, 0.2);
+  color: white;
+  font-size: 16px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  word-break: keep-all;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transform: scale(1);
+  box-sizing: border-box;
+  box-shadow: 0 0 10px rgba(157, 164, 251, 0.3); /* 테두리 발광 효과 */
+}
+
+/* 버튼 hover 시 효과 */
+.choice-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.choice-button:active {
+  transform: scale(0.97);
+}
+
+/* 선택된 버튼 */
+.choice-button.selected {
+  background: linear-gradient(90deg, rgba(157, 164, 251, 0.9), rgba(206, 209, 253, 0.9)); /* 그라데이션 배경 */
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #FFFFFF;
+  transform: scale(1.02);
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(157, 164, 251, 0.5); /* 발광 효과 증가 */
+}
+
+.choice-button.selected .choice-label,
+.choice-button.selected .choice-text {
+  color: #FFFFFF; /* 선택된 버튼의 텍스트 색상을 흰색으로 변경 */
+}
+
+/* A/B 라벨 텍스트 */
+.choice-label {
+  font-weight: 500;
+  font-size: 16px;
+  color: #FFFFFF;
+  flex-shrink: 0;
+}
+
+/* 선택지 설명 텍스트 */
+.choice-text {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  word-break: keep-all;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 결과 박스 */
+.quiz-result {
+  background: none;
+  padding: 0;
+  margin-top: 32px;
+  border-radius: 0;
+  width: 100%;
+}
+
+/* 선택지 결과 박스 (그라데이션 퍼센트 표시용) */
+.choice-button.filled {
+  position: relative;
+  background: rgba(73, 74, 122, 0.5); /* 어두운 배경색 */
+  border: 1px solid rgba(157, 164, 251, 0.7);
+  border-radius: 100px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+  color: white;
+  width: 100%;
+  height: 56px;
+  box-sizing: border-box;
+  box-shadow: 0 0 10px rgba(157, 164, 251, 0.3); /* 테두리 발광 효과 */
+}
+
+/* 비율만큼 배경 채우는 ::before 그라데이션 레이어 */
+.choice-button.filled::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: var(--percent); /* 퍼센트로 너비 조절 */
+  background: linear-gradient(90deg, rgba(157, 164, 251, 0.9), rgba(206, 209, 253, 0.9)); /* 좌우 그라데이션 */
+  opacity: 1; /* 불투명도 증가 */
+  z-index: 0;
+  border-radius: 0; /* 왼쪽에서 시작하므로 둥근 모서리 제거 */
+  transition: width 1s ease; /* 애니메이션 효과 추가 */
+  display: block;
+}
+
+/* 텍스트가 그라데이션 위에 보이도록 */
+.choice-button.filled .choice-label,
+.choice-button.filled .choice-text {
+  position: relative;
+  z-index: 1;
+  color: white;
+}
+
+/* 하단 문구 (00%의 슈니들이 여기에 해당돼요!) */
+.choice-percent-text {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 8px;
+  padding-left: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 각 선택지 결과 박스 간 여백 */
+.choice-result {
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+/* 홈 화면 바로가기 버튼 */
+.home-button {
+  width: 100%;
+  padding: 16px 24px;
+  background-color: transparent;
+  background: url('../../Signup/assets/button-bg.svg') no-repeat center center;
+  background-size: cover;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  position: relative; /* 절대 위치 대신 상대 위치 사용 */
+  margin-top: 80px; /* 위쪽 여백 증가 (40px → 80px) */
+  margin-bottom: 24px; /* 아래쪽 여백 추가 */
+  border: none;
+  height: 56px;
+  box-sizing: border-box;
+  border-radius: 100px;
+}
+
+/* 로딩 인디케이터 스타일 추가 */
+.loading-indicator {
+  display: inline-block;
+  position: relative;
+  margin-left: 10px;
+  font-size: 14px;
+  color: #fff;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+
+/* 제출 중 버튼 스타일 */
+.choice-button.submitting {
+  opacity: 0.8;
+  pointer-events: none;
+  position: relative;
+}
+
+/* 오류 메시지 컨테이너 */
+.quiz-error-message {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: 1px solid #ff6b6b;
+  border-radius: 8px;
+  padding: 12px;
+  margin: 12px 0;
+  color: #ff6b6b;
+  text-align: center;
+}
+
+/* 다시 시도 버튼 */
+.retry-button {
+  background-color: #7B7FD6;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  margin-top: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.retry-button:hover {
+  background-color: #6367c4;
+}
+
+/* 오류 페이지 */
+.quiz-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.quiz-error p {
+  font-size: 18px;
+  color: #ff6b6b;
+  margin-bottom: 20px;
+}
+
+.quiz-error .retry-button {
+  width: 200px;
+  height: 50px;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

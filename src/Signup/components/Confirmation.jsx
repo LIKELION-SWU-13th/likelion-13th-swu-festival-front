@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import api from '../../api/axios';
 import '../Signup.css';
 
 const Confirmation = ({ userInfo, onNext, setUserInfo, selectedFile }) => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);  // 로딩 중 여부
   const [error, setError] = useState('');         // 에러 메시지 상태
   const [ocrInfo, setOcrInfo] = useState({
@@ -33,6 +35,9 @@ const Confirmation = ({ userInfo, onNext, setUserInfo, selectedFile }) => {
       // 토큰 localStorage에 저장
       localStorage.setItem('access_token', access_token);
       localStorage.setItem('refresh_token', refresh_token);
+
+      // 커스텀 이벤트 발생 (App.js에서 감지)
+      window.dispatchEvent(new Event('auth-change'));
 
       // 다음 단계로 이동 (로그인 성공 화면)
       onNext();

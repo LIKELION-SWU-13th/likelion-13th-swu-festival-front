@@ -1,0 +1,66 @@
+/* 별 컨테이너 기본 스타일 */
+.star-container {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 오픈된 퀴즈의 별 스타일 (클릭 가능) */
+.star-container.open {
+  cursor: pointer;
+}
+
+/* 별 이미지 스타일 */
+.star-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* 다음 퀴즈 말풍선 스타일 */
+.tooltip {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 말풍선 이미지 */
+.tooltip img {
+  width: 200px;
+  height: auto;
+}
+
+/* 말풍선 내 텍스트 */
+.tooltip span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* 정중앙 배치 */
+  color: white;
+  font-size: 12px;
+}
+
+/* 결과 오버레이 스타일 - 완료된 별 위에 표시될 수 있는 정보 */
+.result-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
+  border-radius: 50%;
+}
