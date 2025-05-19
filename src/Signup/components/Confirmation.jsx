@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import api from '../../api/axios';
 import '../Signup.css';
 
 const Confirmation = ({ userInfo, onNext, setUserInfo, selectedFile }) => {
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);  // 로딩 중 여부
   const [error, setError] = useState('');         // 에러 메시지 상태
   const [ocrInfo, setOcrInfo] = useState({
@@ -135,7 +133,7 @@ const Confirmation = ({ userInfo, onNext, setUserInfo, selectedFile }) => {
         <div className="confirm-buttons">
           {/* 다시 인식하기 버튼 */}
           <button 
-            className="retry-button" 
+            className="qr-retry-button" 
             onClick={handleRetry}
             disabled={loading}
           >

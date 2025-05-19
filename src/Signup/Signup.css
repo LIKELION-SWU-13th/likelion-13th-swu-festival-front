@@ -237,8 +237,8 @@
 }
 
 /* 다시 인식하기 버튼 */
-.retry-button {
-  background: none;
+.qr-retry-button {
+  background: transparent;
   border: none;
   padding: 0;
   color: #F1F1F3;
@@ -246,11 +246,26 @@
   font-weight: 600;
   text-align: center;
   cursor: pointer;
-  width: auto; 
-  margin: 0 auto; 
+  width: auto;
+  margin: 0 auto;
   display: block;
+  transition: opacity 0.2s ease;
 }
 
+.qr-retry-button:hover {
+  opacity: 0.8;
+}
+
+.qr-retry-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.qr-retry-button:focus,
+.qr-retry-button:active {
+  outline: none;
+  box-shadow: none;
+}
 
 /* 로그인 버튼 - 고정 해제하여 화면 밖으로 넘치지 않게 수정 */
 .form-button {
@@ -273,12 +288,6 @@
   justify-content: center;
   margin: 0 auto;
   position: relative; /* fixed 제거 */
-}
-
-.retry-button:focus,
-.retry-button:active {
-  outline: none;
-  box-shadow: none;
 }
 
 /* === 로그인 성공 화면 === */
