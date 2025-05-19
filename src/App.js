@@ -17,10 +17,12 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [tokenRefreshTimer, setTokenRefreshTimer] = useState(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  // const [reloginTimer, setReloginTimer] = useState(null); // 새 로그인 타이머 - 비활성화
   
   // 함수 참조를 저장하기 위한 ref 생성
   const refreshTokenRef = useRef(null);
   const handleLogoutRef = useRef(null);
+  // const performReloginRef = useRef(null); // 재로그인 함수 ref - 비활성화
 
   // 로그아웃 처리 함수
   const handleLogout = useCallback(() => {
@@ -35,11 +37,99 @@ export default function App() {
       clearTimeout(tokenRefreshTimer);
       setTokenRefreshTimer(null);
     }
+    // if (reloginTimer) {
+    //   clearTimeout(reloginTimer);
+    //   setReloginTimer(null);
+    // }
     window.location.href = '/signup';
-  }, [tokenRefreshTimer]);
+  }, [tokenRefreshTimer/*, reloginTimer*/]);
   
   // 함수 참조 업데이트
   handleLogoutRef.current = handleLogout;
+
+  // 완전히 새로운 로그인 수행 함수 - 비활성화
+  /*
+  const performRelogin = useCallback(async () => {
+    console.log('완전히 새 로그인 시도 - App.js');
+    
+    try {
+      const studentNum = localStorage.getItem('student_num');
+      const name = localStorage.getItem('name');
+      const major = localStorage.getItem('major');
+      
+      if (!studentNum || !name || !major) {
+        console.error('저장된 사용자 정보 부족, 새 로그인 불가');
+        return;
+      }
+      
+      console.log('저장된 사용자 정보로 새 로그인 시도');
+      
+      const response = await axios.post('https://api.likelion13th-swu.site/user/login', {
+        student_num: studentNum,
+        name: name,
+        major: major
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      console.log('새 로그인 응답:', response.status, response.data);
+      
+      if (response.status === 200 && response.data) {
+        const { access_token, refresh_token } = response.data;
+        
+        if (!access_token || !refresh_token) {
+          console.error('새 로그인 응답에 토큰이 없음');
+          return;
+        }
+        
+        // 토큰 저장
+        console.log('새 토큰 저장');
+        localStorage.setItem('access_token', access_token);
+        localStorage.setItem('refresh_token', refresh_token);
+        localStorage.setItem('login_time', new Date().getTime().toString());
+        
+        // 세션 스토리지에도 저장
+        sessionStorage.setItem('access_token', access_token);
+        sessionStorage.setItem('refresh_token', refresh_token);
+        sessionStorage.setItem('auth_checked', 'true');
+        localStorage.setItem('auth_forced', 'true');
+        
+        // 인증 상태 변경 알림
+        window.dispatchEvent(new Event('auth-change'));
+        
+        console.log('새 로그인 성공! 타이머 재설정');
+        
+        // 2분 30초 후에 다시 로그인하는 타이머 설정
+        if (reloginTimer) {
+          clearTimeout(reloginTimer);
+        }
+        
+        const newTimer = setTimeout(() => {
+          if (performReloginRef.current) {
+            performReloginRef.current();
+          }
+        }, 150000); // 2분 30초 = 150,000ms
+        
+        setReloginTimer(newTimer);
+      }
+    } catch (error) {
+      console.error('새 로그인 실패:', error.message, error.response?.data);
+      
+      // 30초 후 재시도
+      setTimeout(() => {
+        if (performReloginRef.current) {
+          console.log('재로그인 재시도...');
+          performReloginRef.current();
+        }
+      }, 30000);
+    }
+  }, [reloginTimer]);
+  
+  // 함수 참조 업데이트
+  performReloginRef.current = performRelogin;
+  */
 
   // 토큰 갱신 함수
   const refreshToken = useCallback(async () => {
@@ -109,8 +199,8 @@ export default function App() {
       const nowTime = new Date().getTime();
       const timeUntilExpiry = accessTokenExpiry - nowTime;
       
-      // 만료 30초 전에 갱신 (최소 10초, 최대 설정 분 -5초)
-      const refreshTime = Math.min(Math.max(timeUntilExpiry - 30000, 10000), timeUntilExpiry - 5000);
+      // 4분 만료 토큰이므로 1분 후(만료 시간의 75% 지점)에 갱신 시도 (최소 10초, 최대 설정 분 -5초)
+      const refreshTime = Math.min(Math.max(timeUntilExpiry * 0.25, 10000), timeUntilExpiry - 5000);
 
       // 이전 타이머 제거
       if (tokenRefreshTimer) {
@@ -132,7 +222,6 @@ export default function App() {
       setIsAuthenticated(true);
       
     } catch (error) {
-      
       // 인증 실패 시 로그아웃
       handleLogoutRef.current();
     } finally {
@@ -155,6 +244,19 @@ export default function App() {
             (window.location.pathname === '/constellation' || window.location.pathname === '/')) {
           setIsAuthenticated(true);
           
+          // 2분 30초마다 새 로그인하는 타이머 설정 - 비활성화
+          /*
+          if (!reloginTimer) {
+            console.log('최초 로그인 갱신 타이머 설정 (2분 30초)');
+            const newTimer = setTimeout(() => {
+              if (performReloginRef.current) {
+                performReloginRef.current();
+              }
+            }, 150000); // 2분 30초 = 150,000ms
+            setReloginTimer(newTimer);
+          }
+          */
+          
           // 토큰 갱신 타이머 설정
           const accessToken = localStorage.getItem('access_token');
           if (accessToken) {
@@ -166,8 +268,8 @@ export default function App() {
               if (expirationTime - now < 60000) {
                 refreshToken(); // 즉시 갱신
               } else {
-                // 만료 30초 전에 갱신 (최소 10초)
-                const refreshTime = Math.max(expirationTime - now - 30000, 10000);
+                // 4분 만료 토큰이므로 1분 후(만료 시간의 75% 지점)에 갱신 시도 (최소 10초)
+                const refreshTime = Math.max((expirationTime - now) * 0.25, 10000);
                 
                 // 이전 타이머 제거
                 if (tokenRefreshTimer) {
@@ -194,6 +296,19 @@ export default function App() {
         const { isAuthenticated: authStatus } = await checkAuth();
         
         if (authStatus) {
+          // 인증된 경우 2분 30초마다 새 로그인하는 타이머 설정 - 비활성화
+          /*
+          if (!reloginTimer) {
+            console.log('인증 확인 후 로그인 갱신 타이머 설정 (2분 30초)');
+            const newTimer = setTimeout(() => {
+              if (performReloginRef.current) {
+                performReloginRef.current();
+              }
+            }, 150000); // 2분 30초 = 150,000ms
+            setReloginTimer(newTimer);
+          }
+          */
+          
           // 인증된 경우 토큰 갱신 타이머 설정
           const accessToken = localStorage.getItem('access_token');
           if (accessToken) {
@@ -205,8 +320,8 @@ export default function App() {
               if (expirationTime - now < 60000) {
                 refreshToken(); // 즉시 갱신
               } else {
-                // 만료 30초 전에 갱신 (최소 10초)
-                const refreshTime = Math.max(expirationTime - now - 30000, 10000);
+                // 4분 만료 토큰이므로 1분 후(만료 시간의 75% 지점)에 갱신 시도 (최소 10초)
+                const refreshTime = Math.max((expirationTime - now) * 0.25, 10000);
                 
                 // 이전 타이머 제거
                 if (tokenRefreshTimer) {
@@ -229,6 +344,7 @@ export default function App() {
         
         setIsAuthenticated(authStatus);
       } catch (error) {
+        console.error('인증 확인 오류:', error);
         setIsAuthenticated(false);
       } finally {
         setIsLoading(false);
@@ -245,23 +361,42 @@ export default function App() {
 
     // 토큰 만료 이벤트 핸들러
     const handleTokenExpired = () => {
+      // console.log('토큰 만료 감지, 즉시 새 로그인 시도');
+      // if (performReloginRef.current) {
+      //   performReloginRef.current(); // 토큰 만료 시 즉시 새 로그인
+      // }
       if (refreshTokenRef.current) {
         refreshTokenRef.current();
       }
+    };
+    
+    // 인증 오류 이벤트 핸들러
+    const handleAuthError = (event) => {
+      // console.error('인증 오류:', event.detail?.message);
+      // if (performReloginRef.current) {
+      //   console.log('인증 오류로 인한 즉시 새 로그인 시도');
+      //   performReloginRef.current(); // 인증 오류 시 즉시 새 로그인
+      // }
+      handleLogoutRef.current();
     };
 
     // 이벤트 리스너 등록
     window.addEventListener('auth-change', handleAuthChange);
     window.addEventListener('token-expired', handleTokenExpired);
+    window.addEventListener('auth-error', handleAuthError);
 
     return () => {
       window.removeEventListener('auth-change', handleAuthChange);
       window.removeEventListener('token-expired', handleTokenExpired);
+      window.removeEventListener('auth-error', handleAuthError);
       if (tokenRefreshTimer) {
         clearTimeout(tokenRefreshTimer);
       }
+      // if (reloginTimer) {
+      //   clearTimeout(reloginTimer);
+      // }
     };
-  }, [refreshToken, tokenRefreshTimer]);
+  }, [refreshToken, tokenRefreshTimer/*, reloginTimer, performRelogin*/]);
 
   // 로딩 중일 때 로딩 UI 표시
   if (isLoading) {
