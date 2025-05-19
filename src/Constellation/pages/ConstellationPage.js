@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StarQuiz from '../components/StarQuiz';
 import LoadingSpinner from '../../components/LoadingSpinner';
-import { getCompletedQuizzes, getQuizType } from '../../api/quiz';
+import { getCompletedQuizzes, getQuizType, getQuizOpenTime, isQuizOpen, QUIZ_OPEN_TIMES } from '../../api/quiz';
 import TopTabs from '../../components/TopTabs';
 import './ConstellationPage.css';
 
@@ -43,27 +43,6 @@ const STAR_POSITIONS = [
   { id: 12, x: 84, y: 30 },     // 열두 번째
 ];
 
-// 퀴즈 오픈 시간 매핑 - quiz.js의 getQuizOpenTime과 동일하게 유지
-const QUIZ_OPEN_TIMES = {
-  // 축제 첫째날: 5/21(수)
-  1: '2025-05-19T11:00:00',
-  2: '2025-05-19T14:00:00',
-  3: '2025-05-19T16:00:00',
-  4: '2025-05-19T18:00:00',
-  
-  // 둘째날: 5/22(목)
-  5: '2025-05-22T11:00:00',
-  6: '2025-05-22T14:00:00',
-  7: '2025-05-22T16:00:00',
-  8: '2025-05-22T18:00:00',
-  
-  // 셋째날: 5/23(금)
-  9: '2025-05-23T11:00:00',
-  10: '2025-05-23T14:00:00',
-  11: '2025-05-23T16:00:00',
-  12: '2025-05-23T18:00:00'
-};
-
 // 별마다 툴팁 위치 지정 (1번 별은 툴팁 없음)
 const STAR_TOOLTIP = {
   2: { position: 'left' },    // 꼬리 오른쪽
@@ -94,6 +73,7 @@ const ConstellationPage = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [showTypeButton, setShowTypeButton] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [nextQuizId, setNextQuizId] = useState(null);
 
   // 컴포넌트 마운트 시 데이터 로드 - 완료된 퀴즈 목록만 가져옴
   useEffect(() => {
@@ -152,6 +132,32 @@ const ConstellationPage = () => {
     return () => clearInterval(timer);
   }, []);
 
+  // 시간이 변경될 때마다 다음 퀴즈 계산
+  useEffect(() => {
+    // 다음 열릴 퀴즈 찾기 (현재 열린 퀴즈 중 가장 높은 번호 다음 퀴즈)
+    const calculateNextQuiz = () => {
+      // 열려있는 퀴즈 중 가장 높은 번호 찾기
+      let highestOpenQuizId = 0;
+      
+      // 1부터 12까지 순회하면서 열려있는 가장 큰 퀴즈 번호 찾기
+      for (let i = 1; i <= 12; i++) {
+        if (checkQuizOpen(i)) {
+          highestOpenQuizId = i;
+        }
+      }
+      
+      // 다음 번호 퀴즈가 있다면 리턴
+      const nextId = highestOpenQuizId + 1;
+      if (nextId <= 12) {
+        return nextId;
+      }
+      
+      return null;
+    };
+
+    setNextQuizId(calculateNextQuiz());
+  }, [currentTime]); // 시간이 변경될 때만 다시 계산
+
   const handleQuizComplete = (quizId) => {
     setCompletedQuizzes(prev => {
       const newSet = new Set([...prev, quizId]);
@@ -202,27 +208,6 @@ const ConstellationPage = () => {
     return currentTime >= openTime;
   };
 
-  // 다음 열릴 퀴즈 찾기 (현재 열린 퀴즈 중 가장 높은 번호 다음 퀴즈)
-  const getNextQuizToOpen = () => {
-    // 열려있는 퀴즈 중 가장 높은 번호 찾기
-    let highestOpenQuizId = 0;
-    
-    // 1부터 12까지 순회하면서 열려있는 가장 큰 퀴즈 번호 찾기
-    for (let i = 1; i <= 12; i++) {
-      if (checkQuizOpen(i)) {
-        highestOpenQuizId = i;
-      }
-    }
-    
-    // 다음 번호 퀴즈가 있다면 리턴
-    const nextId = highestOpenQuizId + 1;
-    if (nextId <= 12) {
-      return nextId;
-    }
-    
-    return null;
-  };
-
   if (isLoading) {
     return <LoadingSpinner text="잠시만 기다려주세요" />;
   }
@@ -238,8 +223,6 @@ const ConstellationPage = () => {
       </div>
     );
   }
-
-  const nextQuizId = getNextQuizToOpen();
 
   return (
     <div className="constellation-container">

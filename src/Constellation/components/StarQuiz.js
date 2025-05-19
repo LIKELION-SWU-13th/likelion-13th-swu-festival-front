@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './StarQuiz.css';
 
-const StarQuiz = ({ quizId, isOpen, isCompleted, onComplete, isNext, quizData, starImages }) => {
+const StarQuiz = ({ quizId, isOpen, isCompleted, onComplete, isNext, quizData, starImages, hideTooltip }) => {
   const navigate = useNavigate();
   const [nextQuizTime, setNextQuizTime] = useState(null); // 다음 퀴즈 오픈 시간
 
@@ -38,8 +38,8 @@ const StarQuiz = ({ quizId, isOpen, isCompleted, onComplete, isNext, quizData, s
         onClick={handleStarClick}
       />
       
-      {/* 다음 퀴즈 말풍선 */}
-      {isNext && nextQuizTime !== null && (
+      {/* 다음 퀴즈 말풍선 - hideTooltip이 true면 표시하지 않음 */}
+      {isNext && nextQuizTime !== null && !hideTooltip && (
         <div className="tooltip">
           <img src={starImages.tooltip} alt="next quiz tooltip" />
           <span>다음 퀴즈는 {nextQuizTime}시에 열려요!</span>
