@@ -121,19 +121,21 @@ const QRUpload = ({
         {error && <p className="qr-upload-error">{error}</p>}
 
         {/* 하단 버튼 */}
-        {!isReadyToUpload ? (
-          <button className="common-fixed-button" onClick={handleInitialClick}>
-            다음으로
-          </button>
-        ) : (
-          <button
-            onClick={handleSubmit}
-            disabled={loading || !selectedFile}
-            className="common-fixed-button"
-          >
-            {loading ? '처리중...' : '사진 업로드'}
-          </button>
-        )}
+        <div className="qr-upload-button-container">
+          {!isReadyToUpload ? (
+            <button className="form-button" onClick={handleInitialClick}>
+              다음으로
+            </button>
+          ) : (
+            <button
+              onClick={handleSubmit}
+              disabled={loading || !selectedFile}
+              className="form-button"
+            >
+              {loading ? '처리중...' : '사진 업로드'}
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
