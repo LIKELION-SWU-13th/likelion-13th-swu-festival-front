@@ -1,11 +1,31 @@
 .constellation-container {
-  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  padding: 16px;
+  box-sizing: border-box;
   background: url('../assets/bg-constellation.svg') no-repeat center center;
   background-size: cover;
   position: relative;
-  padding: 24px;
   color: white;
-  overflow: hidden;
+}
+
+/* TopTabs는 높이만큼만 차지 */
+.constellation-container > .TopTabs {
+  flex: 0 0 auto;
+}
+
+/* 메인 콘텐츠 영역 */
+.constellation-content {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  position: relative;
+  padding: 0 16px 24px;
 }
 
 .constellation-container::before {
@@ -25,7 +45,7 @@
   width: 100%;
   max-width: 375px;
   height: 600px;
-  margin: 0 auto;
+  margin: 10px auto 0;
 }
 
 /* 별자리 이미지 배경 */
@@ -116,16 +136,16 @@
 
 /* 유형 확인 플로팅 버튼 컨테이너 */
 .floating-button-container {
-  position: fixed;
-  right: 20px;
-  top: 100px; /* TopTabs 아래에 위치 */
+  position: absolute;
+  left: -2px;
+  top: 10px;
   z-index: 100;
   display: flex;
   align-items: center;
 }
 
 /* 유형 확인 플로팅 버튼 */
-.type-floating-button {
+.tooltip-icon {
   width: 60px;
   height: 60px;
   background: transparent;
@@ -136,15 +156,9 @@
   transition: transform 0.2s;
 }
 
-.type-floating-button:hover, 
-.type-floating-button:focus {
+.tooltip-icon:hover, 
+.tooltip-icon:focus {
   transform: scale(1.1);
-}
-
-.type-floating-button img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
 }
 
 /* 유형 확인 말풍선 */
@@ -237,6 +251,7 @@
   font-weight: 500;
   display: inline-block;
   z-index: 20;
+  white-space: nowrap;
 }
 
 /* 플로팅 버튼 툴팁 꼬리 */

@@ -30,18 +30,18 @@ const callWithTimeout = (apiPromise) => {
 // 피그마 좌표를 참고로 변환한 좌표(노가다)
 // 높이 조정 위해서 y값만 조정함
 const STAR_POSITIONS = [
-  { id: 1, x: 75, y: 10.3 },      // 첫 번째로 열리는 별
-  { id: 2, x: 53, y: 19.6 },      // 두 번째
-  { id: 3, x: 45, y: 33 },      // 세 번째
-  { id: 4, x: 52, y: 42 },      // 네 번째
-  { id: 5, x: 26, y: 59 },      // 다섯 번째
-  { id: 6, x: 16.5, y: 86.5 },      // 여섯 번째
-  { id: 7, x: 53, y: 94 },      // 일곱 번째
-  { id: 8, x: 40, y: 73 },      // 여덟 번째
-  { id: 9, x: 92, y: 56 },      // 아홉 번째
-  { id: 10, x: 77.3, y: 46.3 },     // 열 번째
-  { id: 11, x: 73, y: 29 },     // 열한 번째
-  { id: 12, x: 84, y: 20 },     // 열두 번째
+  { id: 1, x: 79, y: 10 },      // 첫 번째로 열리는 별
+  { id: 2, x: 54.5, y: 20},      // 두 번째
+  { id: 3, x: 46.5, y: 33 },      // 세 번째
+  { id: 4, x: 54, y: 42 },      // 네 번째
+  { id: 5, x: 26, y: 58.8 },      // 다섯 번째
+  { id: 6, x: 16, y: 86 },      // 여섯 번째
+  { id: 7, x: 55, y: 94 },      // 일곱 번째
+  { id: 8, x: 42, y: 73 },      // 여덟 번째
+  { id: 9, x: 96, y: 56 },      // 아홉 번째
+  { id: 10, x: 80, y: 47 },     // 열 번째
+  { id: 11, x: 77, y: 29 },     // 열한 번째
+  { id: 12, x: 87.5, y: 20 },     // 열두 번째
 ];
 
 // 별마다 툴팁 위치 지정 (1번 별은 툴팁 없음)
@@ -228,57 +228,58 @@ const ConstellationPage = () => {
   return (
     <div className="constellation-container">
       <TopTabs />
-      
-      {/* 12개 퀴즈 모두 완료 시 유형 확인 버튼 */}
-      {showTypeButton && (
-        <div className="type-tooltip-row">
-          <img src={buttonFloating} alt="유형 확인" className="tooltip-icon" />
-          <div className="tooltip-bubble">
-            축제를 즐기는 유형을 확인해보세요
+      <div className="constellation-content">
+        {/* 12개 퀴즈 모두 완료 시 유형 확인 버튼 */}
+        {showTypeButton && (
+          <div className="floating-button-container">
+            <img src={buttonFloating} alt="유형 확인" className="tooltip-icon" onClick={checkQuizType} />
+            <div className="tooltip-bubble">
+              축제를 즐기는 유형을 확인해보세요
+            </div>
           </div>
-        </div>
-      )}
-      
-      <div className="constellation-grid">
-        {/* 별자리 선 이미지 */}
-        <div className="constellation-background">
-          <img src={constellationLines} alt="constellation lines" />
-        </div>
-        {/* 별들 */}
-        {STAR_POSITIONS.map((position) => (
-          <div
-            key={position.id}
-            className="star-position"
-            style={{
-              position: 'absolute',
-              left: `${position.x}%`,
-              top: `${position.y}%`,
-              transform: 'translate(-50%, -50%)',
-            }}
-          >
-            <StarQuiz
-              quizId={position.id}
-              isOpen={checkQuizOpen(position.id)}
-              isCompleted={completedQuizzes.has(position.id)}
-              onComplete={handleQuizComplete}
-              isNext={position.id === nextQuizId}
-              quizData={{ open_time: QUIZ_OPEN_TIMES[position.id] }}
-              starImages={{
-                inactive: starInactive,
-                active: starActive,
-                completed: starCompleted,
-                tooltip: tooltip
+        )}
+        
+        <div className="constellation-grid">
+          {/* 별자리 선 이미지 */}
+          <div className="constellation-background">
+            <img src={constellationLines} alt="constellation lines" />
+          </div>
+          {/* 별들 */}
+          {STAR_POSITIONS.map((position) => (
+            <div
+              key={position.id}
+              className="star-position"
+              style={{
+                position: 'absolute',
+                left: `${position.x}%`,
+                top: `${position.y}%`,
+                transform: 'translate(-50%, -50%)',
               }}
-              hideTooltip={true}
-            />
-            {/* 다음 열릴 퀴즈 1개에만 커스텀 툴팁 표시 */}
-            {position.id === nextQuizId && STAR_TOOLTIP[position.id] && (
-              <div className={`star-tooltip-bubble star-tooltip-bubble-${STAR_TOOLTIP[position.id].position}`}>
-                다음 퀴즈는 {getOpenHourStr(position.id)}에 열려요!
-              </div>
-            )}
-          </div>
-        ))}
+            >
+              <StarQuiz
+                quizId={position.id}
+                isOpen={checkQuizOpen(position.id)}
+                isCompleted={completedQuizzes.has(position.id)}
+                onComplete={handleQuizComplete}
+                isNext={position.id === nextQuizId}
+                quizData={{ open_time: QUIZ_OPEN_TIMES[position.id] }}
+                starImages={{
+                  inactive: starInactive,
+                  active: starActive,
+                  completed: starCompleted,
+                  tooltip: tooltip
+                }}
+                hideTooltip={true}
+              />
+              {/* 다음 열릴 퀴즈 1개에만 커스텀 툴팁 표시 */}
+              {position.id === nextQuizId && STAR_TOOLTIP[position.id] && (
+                <div className={`star-tooltip-bubble star-tooltip-bubble-${STAR_TOOLTIP[position.id].position}`}>
+                  다음 퀴즈는 {getOpenHourStr(position.id)}에 열려요!
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
