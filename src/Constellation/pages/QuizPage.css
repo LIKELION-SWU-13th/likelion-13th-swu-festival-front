@@ -128,7 +128,7 @@
 .quiz-result {
   background: none;
   padding: 0;
-  margin-top: 32px;
+  margin-top: 0;
   border-radius: 0;
   width: 100%;
 }
