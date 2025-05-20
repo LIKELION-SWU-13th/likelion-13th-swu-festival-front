@@ -288,7 +288,7 @@
   cursor: pointer;
   width: auto;
   height: 24px;
-  margin-top: 95px;
+  margin-top: 15px;
   margin-bottom: 8px;  /* 로그인하기 버튼과의 간격 조정 */
   display: flex;
   align-items: center;
@@ -299,6 +299,7 @@
 /* 로그인하기 버튼 */
 .confirm-buttons .form-button {
   margin-top: 0;  /* 상단 마진 제거 */
+  margin-bottom: 48px;
 }
 
 .qr-retry-button:hover {
@@ -331,7 +332,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 160px; /* 버튼 공간 확보 */
+  padding: 0 24px;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.success-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: auto;  /* 컨텐츠를 위로 밀어올림 */
+  padding-bottom: 32px;  /* 컨텐츠와 버튼 사이 간격 */
 }
 
 .success-title {
@@ -357,7 +370,8 @@
 .success-button {
   width: 343px;
   height: 56px;
-  margin-top: 465px;
+  margin-top: 417px;
+  margin-bottom: 48px;  /* 하단 여백 */
   background-color: transparent;
   background-image: url('./assets/button-bg.svg');
   background-size: cover;
