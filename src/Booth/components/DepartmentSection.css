@@ -205,7 +205,7 @@
 /* — 모달 CSS (원본 그대로) — */
 .bottom-sheet {
   position: fixed; /* ← 중요 */
-  bottom: 320px;
+  bottom: 300px;
   left: 50%;
   transform: translateX(-50%);
   width: 90%;

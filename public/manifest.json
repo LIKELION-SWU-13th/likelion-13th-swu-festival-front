@@ -1,7 +1,13 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
-  
+  "short_name": "서랑제 축제 사이트",
+  "name": "2025 멋쟁이사자처럼 서랑제 축제 사이트 ",
+  "icons": [
+    {
+      "src": "/main.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
