@@ -222,7 +222,7 @@
   width: 100%;
   max-width: 277px;
   aspect-ratio: 278 / 514;
-  margin: 70px auto 0; /* 별자리 위치 조정 */
+  margin: 50px auto 0; /* 별자리 위치 조정 */
   background: none;
 }
 /* 별자리 선 */
@@ -274,7 +274,7 @@
 /* 새로고침 버튼 컨테이너 */
 .refresh-container {
   position: absolute;
-  bottom: 40px;
+  bottom: 5%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 100;
