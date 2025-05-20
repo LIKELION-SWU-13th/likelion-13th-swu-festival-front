@@ -164,6 +164,7 @@
   display: flex;
   align-items: center;
   gap: 4px;
+  padding-left: 6px;
   color: var(--Gray-40, #C4C4C4);
 }
 .clock-icon {
