@@ -229,9 +229,9 @@ const QuizPage = () => {
         if (status >= 400 && status < 500) {
           let errorMessage = '응답 제출에 실패했습니다. 다시 시도해주세요.';
           
-          // 403: 이미 응답한 퀴즈
+          // 403: 요청 데이터 누락
           if (status === 403) {
-            errorMessage = '이미 응답한 퀴즈입니다.';
+            errorMessage = '퀴즈 정보가 누락되었습니다. 다시 시도해주세요.';
           }
           // 404: 퀴즈를 찾을 수 없음
           else if (status === 404) {
@@ -241,7 +241,7 @@ const QuizPage = () => {
           else if (status === 409) {
             if (error.response.data?.includes('쿠폰 락 획득 실패')) {
               errorMessage = '응답 제출에 실패했습니다. 다시 시도해주세요.';
-            } else {
+            } else if (error.response.data?.includes('answer is already exists')) {
               errorMessage = '이미 응답한 퀴즈입니다.';
             }
           }
