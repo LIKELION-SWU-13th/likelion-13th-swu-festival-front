@@ -1,4 +1,3 @@
-// SchedulePage.jsx
 import React, { useState } from 'react';
 import { ReactComponent as ExclamationIcon } from '../../assets/iconoir_exclamation.svg';
 import { ReactComponent as DesignMockup } from '../../assets/design-mockup.svg';
@@ -92,40 +91,41 @@ export default function SchedulePage({ guestSchedules }) {
       </h2>
 
       {selectedArtist ? (
-        <div className="artist-card" onClick={() => selectedDate === '21' ? null : null}>
+        <div className="artist-card">
           <img src={selectedArtist.imageUrl} alt={selectedArtist.event} className="artist-img" />
           <div className="artist-info">
             <div className="artist-header">{selectedArtist.event}</div>
-            <div
-              className={
-                selectedArtist
-                  ? (selectedDate === '21'
-                      ? 'artist-time artist-time-special'
-                      : 'artist-time')
-                  : 'artist-time'
-                      }
-                    >
-  {selectedArtist.time}
-      </div>
+            <div className={
+              selectedDate === '21'
+                ? 'artist-time artist-time-special'
+                : 'artist-time'
+            }>
+              {selectedArtist.time}
+            </div>
           </div>
-          <button className="artist-button">
-              {artistRouteId ? (
-                <Link to={`/artist/${artistRouteId}`} className="artist-link">
-                  {selectedArtist.event === '주창윤 교수님'
-                    ? '블로그 아카이빙 보기'
-                    : '대표곡 정보 보기'}
-                </Link>
-              ) : (
-                selectedArtist.event === '주창윤 교수님'
-                  ? '블로그 아카이빙 보기'
-                  : '대표곡 정보 보기'
-              )}
-            </button>
 
+          {/* 버튼 전체를 Link로 감싸 클릭 영역 확장 */}
+          {artistRouteId ? (
+            <Link to={`/artist/${artistRouteId}`} style={{ textDecoration: 'none' }}>
+              <button className="artist-button">
+                {selectedArtist.event === '주창윤 교수님'
+                  ? '블로그 아카이빙 보기'
+                  : '대표곡 정보 보기'}
+              </button>
+            </Link>
+          ) : (
+            <button className="artist-button" disabled>
+              {selectedArtist.event === '주창윤 교수님'
+                ? '블로그 아카이빙 보기'
+                : '대표곡 정보 보기'}
+            </button>
+          )}
         </div>
       ) : (
         <div className="no-events">
-          {selectedDate === '21' ? '해당 날짜에 토크쇼 일정이 없습니다.' : '해당 날짜에 아티스트 일정이 없습니다.'}
+          {selectedDate === '21'
+            ? '해당 날짜에 토크쇼 일정이 없습니다.'
+            : '해당 날짜에 아티스트 일정이 없습니다.'}
         </div>
       )}
 
@@ -140,3 +140,4 @@ export default function SchedulePage({ guestSchedules }) {
     </div>
   );
 }
+
