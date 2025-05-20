@@ -13,6 +13,7 @@ import starActive from '../assets/star-active.svg';
 import starCompleted from '../assets/star-completed.svg';
 import tooltip from '../assets/tooltip.svg';
 import buttonFloating from '../assets/button-floating.svg';
+import buttonBg from '../../Signup/assets/button-bg.svg';
 
 // API 요청 타임아웃(밀리초)
 const API_TIMEOUT = 5000;
@@ -76,8 +77,10 @@ const ConstellationPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [showTypeButton, setShowTypeButton] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [nextQuizId, setNextQuizId] = useState(null);
+  const [showTypeModal, setShowTypeModal] = useState(false);
 
   // 컴포넌트 마운트 시 데이터 로드 - 완료된 퀴즈 목록만 가져옴
   useEffect(() => {
@@ -107,6 +110,19 @@ const ConstellationPage = () => {
         // 모든 퀴즈를 완료했는지 체크
         if (completedIds.length === 12) {
           setShowTypeButton(true);
+          setShowTooltip(true);
+          
+          // 유형 확인 모달이 이미 표시되었는지 확인
+          const hasShownTypeModal = localStorage.getItem('hasShownTypeModal');
+          if (!hasShownTypeModal) {
+            setShowTypeModal(true);
+            localStorage.setItem('hasShownTypeModal', 'true');
+          }
+          
+          // 10초 후 툴팁 숨기기
+          setTimeout(() => {
+            setShowTooltip(false);
+          }, 10000);
         }
       } catch (error) {
         // 심각한 오류인 경우 로그인 페이지로 리다이렉트
@@ -232,13 +248,15 @@ const ConstellationPage = () => {
     <div className="constellation-container">
       <TopTabs />
       <div className="constellation-content">
-        {/* 12개 퀴즈 모두 완료 시 유형 확인 버튼 */}
-        {showTypeButton && (
+        {/* 12개 퀴즈 모두 완료 시 유형 확인 버튼 -> 모달이 표시되지 않을 때만 보이도록 수정 */}
+        {showTypeButton && !showTypeModal && (
           <div className="floating-button-container">
             <img src={buttonFloating} alt="유형 확인" className="tooltip-icon" onClick={checkQuizType} />
-            <div className="tooltip-bubble">
-              축제를 즐기는 유형을 확인해보세요
-            </div>
+            {showTooltip && (
+              <div className="tooltip-bubble tooltip-fade">
+                축제를 즐기는 유형을 확인해 보세요
+              </div>
+            )}
           </div>
         )}
         {/* 별자리 선 + 별을 같은 컨테이너에서 비율 맞춰 렌더 */}
@@ -285,6 +303,38 @@ const ConstellationPage = () => {
             </div>
           ))}
         </div>
+
+        {/* 유형 확인 모달 */}
+        {showTypeModal && (
+          <div className="quiz-modal-container">
+            <div className="quiz-modal-content">
+              <div className="quiz-modal-title">
+                <span className="quiz-modal-title-emoji">✨</span>
+                <span>나는 어떤 축제 스타일일까?</span>
+                <span className="quiz-modal-title-emoji">✨</span>
+              </div>
+              <p className="quiz-modal-message">
+                테스트 완료! <br />
+                지금 내 유형을 확인해 보세요.
+              </p>
+              <button 
+                className="quiz-modal-button-success" 
+                onClick={() => {
+                  setShowTypeModal(false);
+                  navigate('/quiz/type');
+                }}
+                style={{ 
+                  backgroundImage: `url(${buttonBg})`,
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'center',
+                  backgroundSize: 'cover'
+                }}
+              >
+                유형 확인하기
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

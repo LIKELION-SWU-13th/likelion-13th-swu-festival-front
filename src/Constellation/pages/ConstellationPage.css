@@ -137,7 +137,7 @@
 /* 유형 확인 플로팅 버튼 컨테이너 */
 .floating-button-container {
   position: absolute;
-  left: -2px;
+  left: 0;
   top: 10px;
   z-index: 100;
   display: flex;
@@ -252,6 +252,7 @@
   display: inline-block;
   z-index: 20;
   white-space: nowrap;
+  margin-left: -4px;
 }
 
 /* 플로팅 버튼 툴팁 꼬리 */
@@ -264,6 +265,30 @@
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
   border-right: 6px solid #906CF9;
+}
+
+/* 툴팁 페이드 애니메이션 */
+.tooltip-fade {
+  animation: tooltipFade 10s ease-in-out forwards;
+}
+
+@keyframes tooltipFade {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  80% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
 }
 
 /* 별 툴팁 기본 스타일 */

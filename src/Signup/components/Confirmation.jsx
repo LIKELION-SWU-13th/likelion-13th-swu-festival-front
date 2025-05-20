@@ -137,7 +137,8 @@ const Confirmation = ({ userInfo, onNext, setUserInfo, selectedFile }) => {
             onClick={handleRetry}
             disabled={loading}
           >
-            {loading ? '처리중...' : '다시 인식하기'}
+             {/* 공백 문자 추가 */}
+            {loading ? '\u00A0' : '다시 인식하기'}
           </button>
 
           {/* 로그인 버튼 */}

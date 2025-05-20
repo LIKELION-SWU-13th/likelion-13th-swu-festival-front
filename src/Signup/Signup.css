@@ -289,8 +289,11 @@
   text-align: center;
   cursor: pointer;
   width: auto;
+  height: 24px;
   margin: 0 auto;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: opacity 0.2s ease;
 }
 
