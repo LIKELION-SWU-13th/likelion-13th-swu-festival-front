@@ -1,130 +1,127 @@
-/* 페이지 전체 */
 .artist-page {
-    padding: 16px;
-    background: var(--Gray-90, #303036);
-    min-height: 100vh;
-  }
-  
-  .artist-page-header {
-    position: relative;    /* 버튼의 기준이 될 부모 */
-    padding-top: 50px;     /* 헤더 전체 여백 */
-    padding-bottom: 20px;
-    /* flex 설정 유지할 필요 없으면 모두 지워도 됩니다 */
-  }
-  /* 뒤로가기 버튼 */
-  .back-button {
-    position: absolute;
-    top: 0;                /* 부모 .artist-header 안에서 위쪽으로 딱 붙임 */
-    left: 0;               /* 필요에 따라 left: 16px; 처럼 조정 가능 */
-    width: 24px;
-    height: 24px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: none;
-    border: none;
-    cursor: pointer;
-    z-index: 10;           /* 다른 요소 위에 떠 있도록 */
-  }
-  
-  .back-button svg {
-    width: 24px;
-    height: 24px;
-    transform: scaleX(-1);
-  }
-  
-  /* 제목 */
-  .artist-title {
-    color: #FAFAFA;
-    font-size: 20px;
-    font-weight: 600;
-    margin: 0;
-  }
-  
-  /* 리스트 초기화 */
-  .song-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  /* 카드 (li) */
-  .song-card {
-    position: relative;
-    margin-bottom: 12px;
-  }
-  .song-card:last-child {
-    margin-bottom: 0;
-  }
-  
-  /* 카드 내부 버튼 전체를 카드처럼 */
-  .song-link {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    padding: 15px;
-    padding-right: 60px;
-    background: var(--Gray-80, #484851);
-    border: none;
-    border-radius: 12px;
-    text-align: left;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  .song-link:hover {
-    background: var(--Gray-70, #5A5A66);
-  }
-  
-  /* 왼쪽 원형 이미지 */
-  .song-img {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    object-fit: cover;
-    flex-shrink: 0;
-  }
-  
-  /* 곡명 / 아티스트명 */
-  .song-info {
-    flex: 1;
-    margin-left: 12px;
-    display: flex;
-    flex-direction: column;
-  }
-  .song-name {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--Gray-0, #FAFAFA);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;               
+  padding: 16px;             
+  background: var(--Gray-90, #303036);
+  box-sizing: border-box;      
+}
 
-  }
-  .artist-page-name {
-    font-size: 14px;
-    color: var(--Indigo-10, #9DA4FB);
-    font-weight: 500;
-    margin-top: 4px;
-  }
-  
-  /* 오른쪽 반쯤 튀어나오는 화살표 원 */
-  .arrow-wrapper {
-    position: absolute;
-    top: 50%;
-    right: 0px;
-    width: 32px;
-    height: 32px; 
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform: translateY(-50%);
-  }
-  .arrow-wrapper svg {
-    width: 24px;
-    height: 24px;
-  }
-  
-  /* 아티스트 없을 때 메시지 */
-  .no-artist {
-    color: #FAFAFA;
-    padding: 16px;
-  }
-  
+.artist-page-header {
+  position: relative;
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+
+.back-button {
+  position: absolute;
+  top: 0;
+  left: 0px;               
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.back-button svg {
+  width: 24px;
+  height: 24px;
+  transform: scaleX(-1);
+}
+
+.artist-title {
+  color: #FAFAFA;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.song-list {
+  flex: 1;
+  min-height: 0;          
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;          
+  padding-right: 4px;       
+  padding-bottom: 64px;      
+  -webkit-overflow-scrolling: touch;
+}
+
+.song-card {
+  position: relative;
+  margin-bottom: 12px;
+}
+.song-card:last-child {
+  margin-bottom: 0;
+}
+
+.song-link {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 15px;
+  padding-right: 60px;
+  background: var(--Gray-80, #484851);
+  border: none;
+  border-radius: 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.song-link:hover {
+  background: var(--Gray-70, #5A5A66);
+}
+
+.song-img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.song-info {
+  flex: 1;
+  margin-left: 12px;
+  display: flex;
+  flex-direction: column;
+}
+.song-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--Gray-0, #FAFAFA);
+}
+.artist-page-name {
+  font-size: 14px;
+  color: var(--Indigo-10, #9DA4FB);
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+.arrow-wrapper {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-50%);
+}
+.arrow-wrapper svg {
+  width: 24px;
+  height: 24px;
+}
+
+.no-artist {
+  color: #FAFAFA;
+  padding: 16px;
+}
