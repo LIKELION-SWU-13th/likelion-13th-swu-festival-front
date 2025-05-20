@@ -332,7 +332,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 24px;
   min-height: 100vh;
   box-sizing: border-box;
 }
@@ -370,8 +369,8 @@
 .success-button {
   width: 343px;
   height: 56px;
-  margin-top: 417px;
-  margin-bottom: 48px;  /* 하단 여백 */
+  margin-top: 385px;
+  margin-bottom: 100px;
   background-color: transparent;
   background-image: url('./assets/button-bg.svg');
   background-size: cover;
