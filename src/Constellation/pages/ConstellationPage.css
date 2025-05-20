@@ -359,3 +359,26 @@
   border-bottom: 5px solid transparent;
   border-right: 6px solid #906CF9;
 }
+
+/* 별자리 선 + 별을 같은 컨테이너에서 비율 맞춰 렌더 */
+.constellation-visual-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 375px;
+  aspect-ratio: 278 / 514;
+  margin: 50px auto 0;
+  background: none;
+}
+/* 별자리 선 */
+.constellation-visual-wrapper
+.constellation-lines {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 1;
+}
+/* 별 */
+.constellation-visual-wrapper .star-position {
+  position: absolute;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+}

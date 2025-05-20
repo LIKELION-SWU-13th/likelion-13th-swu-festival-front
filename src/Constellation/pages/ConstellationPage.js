@@ -27,21 +27,24 @@ const callWithTimeout = (apiPromise) => {
   ]);
 };
 
-// 피그마 좌표를 참고로 변환한 좌표(노가다)
-// 높이 조정 위해서 y값만 조정함
+// 별자리 선 SVG의 viewBox 크기와 맞추기
+const VIEWBOX_WIDTH = 278;
+const VIEWBOX_HEIGHT = 514;
+
+// 별 좌표를 viewBox 기준으로 맞춰서 사용
 const STAR_POSITIONS = [
-  { id: 1, x: 79, y: 10 },      // 첫 번째로 열리는 별
-  { id: 2, x: 54.5, y: 20},      // 두 번째
-  { id: 3, x: 46.5, y: 33 },      // 세 번째
-  { id: 4, x: 54, y: 42 },      // 네 번째
-  { id: 5, x: 26, y: 58.8 },      // 다섯 번째
-  { id: 6, x: 16, y: 86 },      // 여섯 번째
-  { id: 7, x: 55, y: 94 },      // 일곱 번째
-  { id: 8, x: 42, y: 73 },      // 여덟 번째
-  { id: 9, x: 96, y: 56 },      // 아홉 번째
-  { id: 10, x: 80, y: 47 },     // 열 번째
-  { id: 11, x: 77, y: 29 },     // 열한 번째
-  { id: 12, x: 87.5, y: 20 },     // 열두 번째
+  { id: 1, x: 215, y: 1 },      // 첫 번째로 열리는 별
+  { id: 2, x: 130, y: 59},      // 두 번째
+  { id: 3, x: 105, y: 140},     // 세 번째
+  { id: 4, x: 129, y: 190},     // 네 번째
+  { id: 5, x: 37, y: 294},     // 다섯 번째
+  { id: 6, x: 8, y: 446},    // 여섯 번째
+  { id: 7, x: 137, y: 510},  // 일곱 번째 (맨 아래)
+  { id: 8, x: 88, y: 379},  // 여덟 번째
+  { id: 9, x: 272, y: 275},  // 아홉 번째 (제일 오른쪽)
+  { id: 10, x: 218, y: 219},  // 열 번째
+  { id: 11, x: 207, y: 112},  // 열한 번째
+  { id: 12, x: 242, y: 59},  // 열두 번째
 ];
 
 // 별마다 툴팁 위치 지정 (1번 별은 툴팁 없음)
@@ -238,22 +241,24 @@ const ConstellationPage = () => {
             </div>
           </div>
         )}
-        
-        <div className="constellation-grid">
-          {/* 별자리 선 이미지 */}
-          <div className="constellation-background">
-            <img src={constellationLines} alt="constellation lines" />
-          </div>
-          {/* 별들 */}
+        {/* 별자리 선 + 별을 같은 컨테이너에서 비율 맞춰 렌더 */}
+        <div className="constellation-visual-wrapper">
+          <img
+            src={constellationLines}
+            alt="constellation lines"
+            className="constellation-lines"
+            style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0 }}
+          />
           {STAR_POSITIONS.map((position) => (
             <div
               key={position.id}
               className="star-position"
               style={{
                 position: 'absolute',
-                left: `${position.x}%`,
-                top: `${position.y}%`,
+                left: `${(position.x / VIEWBOX_WIDTH) * 100}%`,
+                top: `${(position.y / VIEWBOX_HEIGHT) * 100}%`,
                 transform: 'translate(-50%, -50%)',
+                zIndex: 2,
               }}
             >
               <StarQuiz
