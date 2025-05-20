@@ -344,22 +344,22 @@ const QuizPage = () => {
 
       {/* 모달 창 */}
       {showModal && (
-        <div className="modal-container">
-          <div className="modal-content">
+        <div className="quiz-modal-container">
+          <div className="quiz-modal-content">
             {isSuccessful ? (
               // 성공 모달
               <>
-                <div className="modal-title">
-                  <span className="modal-title-emoji">🎉</span>
+                <div className="quiz-modal-title">
+                  <span className="quiz-modal-title-emoji">🎉</span>
                   <span>커피 쿠폰 당첨!</span>
-                  <span className="modal-title-emoji">🎉</span>
+                  <span className="quiz-modal-title-emoji">🎉</span>
                 </div>
-                <p className="modal-message">
+                <p className="quiz-modal-message">
                   선착순 2명의 주인공 슈니!<br />
                   컴포즈 커피 쿠폰을 받을 수 있어요
                 </p>
                 <button 
-                  className="modal-button-success" 
+                  className="quiz-modal-button-success" 
                   onClick={handleModalConfirm}
                   style={{ 
                     backgroundImage: `url(${buttonBg})`,
@@ -374,18 +374,18 @@ const QuizPage = () => {
             ) : (
               // 실패 모달
               <>
-                <div className="modal-title">
-                  <span className="modal-title-emoji">🥹</span>
+                <div className="quiz-modal-title">
+                  <span className="quiz-modal-title-emoji">🥹</span>
                   <span>다음 기회에..</span>
                 </div>
-                <p className="modal-message">
+                <p className="quiz-modal-message">
                   아쉽게 선착순 커피 쿠폰을 놓쳤어요.<br />
                   {nextQuizInfo && nextQuizInfo.nextQuizTime ? 
                     `${nextQuizInfo.nextQuizTime}시에 다시 도전해 주세요!` : 
                     "모든 퀴즈가 종료되었어요!"}
                 </p>
                 <button 
-                  className="modal-button-fail" 
+                  className="quiz-modal-button-fail" 
                   onClick={handleModalConfirm}
                   style={{ 
                     backgroundImage: `url(${buttonBg})`,
