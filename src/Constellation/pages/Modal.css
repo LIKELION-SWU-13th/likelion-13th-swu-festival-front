@@ -1,5 +1,5 @@
 /* 모달 오버레이 */
-.modal-container {
+.quiz-modal-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -17,7 +17,7 @@
 }
 
 /* 모달 내용 */
-.modal-content {
+.quiz-modal-content {
   background: #fff;
   border-radius: 20px;
   padding: 20px;
@@ -33,7 +33,7 @@
 }
 
 /* 모달 타이틀 */
-.modal-title {
+.quiz-modal-title {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,13 +42,13 @@
   font-weight: 600;
 }
 
-.modal-title-emoji {
+.quiz-modal-title-emoji {
   font-size: 28px;
   margin: 0 8px;
 }
 
 /* 모달 메시지 */
-.modal-message {
+.quiz-modal-message {
   font-size: 17px;
   line-height: 1.5;
   margin-top: 8px;
@@ -58,8 +58,8 @@
 }
 
 /* 모달 버튼 공통 스타일 */
-.modal-button-success,
-.modal-button-fail {
+.quiz-modal-button-success,
+.quiz-modal-button-fail {
   width: 100%;
   height: 100%;
   padding: 14px 20px;
@@ -72,12 +72,12 @@
   transition: transform 0.2s;
 }
 
-.modal-button-success:hover,
-.modal-button-fail:hover {
+.quiz-modal-button-success:hover,
+.quiz-modal-button-fail:hover {
   transform: translateY(-2px);
 }
 
-.modal-button-success:active,
-.modal-button-fail:active {
+.quiz-modal-button-success:active,
+.quiz-modal-button-fail:active {
   transform: translateY(1px);
 }

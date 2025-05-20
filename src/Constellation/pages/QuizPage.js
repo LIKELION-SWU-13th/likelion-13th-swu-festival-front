@@ -299,11 +299,12 @@ const QuizPage = () => {
             {['A', 'B'].map((key) => {
               // 퍼센트 값 계산 및 정수로만 표시
               const percentValue = Math.round(parseFloat(result[`${key.toLowerCase()}_rate`]));
+              const isSelected = result.choice === key; // 사용자가 선택한 응답지인지 확인
               
               return (
                 <div className="choice-result" key={key}>
                   <div 
-                    className="choice-button filled"
+                    className={`choice-button filled ${isSelected ? 'selected-choice' : 'unselected-choice'}`}
                     style={{ '--percent': `${percentValue}%` }} // CSS 변수로 퍼센트 전달
                   >
                     <span className="choice-label">{key}.</span>
@@ -312,7 +313,10 @@ const QuizPage = () => {
                     </span>
                   </div>
                   <div className="choice-percent-text">
-                    {percentValue}%의 슈니들이 여기에 해당돼요!
+                    {isSelected 
+                      ? `나를 포함한 ${percentValue}%의 슈니들이 여기에 해당돼요!`
+                      : `${percentValue}%의 슈니들이 여기에 해당돼요!`
+                    }
                   </div>
                 </div>
               );
@@ -327,39 +331,43 @@ const QuizPage = () => {
           </div>
         )}
         
-        {/* 하단에 고정된 홈 버튼 */}
-        <button 
-          className="home-button" 
-          onClick={() => navigate('/')}
-          style={{ 
-            backgroundImage: `url(${buttonBg})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
-            backgroundSize: 'cover'
-          }}
-        >
-          홈 화면 바로가기
-        </button>
+        {/* 하단에 고정된 홈 버튼 -> 응답 후에만 노출 */}
+        {result && (
+          <div className="quiz-bottom-container">
+            <button 
+              className="home-button" 
+              onClick={() => navigate('/')}
+              style={{ 
+                backgroundImage: `url(${buttonBg})`,
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+                backgroundSize: 'cover'
+              }}
+            >
+              홈 화면 바로가기
+            </button>
+          </div>
+        )}
       </div>
 
       {/* 모달 창 */}
       {showModal && (
-        <div className="modal-container">
-          <div className="modal-content">
+        <div className="quiz-modal-container">
+          <div className="quiz-modal-content">
             {isSuccessful ? (
               // 성공 모달
               <>
-                <div className="modal-title">
-                  <span className="modal-title-emoji">🎉</span>
+                <div className="quiz-modal-title">
+                  <span className="quiz-modal-title-emoji">🎉</span>
                   <span>커피 쿠폰 당첨!</span>
-                  <span className="modal-title-emoji">🎉</span>
+                  <span className="quiz-modal-title-emoji">🎉</span>
                 </div>
-                <p className="modal-message">
+                <p className="quiz-modal-message">
                   선착순 2명의 주인공 슈니!<br />
                   컴포즈 커피 쿠폰을 받을 수 있어요
                 </p>
                 <button 
-                  className="modal-button-success" 
+                  className="quiz-modal-button-success" 
                   onClick={handleModalConfirm}
                   style={{ 
                     backgroundImage: `url(${buttonBg})`,
@@ -374,18 +382,18 @@ const QuizPage = () => {
             ) : (
               // 실패 모달
               <>
-                <div className="modal-title">
-                  <span className="modal-title-emoji">🥹</span>
+                <div className="quiz-modal-title">
+                  <span className="quiz-modal-title-emoji">🥹</span>
                   <span>다음 기회에..</span>
                 </div>
-                <p className="modal-message">
+                <p className="quiz-modal-message">
                   아쉽게 선착순 커피 쿠폰을 놓쳤어요.<br />
                   {nextQuizInfo && nextQuizInfo.nextQuizTime ? 
                     `${nextQuizInfo.nextQuizTime}시에 다시 도전해 주세요!` : 
                     "모든 퀴즈가 종료되었어요!"}
                 </p>
                 <button 
-                  className="modal-button-fail" 
+                  className="quiz-modal-button-fail" 
                   onClick={handleModalConfirm}
                   style={{ 
                     backgroundImage: `url(${buttonBg})`,
