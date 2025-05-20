@@ -1,19 +1,25 @@
-import React from 'react';
+/* src/components/PhotoBoothSection.jsx */
+import React, { useState } from 'react';
 import { ReactComponent as CardIcon } from '../../assets/Card.svg';
 import { ReactComponent as LocationPin } from '../images/photo.svg';
+import SliderModal from './SliderModal';
 import './PhotoBoothSection.css';
 
-import img1_1 from '../images/1-1.png';
-import img1_2 from '../images/1-2.png';
-import img1_3 from '../images/1-3.png';
-import img1_4 from '../images/1-4.png';
+import img1_1 from '../images/photo1.png';
+import img1_2 from '../images/photo2.png';
+import img1_3 from '../images/photo3.png';
+import img1_4 from '../images/photo4.png';
+import img1_5 from '../images/photo5.png';
 
 export default function PhotoBoothSection() {
-  const frames = [img1_1, img1_2, img1_3, img1_4];
+  const frames = [img1_1, img1_2, img1_3, img1_4, img1_5];
+  const [slider, setSlider] = useState({ open: false, index: 0 });
+
+  const openSlider = (idx) => setSlider({ open: true, index: idx });
+  const closeSlider = () => setSlider({ open: false, index: 0 });
 
   return (
     <div className="photo-bottom">
-
       {/* 포토부스 위치 섹션 */}
       <section className="location-info">
         <div className="pin-wrapper">
@@ -52,14 +58,27 @@ export default function PhotoBoothSection() {
 
       {/* 프레임 이미지 */}
       <section className="frame-images">
-        <h4>프레임 이미지</h4>
-        <div className="thumbs">
+        <h4 className="section-subtitle">프레임 이미지</h4>
+        <div className="product-images">
           {frames.map((src, idx) => (
-            <img key={idx} src={src} alt={`프레임${idx + 1}`} />
+            <img
+              key={idx}
+              src={src}
+              alt={`프레임${idx + 1}`}
+              onClick={() => openSlider(idx)}
+            />
           ))}
         </div>
       </section>
 
+      {/* 슬라이더 모달 */}
+      {slider.open && (
+        <SliderModal
+          images={frames}
+          initialIndex={slider.index}
+          onClose={closeSlider}
+        />
+      )}
     </div>
   );
 }
