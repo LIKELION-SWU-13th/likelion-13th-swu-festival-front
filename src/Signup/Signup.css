@@ -268,10 +268,7 @@
 /* 버튼 그룹 */
 .confirm-buttons {
   width: 100%;
-  position: fixed;
-  bottom: 48px;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-bottom: 48px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -291,11 +288,17 @@
   cursor: pointer;
   width: auto;
   height: 24px;
-  margin: 0 auto;
+  margin-top: 95px;
+  margin-bottom: 8px;  /* 로그인하기 버튼과의 간격 조정 */
   display: flex;
   align-items: center;
   justify-content: center;
   transition: opacity 0.2s ease;
+}
+
+/* 로그인하기 버튼 */
+.confirm-buttons .form-button {
+  margin-top: 0;  /* 상단 마진 제거 */
 }
 
 .qr-retry-button:hover {
@@ -354,10 +357,7 @@
 .success-button {
   width: 343px;
   height: 56px;
-  position: fixed;
-  bottom: 48px;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-top: 465px;
   background-color: transparent;
   background-image: url('./assets/button-bg.svg');
   background-size: cover;
@@ -372,7 +372,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10;
 }
 
 /* === 뒤로가기 버튼 === */
@@ -396,10 +395,7 @@
 .common-fixed-button {
   width: 343px;
   height: 56px;
-  position: fixed;
-  bottom: 48px;
-  left: 50%;
-  transform: translateX(-50%);  /* 정확한 중앙 정렬을 위해 transform 사용 */
+  margin-bottom: 48px;
   background-color: transparent;
   background-image: url('./assets/button-bg.svg');
   background-size: cover;
@@ -414,7 +410,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10;
 }
 
 /* 모달 스타일 */
