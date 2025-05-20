@@ -22,7 +22,7 @@
   border-radius: 20px;
   padding: 20px;
   width: 85%;
-  max-width: 323px;
+  max-width: 343px;
   text-align: center;
   position: relative;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
@@ -40,6 +40,8 @@
   font-size: 22px;
   color: #303036;
   font-weight: 600;
+  white-space: nowrap;
+  padding: 0 8px;
 }
 
 .quiz-modal-title-emoji {
@@ -69,15 +71,15 @@
   font-weight: 600;
   cursor: pointer;
   color: #F1F1F3;
-  transition: transform 0.2s;
+  transition: opacity 0.2s ease;
 }
 
 .quiz-modal-button-success:hover,
 .quiz-modal-button-fail:hover {
-  transform: translateY(-2px);
+  opacity: 0.9;
 }
 
 .quiz-modal-button-success:active,
 .quiz-modal-button-fail:active {
-  transform: translateY(1px);
+  opacity: 0.9;
 }
