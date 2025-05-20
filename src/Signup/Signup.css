@@ -410,3 +410,84 @@
   justify-content: center;
   z-index: 10;
 }
+
+/* 모달 스타일 */
+.signup-modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  /* 성능 최적화를 위한 CSS */
+  will-change: opacity;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+
+.signup-modal-content {
+  background: #fff;
+  border-radius: 20px;
+  padding: 20px;
+  width: 85%;
+  max-width: 343px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  color: white;
+  /* 성능 최적화를 위한 CSS */
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.signup-modal-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  color: #303036;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 0 8px;
+}
+
+.signup-modal-emoji {
+  font-size: 28px;
+  margin: 0 8px;
+}
+
+.signup-modal-body {
+  font-size: 17px;
+  line-height: 1.5;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  color: #484851;
+  font-weight: 400;
+}
+
+.signup-modal-button {
+  width: 100%;
+  height: 100%;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 100px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #F1F1F3;
+  transition: opacity 0.2s ease;
+  background-color: transparent;
+  background-image: url('./assets/button-bg.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.signup-modal-button:hover,
+.signup-modal-button:active {
+  opacity: 0.9;
+}

@@ -5,6 +5,7 @@ import '../Signup.css';
 const Confirmation = ({ userInfo, onNext, setUserInfo, selectedFile }) => {
   const [loading, setLoading] = useState(false);  // 로딩 중 여부
   const [error, setError] = useState('');         // 에러 메시지 상태
+  const [showModal, setShowModal] = useState(false); // 모달 표시 여부
   const [ocrInfo, setOcrInfo] = useState({
     student_num: userInfo.student_num || '',
     name: userInfo.name || '',
@@ -93,6 +94,22 @@ const Confirmation = ({ userInfo, onNext, setUserInfo, selectedFile }) => {
     }
   };
 
+  // 모달 열기
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  // 모달 닫기
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  // 모달 확인 버튼 클릭 시 로그인 실행
+  const handleModalConfirm = () => {
+    closeModal();
+    handleLogin();
+  };
+
   return (
     <div className="confirm-wrapper">
       <div className="confirm-box">
@@ -144,13 +161,35 @@ const Confirmation = ({ userInfo, onNext, setUserInfo, selectedFile }) => {
           {/* 로그인 버튼 */}
           <button
             className="form-button"
-            onClick={handleLogin}
+            onClick={openModal}
             disabled={loading}
           >
             {loading ? '처리중...' : '로그인 하기'}
           </button>
         </div>
       </div>
+
+      {/* 학번 확인 모달 */}
+      {showModal && (
+        <div className="signup-modal-container">
+          <div className="signup-modal-content">
+            <div className="signup-modal-header">
+              <span className="signup-modal-emoji">🚨</span>
+              <span>학번 확인</span>
+              <span className="signup-modal-emoji">🚨</span>
+            </div>
+            <div className="signup-modal-body">
+              로그인 전, 학번을 다시 한번 더 확인해 주세요!
+            </div>
+            <button 
+              className="signup-modal-button" 
+              onClick={handleModalConfirm}
+            >
+              확인
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
