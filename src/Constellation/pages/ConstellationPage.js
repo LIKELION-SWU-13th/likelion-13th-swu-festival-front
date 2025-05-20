@@ -76,6 +76,7 @@ const ConstellationPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [showTypeButton, setShowTypeButton] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [nextQuizId, setNextQuizId] = useState(null);
 
@@ -107,6 +108,11 @@ const ConstellationPage = () => {
         // 모든 퀴즈를 완료했는지 체크
         if (completedIds.length === 12) {
           setShowTypeButton(true);
+          setShowTooltip(true);
+          // 10초 후 툴팁 숨기기
+          setTimeout(() => {
+            setShowTooltip(false);
+          }, 10000);
         }
       } catch (error) {
         // 심각한 오류인 경우 로그인 페이지로 리다이렉트
@@ -236,9 +242,11 @@ const ConstellationPage = () => {
         {showTypeButton && (
           <div className="floating-button-container">
             <img src={buttonFloating} alt="유형 확인" className="tooltip-icon" onClick={checkQuizType} />
-            <div className="tooltip-bubble">
-              축제를 즐기는 유형을 확인해보세요
-            </div>
+            {showTooltip && (
+              <div className="tooltip-bubble tooltip-fade">
+                축제를 즐기는 유형을 확인해 보세요
+              </div>
+            )}
           </div>
         )}
         {/* 별자리 선 + 별을 같은 컨테이너에서 비율 맞춰 렌더 */}
