@@ -308,7 +308,7 @@
 
 /* 별 툴팁 방향별 위치 조정 */
 .star-tooltip-bubble-left {
-  right: 30px;
+  right: 35px;
   top: 50%;
   transform: translateY(-50%);
 }
