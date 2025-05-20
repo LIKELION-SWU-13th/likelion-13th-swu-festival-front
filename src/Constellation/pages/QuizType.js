@@ -124,7 +124,7 @@ const QuizType = () => {
   return (
     <div className="type-container">
       <div className="type-content">
-        <button className="back-button" onClick={() => navigate('/constellation')}>
+        <button className="constellation-quiz-type-back-button" onClick={() => navigate('/constellation')}>
           <img src={backIcon} alt="뒤로가기" />
         </button>
 
