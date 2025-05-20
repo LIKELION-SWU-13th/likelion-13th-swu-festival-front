@@ -13,8 +13,8 @@
   cursor: pointer;
 }
 
-/* 활성화된 별에 발광 효과 추가 */
-.star-container.open .star-image {
+/* 활성화된 별에만 발광 효과 추가 (완료된 별 제외) */
+.star-container.open:not(.completed) .star-image {
   filter: drop-shadow(0 0 4.5px rgba(255, 255, 255, 1));
 }
 
