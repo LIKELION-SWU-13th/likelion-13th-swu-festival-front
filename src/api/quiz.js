@@ -122,22 +122,22 @@ export const getQuizType = async () => {
 // 퀴즈 오픈 시간 매핑
 export const QUIZ_OPEN_TIMES = {
   // 축제 첫째날: 5/21(수)
-  1: '2025-05-20T11:00:00',
-  2: '2025-05-20T14:00:00',
-  3: '2025-05-20T16:00:00',
-  4: '2025-05-20T18:00:00',
+  1: '2025-05-21T01:47:00',
+  2: '2025-05-21T01:48:00',
+  3: '2025-05-21T01:49:00',
+  4: '2025-05-21T01:50:00',
   
   // 둘째날: 5/22(목)
-  5: '2025-05-20T11:00:00',
-  6: '2025-05-20T14:00:00',
-  7: '2025-05-20T16:00:00',
-  8: '2025-05-20T18:00:00',
+  5: '2025-05-21T01:51:00',
+  6: '2025-05-21T01:52:00',
+  7: '2025-05-21T01:53:00',
+  8: '2025-05-21T01:54:00',
   
   // 셋째날: 5/23(금)
-  9: '2025-05-21T00:18:00',
-  10: '2025-05-21T00:20:00',
-  11: '2025-05-22T16:00:00',
-  12: '2025-05-22T18:00:00'
+  9: '2025-05-21T01:55:00',
+  10: '2025-05-21T01:56:00',
+  11: '2025-05-21T01:57:00',
+  12: '2025-05-21T01:58:00'
 };
 
 // 퀴즈 오픈 시간 계산 함수
@@ -151,4 +151,28 @@ export const isQuizOpen = (openTime) => {
   const currentTime = new Date();
   const quizOpenTime = new Date(openTime);
   return currentTime >= quizOpenTime;
+};
+
+// 다음 퀴즈 오픈 시간 계산 함수
+export const getNextQuizOpenTime = () => {
+  const currentTime = new Date();
+  const quizIds = Object.keys(QUIZ_OPEN_TIMES).map(Number).sort((a, b) => a - b);
+  
+  // 현재 시간 이후에 열리는 가장 가까운 퀴즈 찾기
+  for (const quizId of quizIds) {
+    const openTime = new Date(QUIZ_OPEN_TIMES[quizId]);
+    const timeDiff = openTime - currentTime;
+    const minutesUntilOpen = Math.floor(timeDiff / (1000 * 60));
+    
+    // 정확히 1분 전일 때만 반환
+    if (timeDiff > 0 && minutesUntilOpen === 1) {
+      return {
+        quizId,
+        openTime,
+        timeUntilOpen: minutesUntilOpen
+      };
+    }
+  }
+  
+  return null; // 더 이상 열릴 퀴즈가 없거나 정확히 1분 전이 아닌 경우
 }; 
