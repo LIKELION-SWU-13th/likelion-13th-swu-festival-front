@@ -70,29 +70,6 @@ export default function SchedulePage({ guestSchedules }) {
             </button>
           ))}
         </div>
-        <h2 className="section-title">동아리 공연</h2>
-      </div>
-
-      <div className="schedule-list">
-        {filteredEvents.length > 0 ? (
-          filteredEvents.map((item, idx) => (
-            <div key={idx} className="event-card" onClick={() => { setModalEvent(item); setIsOpen(true); }}>
-              <img src={item.imageUrl} alt={item.title} className="event-img" />
-              <div className="event-info">
-                <div className="event-header">{item.title}</div>
-                <div className="event-time">{`${item.start}–${item.end}`}</div>
-              </div>
-              <DesignMockup className="event-arrow" />
-            </div>
-          ))
-        ) : (
-          <div className="no-events">해당 날짜에는 일정이 없습니다.</div>
-        )}
-      </div>
-
-      <div className="schedule-notice-inline">
-        <ExclamationIcon className="notice-icon" />
-        <span>현장 상황에 따라 시간은 조금씩 달라질 수 있습니다.</span>
       </div>
 
       <h2 className="section-title">
@@ -136,6 +113,30 @@ export default function SchedulePage({ guestSchedules }) {
             : '해당 날짜에 아티스트 일정이 없습니다.'}
         </div>
       )}
+
+<h2 className="section-title">동아리 공연</h2>
+
+<div className="schedule-list">
+  {filteredEvents.length > 0 ? (
+    filteredEvents.map((item, idx) => (
+      <div key={idx} className="event-card" onClick={() => { setModalEvent(item); setIsOpen(true); }}>
+        <img src={item.imageUrl} alt={item.title} className="event-img" />
+        <div className="event-info">
+          <div className="event-header">{item.title}</div>
+          <div className="event-time">{`${item.start}–${item.end}`}</div>
+        </div>
+        <DesignMockup className="event-arrow" />
+      </div>
+    ))
+  ) : (
+    <div className="no-events">해당 날짜에는 일정이 없습니다.</div>
+  )}
+</div>
+
+<div className="schedule-notice-inline">
+  <ExclamationIcon className="notice-icon" />
+  <span>현장 상황에 따라 시간은 조금씩 달라질 수 있습니다.</span>
+</div>
 
       {isOpen && modalEvent && (
         <ScheduleDetailModal

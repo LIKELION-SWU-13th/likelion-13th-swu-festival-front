@@ -12,9 +12,9 @@ import './DepartmentSection.css';
 const LAYOUTS = [
   // 5/21 레이아웃
   [
-    { id: 'left',       numbers: [10,9,8,7,6,5,4,3,2,1], style: { top:'0%', left:'5%',  width:'40px',  height:'240px', flexDirection:'column' } },
-    { id: 'middle-top', numbers: [13,14,15,16,17],  style: { top:'0%', left:'30%', transform:'translateX(-50%)', width:'150px', height:'40px', flexDirection:'row' } },
-    { id: 'middle',     numbers: [11,12],           style: { top:'20%', left:'40%', transform:'translateX(-50%)', width:'80px', height:'40px', flexDirection:'row' } },
+    { id: 'left',       numbers: [10,9,8,7,6,5,4,3,2,1], style: { top:'0%', left:'4%',  width:'40px',  height:'240px', flexDirection:'column' } },
+    { id: 'middle-top', numbers: [13,14,15,16,17],  style: { top:'0%', left:'29%', transform:'translateX(-50%)', width:'150px', height:'40px', flexDirection:'row' } },
+    { id: 'middle',     numbers: [11,12],           style: { top:'20%', left:'39%', transform:'translateX(-50%)', width:'80px', height:'40px', flexDirection:'row' } },
     { id: 'right',      numbers: [18,19,20,21,22,23,24,25,26], style:{top:'0%', left:'85%', transform:'translateX(-100%)', width:'40px', height:'240px', flexDirection:'column'} },
   ],
   // 5/22 레이아웃
@@ -210,24 +210,27 @@ export default function DepartmentSection() {
         </div>
       )}
 
-      {/* 완료 모달 */}
-      {showModal && (
-        <div className="bottom-sheet">
-          <div className="complete-modal">
-            <div className="modal-header">
-              <h3>✔️ 체험 완료 처리</h3>
-            </div>
-            <div className="modal-body">
-              <p>부스 활동은 즐거우셨나요?</p>
-              <p>체험 완료 처리를 해주세요!</p>
-            </div>
-            <div className="modal-actions">
-              <button className="btn-close" onClick={closeModal}>닫기</button>
-              <button className="btn-confirm" onClick={confirmComplete}>완료</button>
-            </div>
-          </div>
+{showModal && (
+  <div className="modal-overlay">
+    <div className="modal-backdrop" onClick={closeModal} />
+    <div className="bottom-sheet">
+      <div className="complete-modal">
+        <div className="modal-header">
+          <h3>✔️ 체험 완료 처리</h3>
         </div>
-      )}
+        <div className="modal-body">
+          <p>부스 활동은 즐거우셨나요?</p>
+          <p>체험 완료 처리를 해주세요!</p>
+        </div>
+        <div className="modal-actions">
+          <button className="btn-close" onClick={closeModal}>닫기</button>
+          <button className="btn-confirm" onClick={confirmComplete}>완료</button>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
 }

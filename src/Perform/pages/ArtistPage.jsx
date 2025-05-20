@@ -619,548 +619,1404 @@ TV 속에 싸워 이긴 전사
 
   },
   ichaeyeon: {
-    '1': `Knock Knock Knock
-Knock Knock Knock Knock Knock Knock Knock
-Knocking on your heart
-Knock Knock Knock Knock Knock Knock
-Knock Knock Knock Knock Knock Knock Knock
-Knocking on your heart
+    '1': `**(내 심장을 두드린 이 채 연)**
 
-가만가만히 들여다보는 건
-마음에 안 들어 (nope)
-까만 밤하늘 수놓은 별처럼
-콕 콕 마음에 박혀
+Knock, Knock
 
-세상에 눈을 뜬 후로
-Hard for me to control
-끌리는 마음이 So I feel special
-눈이 마주치면
-Come a little closer
-Come closer come closer
-이제 깨어나
+Knock, Knock
 
-Knock Knock Knock Knock Knock Knock
-Knock Knock Knock Knock Knock Knock Knock
-Knocking on your heart
-Knock Knock Knock Knock Knock Knock
-Knock Knock Knock Knock Knock Knock Knock
-Knocking on your heart
+Knock, Knock,
 
-날 위로 더 위로 올려 이 순간
-Come over the moonlight
-Starry-eyed, Get me high 바로 오늘 밤
-Knock Knock Knocking on your heart
+Knock, Knock,
 
-매일 주시하며 살지 마 굳이 어때
-많고 적고 별 차이 알아도 No 상관없지
-솔직히 살아도 돼 그래 자연스럽게
-똑똑하면 잘해봐
+heart
 
-세상에 눈을 뜬 후로
-Hard for me to control
-끌리는 마음이 So I feel special
-눈이 마주치면
-Come a little closer
-Come closer come closer
-이제 깨어나
+Knocking on your 
 
-Knock Knock Knock Knock Knock Knock
-Knock Knock Knock Knock Knock Knock Knock
-Knocking on your heart
-Knock Knock Knock Knock Knock Knock
-Knock Knock Knock Knock Knock Knock Knock
-Knocking on your heart
+Knock, Knock, 
 
-날 위로 더 위로 올려 이 순간
-Come over the moonlight
-Starry-eyed, Get me high 바로 오늘 밤
-Knock Knock Knocking on your heart
+**(사랑해)**
 
-더 이상 기다리게는 하지 마
-두드리면 깨질 걸 널 아니까
-이 밤이 더디게 더디게 가
-Come a little closer
+high 바로 오늘 밤
 
-La la la la la la
-La la la la la la la la la
+Starry-eyed, Get me 
+
+**(이채연)**
+
+moonlight
+
+Come over the 
+
+**(영원히)**
+
+이 순간
+
+날 위로 더 위로 올려 
+
+**heart**
+
+**Knocking on your** 
+
+Knock, **Knock, Knock**
+
+Knock, Knock,
+
+Knock, Knock,
+
+Knock, Knock
+
+Knock, Knock,
+
+Knock, Knock,
+
 All I wanna do
 
-Knock Knock Knock Knock Knock Knock
-Knock Knock Knock Knock Knock Knock Knock
-Knocking on your heart
+La la la la la la la la la
 
-날 위로 더 위로 올려 이 순간
-Come over the moonlight
-Starry-eyed, Get me high 바로 오늘 밤
-Knock Knock Knocking on your heart
+La la la la la la
 
-Knock Knock Knock Knock Knock Knock
-Knock Knock`,
+**(함성)**
 
-'2': `I moved on, don't stop me now
+Come a little closer
+
+**더디게 더디게 가**
+
+이 밤이
+
+널 아니까
+
+두드리면 깨질 걸 
+
+하지 마
+
+더 이상 기다리게는 
+
+heart
+
+Knocking on your 
+
+**Knock, Knock**
+
+high 바로 오늘 밤
+
+Starry-eyed, Get me 
+
+**(이채연)**
+
+over the moonlight
+
+**(Come)**
+
+Come
+
+이 순간
+
+날 위로 더 위로 올려 
+
+**heart**
+
+**Knocking on your** 
+
+Knock, **Knock, Knock**
+
+Knock, Knock,
+
+Knock, Knock,
+
+Knock, Knock
+
+Knock, Knock, 
+
+Knock, Knock, 
+
+**heart**
+
+**Knocking on your** 
+
+Knock, **Knock, Knock** 
+
+Knock, Knock,
+
+Knock, Knock, 
+
+Knock, Knock
+
+Knock, Knock, 
+
+Knock, Knock, 
+
+**이제 깨어나**
+
+closer
+
+Come closer, come 
+
+**closer**
+
+Come a little
+
+눈이 마주치면
+
+**special**
+
+끌리는 마음이 So I feel
+
+**control**
+
+Hard for me to
+
+세상에 눈을 뜬 후로
+
+**똑똑**하면 잘해봐
+
+그래 자연스럽게
+
+솔직히 살아도 돼 
+
+No 상관없지
+
+많고 적고 별 차이 알아도 
+
+굳이 어때
+
+매일 주시하며 살지 마 
+
+heart
+
+Knocking on your 
+
+**Knock, Knock,**
+
+high 바로 오늘 밤
+
+Starry-eyed, Get me 
+
+**(이채연)**
+
+over the moonlight
+
+**(Come)**
+
+Come
+
+순간
+
+날 위로 더 위로 올려 이 
+
+**heart**
+
+**Knocking on your** 
+
+Knock, **Knock, Knock** 
+
+Knock, Knock, 
+
+Knock, Knock, 
+
+Knock, Knock
+
+Knock, Knock, 
+
+Knock, Knock, 
+
+**heart**
+
+**Knocking on your** 
+
+Knock, **Knock, Knock** 
+
+Knock, Knock,
+
+Knock, Knock, 
+
+Knock, Knock
+
+Knock, Knock,
+
+Knock, Knock, 
+
+**이제 깨어나**
+
+closer
+
+Come closer, come 
+
+Come a little **closer**
+
+눈이 마주치면
+
+**special**
+
+끌리는 마음이 So I feel 
+
+**control**
+
+Hard for me to 
+
+세상에 눈을 뜬 후로
+
+**콕 콕** 마음에 박혀
+
+까만 밤하늘 수놓은 별처럼
+
+마음에 안 들어 **(nope)**
+
+가만가만히 들여다보는 건
+
+**Knocking on your** 
+
+**heart**
+
+Knock, Knock,
+Knock, Knock,
+
+Knock, **Knock, Knock**
+
+Knock, Knock,
+Knock, Knock,
+Knock, Knock,
+
+Knocking on your 
+heart
+
+Knock, Knock,
+Knock, Knock,
+Knock, Knock, Knock
+
+Knock, Knock,
+Knock, Knock,
+Knock, Knock,`,
+
+'2': `I moved on, 
+don't stop me now
+
 복잡한 건 싫어
-Because I'm a freak
-I'm gonna let it all up
-다 사라져버려
-내겐 더 중요한 건 없어
 
+Because I'm a freak
+
+I'm gonna let it all up
+
+다 사라져버려
+
+내겐 더 중요한 건 없어
 불투명한 안개에 싸여
-사라지고 싶어 I'm so tired
+
+사라지고 싶어
+I'm so tired
+
 끊임없게 날 유혹하니까
-자꾸 들려 What do you desire?
+
+자꾸 들려 What
+do you desire?
+
 차단해 다 밀어내
+
 소신껏 더 행동해
+
 복잡한 생각은 off 해
+
 더 이상 내버려 둬 fade
 
 I don't wanna know
+
 I don't wanna know
+
 I don't wanna know
+
 I don't wanna know
+
 Wanna let loose
+
 I don't wanna know
+
 Set it free
+
 I don't wanna know
+
 Wanna let loose
+
 I don't wanna know
+
 Leave it be
 
-I moved on, don't stop me now
+I moved on,
+don't stop me now
+
 복잡한 건 싫어
+
 Because I'm a freak
+
 I'm gonna let it all up
+
 다 사라져버려
+
 내겐 더 중요한 건 없어
 
 불투명한 안개에 싸여
-사라지고 싶어 I'm so tired
+
+사라지고 싶어
+I'm so tired
+
 끊임없게 날 유혹하니까
-자꾸 들려 What do you desire?
+
+자꾸 들려
+What do you desire?
+
 차단해 다 밀어내
+
 소신껏 더 행동해
+
 복잡한 생각은 off 해
+
 더 이상 내버려 둬 fade
+I don't wanna know
 
 I don't wanna know
+
 I don't wanna know
+
 I don't wanna know
-I don't wanna know
+
 Wanna let loose
+
 I don't wanna know
+
 Set it free
+
 I don't wanna know
+
 Wanna let loose
+
 I don't wanna know
+
 Leave it be`,
 
-'3': `I don't care about them
+'3': `I don't care
+about them
+
 Oh yeah yeah yeah
-자유롭길 원해 yes I I do
+
+자유롭길 원해
+yes I I do
+
 남들과 똑같은 게
+
 누구보다 싫은데
+
 틀린 것도 괜찮아
+
 당당하게 걸어 my way
 
 보는 눈이 없는 거리에서
+
 누구보다 너답게
+
 욕심조차 없는 이곳에서
+
 진짜 너를 찾아봐
+
 So what 그게 너니까
-Come here don't be a jerk
+
+Come here,
+don't be a jerk
 
 이젠 더 빨리
+
 더 멀리 더 높이 올라가
+
 해봐 더 많이
+
 등 돌리면 더 기회 없지
+
 어둠을 가려 빛을 비춰
+
 반짝 빛날 테니
-이젠 더 빨리 해 해봐 빨리
+
+이젠 더 빨리
+해 해봐 빨리
+
 Let's get it started
 
-Don't don't don't don't don't
-Don't don't don't don't don't you
-Don't don't don't don't don't
+Don't, don't,
+don't, don't, don't
+
+Don't,  don't,
+don't, don't, don't you
+
+Don't, don't,
+don't don't don't
+
 Don't be a jerk
 
-Don't don't don't don't don't
-Don't don't don't don't don't you
-Don't don't don't don't don't
+Don't, don't,
+don't, don't, don't
+
+Don't,  don't,
+don't, don't, don't you
+
+Don't, don't,
+don't don't don't
+
 Don't be a jerk
 
-조금은 지쳤나 봐 맞지 않는 옷처럼
+조금은 지쳤나 봐
+맞지 않는 옷처럼
+
 그동안 날 구속했나 봐
+
 이제는 난 달라
+
 눈을 떠 멀리 봐 봐
+
 즐거운 게 참 많아
+
 모든 게 다 타이밍이야
+
 바로 지금이야
 
 따라 해도 좋아 넌 너니까
+
 당당하게 질러봐
+
 어디까지 갈지 모르니까
+
 끝은 알 수 없잖아
+
 So what 이게 나니까
-Come here don't be a jerk
+
+Come here,
+don't be a jerk
 
 이젠 더 빨리
+
 더 멀리 더 높이 올라가
+
 해봐 더 많이
+
 등 돌리면 더 기회 없지
+
 어둠을 가려 빛을 비춰
+
 반짝 빛날 테니
+
 이젠 더 빨리 해 해봐 빨리
+
 Let's get it started
 
-This is my dream I just want it
+This is my dream,
+I just want it
+
 저기 저 멀리 올라가 높이
 
 이젠 더 빨리
+
 더 멀리 더 높이 올라가
+
 해봐 더 많이
+
 등 돌리면 더 기회 없지
+
 어둠을 가려 빛을 비춰
+
 반짝 빛날 테니
-이젠 더 빨리 해 해봐 빨리
+
+이젠 더 빨리
+해 해봐 빨리
+
 Let's get it started
 
-Don't don't don't don't don't
-Don't don't don't don't don't you
-Don't don't don't don't don't
+Don't, don't,
+don't, don't, don't
+
+Don't,  don't,
+don't, don't, don't you
+
+Don't, don't,
+don't don't don't
+
 Don't be a jerk
 
-Don't don't don't don't don't
-Don't don't don't don't don't you
-Don't don't don't don't don't
+Don't, don't,
+don't, don't, don't
+
+Don't,  don't,
+don't, don't, don't you
+
+Don't, don't,
+don't don't don't
+
 Don't be a jerk`,
 
-'4': `Over the moon
-어지럽게
-일렁여 자꾸
-중력을 잃은 채
+'4': `**(함성)**
 
-막이 오른 뒤
+Over the
+moon,어지럽게
+
+일렁여 자꾸 중력을 잃은 채
+
+**(이채연)**
+
+막이 오른 뒤 
+
 멈추지 않을 step
-시작된 내 맘에
-빛이 가득가득해
-더 숨 가쁘가쁘게
 
-Hush rush, on the stage
+시작된 내 맘에 빛이
+
+**가득가득해**
+
+더 숨
+
+**가쁘가쁘게**
+
+Hush rush, 
+
+on the stage
+
 미쳐 가 더 I done
-(done… done … done)
+
+**(done… done… done)**
 
 미쳐가 더 I don't care
-(done… done… done)
 
-Hush rush, on the stage
+**(done… done… done)**
 
-눈부신 달빛에
-(I love it, I love it, I love it, I love it)
-Hush rush, on the stage
+Hush rush, 
+
+on the stage
+
+눈부신 달빛에 
+
+**(I love it, I love it, I love it,**
+
+I love it)
+
+Hush rush, 
+
+on the stage
 
 마주친 눈빛에
-(I love it, I love it, I love it, I love it)
-Hush rush, on the stage
 
-멈추지 않는 떨림이
-나를 춤추게 해 I'm fallin' in
+(**I love it, I love it, I love it,**
+
+I love it)
+
+Hush rush, 
+
+on the stage
+
+멈추지 않는 **떨림이**
+
+나를 춤추게 해
+
+**I'm fallin' in**
+
 미쳐가 더 아득해
-(I love it, I love it, I love it, I love it)
 
-리듬은 sweet
-간지럽게
-온 감각을 뺏어
-이건 마치 Jump'in love
+(**I love it, I love it, I love it,**
 
-저항 없이 lose
+I love it)
+
+리듬은 sweet 간지럽게 
+
+온 감각을 뺏어, 이건 
+
+마치 Jump'in love
+
+**(이채연)**
+
+저항 없이 lose 
+
 몸을 맡긴 채
-몰입해 더 feel me
-소름이 확 끼치게
-빛을 갈라 Holler yeah
 
-Hush rush, on the stage
+몰입해 더 **feel me**
+
+소름이 확 끼치게
+
+빛을 갈라 **Holler yeah**
+
+Hush rush, 
+
+on the stage
+
 미쳐 가 더 I done
-(done… done … done)
+
+**(done… done… done)**
 
 미쳐가 더 I don't care
-(done… done… done)
 
-Hush rush, on the stage
+**(done… done… done)**
+
+Hush rush, 
+
+on the stage
 
 펼쳐진 그 빛에
+
 (I love it, I love it, I love it, I love it)
-Hush rush, on the stage
+
+**Hush rush,** 
+
+**on the stage**
 
 활짝 핀 내 맘에
-(I love it, I love it, I love it, I love it)
-Hush rush, on the stage
 
-빨라진 두근거림이
-절대 멈추지 않게 call'in me
+(I love it, I love it, 
+
+I love it, I love it)
+
+**Hush rush,** 
+
+**on the stage**
+
+빨라진 두근 **거림이**
+
+절대 멈추지 않게
+
+**call'in me**
+
 빠져 가 더 아득해
-(I love it, I love it, I love it, I love it)
-Hush rush, on the stage
+
+(I love it, I love it, 
+
+I love it, I love it)
+
+Hush rush, 
+
+on the stage
 
 유혹하듯 먼
-(I know it, I know it, I know it, I know it)
+
+(**I know it, I know it,** 
+
+**I know it,** I know it)
+
 어딘가의 Dreams
-(I love it, I love it, I love it, I love it)
+
+(**I love it, I love it,** 
+
+**I love it,** I love it)
+
 속삭이듯이
-(holic me, holic me, holic me, holic me)
-Sweat 춤을 춰 우리 (I love it, I love it)
+
+(**holic me, holic me,** 
+
+**holic me,** holic me)
+
+Sweat 춤을 춰 우리
+
+**(이채연 I love it)**
 
 눈부신 달빛에
-(I love it, I love it, I love it, I love it)
-Hush rush, on the stage
+
+(I love it, I love it, 
+
+I love it, I love it)
+
+**Hush rush,** 
+
+**on the stage**
 
 마주친 눈빛에
-(I love it, I love it, I love it, I love it)
-Hush rush, on the stage
 
-멈추지 않는 떨림이
-나를 춤추게 해 I'm fallin' in
+(I love it, I love it, 
+
+I love it, I love it)
+
+**Hush rush,** 
+
+**on the stage**
+
+멈추지 않는 **떨림이**
+
+나를 춤추게 해
+
+**I'm fallin' in**
+
 미쳐가 더 아득해
-(I love it, I love it, I love it, I love it)
-Hush rush, on the stage
+
+(**I love it, I love it,** 
+
+**I love it,** I love it)
+
+Hush rush, 
+
+on the stage
 
 펼쳐진 그 빛에
-(I love it, I love it, I love it, I love it)
-Hush rush, on the stage
+
+(I love it, I love it, I love it
+
+**(HUSH)**
+
+, I love it)
+
+Hush rush, 
+
+on the stage
 
 활짝 핀 내 맘에
-(I love it, I love it, I love it, I love it)
-Hush rush, on the stage
+
+(I love it, I love it, I love it
+
+**(HUSH)**
+
+, I love it)
+
+Hush rush, 
+
+on the stage
 
 빨라진 두근거림이
-절대 멈추지 않게 call'in me
-빠져 가 더 아득해
-(I love it, I love it, I love it, I love it)
-Hush rush, on the stage`,
 
-'5': `거지 같은 전화에 끊지를 못해 왜
-이딴 대화할 거라면 미친 척이라도 해
+**(이채연)**
+
+절대 멈추지 않게 
+
+call'in me
+
+**(사랑해)**
+
+빠져 가 더 아득해
+
+(**I love it, I love it,** 
+
+**I love it,** I love it)
+
+Hush rush, 
+
+on the stage
+
+**(함성)**`,
+
+'5': `거지 같은 전화에 
+
+끊지를 못해 왜
+
+이딴 대화할 거라면 
+
+미친 척이라도 해
+
 그럼 또 난 믿지
 
-Ring my bell Ring my bell Ring my bell
+Ring my bell, Ring 
+
+my bell, Ring my bell
+
 이러다가도
-빨간색 누르고 Ha Ha Ha
+
+빨간색 누르고 
+
+Ha, Ha, Ha
+
 나 보고 싶지
-Long time no see my name
+
+Long time no 
+
+see my name
+
 Stop Don't call me
 
 Dumb
-말해 뭐해 뭐라고 밤이면 밤마다
+
+말해 뭐해 뭐라고 
+
+밤이면 밤마다
+
 할 말이 뭐야
-Don't play dumb with me
+
+Don't play 
+
+dumb with me
+
 보고 싶다 말해 또
-흔들리겠지만 뚝 끊을 거야
+
+흔들리겠지만 
+
+뚝 끊을 거야
+
 뚜 뚜 뚜 뚜 뚜 뚜 뚜 뚜
 
-Don't Don't Don't Don't Don't
-Don't call me Charlie
-Don't Don't Don't Don't Don't
-Please call me Charlie
+Don't, Don't, 
 
-Don't Don't Don't Don't
-Don't call me Charlie
-Don't Don't Don't Don't Don't
-Please call me Charlie
+Don't, Don't, Don't
 
-(Wish wish) 다시 돌아가자 Baby
-(Please please) 아니 그러지 마 Charlie
+Don't call me Charlie
+
+Don't, Don't, 
+
+Don't, Don't, Don't
+
+Please call 
+
+me Charlie
+
+Don't, Don't, 
+
+Don't, Don't
+
+Don't call me Charlie
+
+Don't, Don't,
+
+Don't, Don't, Don't
+
+Please call 
+
+me Charlie
+
+(Wish wish) 다시 
+
+돌아가자 Baby
+
+(Please please)
+
+아니 그러지 마 Charlie
+
 빙빙 돌아가 버릴 것 같아
-Crazy It's never easy
-아 앗 Missed call
-I miss you so much
-난 마음 약해져 넌 참 아쉬워 보여
 
-Ring my bell Ring my bell Ring my bell
+Crazy It's never easy
+
+아 앗 Missed call
+
+I miss you so much
+
+난 마음 약해져 넌 
+
+참 아쉬워 보여
+
+Ring my bell, Ring 
+
+my bell, Ring my bell
+
 이러다가도
-빨간색 누르고 Ha Ha Ha
+
+빨간색 누르고 
+
+Ha, Ha, Ha
+
 나 보고 싶지
-Long time no see my name
+
+Long time no 
+
+see my name
+
 Stop Don't call me
 
 Dumb
-말해 뭐해 뭐라고 밤이면 밤마다
+
+말해 뭐해 뭐라고 
+
+밤이면 밤마다
+
 할 말이 뭐야
-Don't play dumb with me
+
+Don't play 
+
+dumb with me
+
 보고 싶다 말해 또
-흔들리겠지만 뚝 끊을 거야
+
+흔들리겠지만 
+
+뚝 끊을 거야
+
 뚜 뚜 뚜 뚜 뚜 뚜 뚜 뚜
 
-Don't Don't Don't Don't Don't
-Don't call me Charlie
-Don't Don't Don't Don't Don't
-Please call me Charlie
+Don't, Don't, 
 
-Don't Don't Don't Don't
-Don't call me Charlie
-Don't Don't Don't Don't Don't
-Please call me Charlie
+Don't, Don't, Don't
 
-싹 변하네 어차피 It's too late
+Don't call me Charlie
+
+Don't, Don't, 
+
+Don't, Don't, Don't
+
+Please call 
+
+me Charlie
+
+Don't, Don't, 
+
+Don't, Don't
+
+Don't call me Charlie
+
+Don't, Don't,
+
+Don't, Don't, Don't
+
+Please call 
+
+me Charlie
+
+싹 변하네 어차피 
+
+It's too late
+
 Oh, I don't want it
+
 더 착각하지 마 Done
-No more freaking call at 2am
+
+No more freaking 
+
+call at 2am
+
 Stop Don't call me
 
-Don't Don't Don't Don't Don't
-Don't call me Charlie
-Don't Don't Don't Don't Don't
-Please call me Charlie
+Don't, Don't, 
 
-Don't Don't Don't Don't
+Don't, Don't, Don't
+
 Don't call me Charlie
-Don't Don't Don't Don't Don't
-Please call me Charlie`,
+
+Don't, Don't, 
+
+Don't, Don't, Don't
+
+Please call 
+
+me Charlie
+
+Don't, Don't, 
+
+Don't, Don't
+
+Don't call me Charlie
+
+Don't, Don't,
+
+Don't, Don't, Don't
+
+Please call 
+
+me Charlie`,
 
 '6': `Can you see it?
+
 뜨거운 태양에 kiss ya
+
 끓어올라
+
 멈출 수 없는 climax
-Oh 달아오른 모래 위로 jumpin'
-끈적한 이 바람 타고 dancin'
+
+Oh 달아오른 모래 
+
+위로 jumpin'
+
+끈적한 이 바람 
+
+타고 dancin'
+
 자 시작이야
+
 Let's play all night
+
 불붙은 party 너와 나
 
 이 순간 시간을 얼려줘
-Volume을 키워 loud loud
-본능대로 움직여 make it hot
+
+Volume을 키워 
+
+loud, loud
+
+본능대로 움직여 
+
+make it hot
+
 1분 1초가 아깝잖아 oh
+
 (Come in)
 
 Summer heat
+
 Can we freeze?
-Let's get lost for days
+
+Let's get 
+
+lost for days
+
 Summer heat
+
 Can we freeze?
+
 We're wild and free
 
-Feel feel feel feel the heat heat heat
+Feel, feel, feel, feel, 
+
+the heat, heat, heat
+
 Summer heat
+
 Can we freeze?
+
 We're wild and free
 
 기다렸던 날
+
 터질듯한 vibe
+
 Raining on my mind
+
 잔뜩 녹아내려
-춤춰 발걸음을 맞춰 up & down
+
+춤춰 발걸음을 맞춰 
+
+up & down
+
 잠들지 마
+
 Let's play all night
+
 불붙은 party 너와 나
 
 이 순간 시간을 얼려줘
-Volume을 키워 loud loud
-본능대로 움직여 make it hot
+
+Volume을 키워 
+
+loud, loud
+
+본능대로 움직여 
+
+make it hot
+
 1분 1초가 아깝잖아 oh
+
 (Come in)
 
 Summer heat
+
 Can we freeze?
-Let's get lost for days
+
+Let's get 
+
+lost for days
+
 Summer heat
+
 Can we freeze?
+
 We're wild and free
 
-Feel feel feel feel the heat heat heat
+Feel, feel, feel, feel, 
+
+the heat, heat, heat
+
 Summer heat
+
 Can we freeze?
+
 We're wild and free`,
 
-'7':`LET'S DANCE DANCE DANCE
-DANCE DANCE DANCE
-DANCE DANCE DANCE
-DANCE DANCE DANCE DANCE
+'7':`LET'S DANCE, 
+
+DANCE, DANCE
+
+DANCE, 
+
+DANCE, DANCE
+
+DANCE, 
+
+DANCE, DANCE
+
+DANCE, DANCE,
+
+DANCE, DANCE
+
 Yeah it was so lit
 
-LET'S DANCE DANCE DANCE
-DANCE DANCE DANCE
-DANCE DANCE DANCE
-DANCE DANCE DANCE DANCE
+**(이채연)**
+
+LET’S DANCE, 
+
+DANCE, DANCE
+
+DANCE, 
+
+DANCE, DANCE
+
+DANCE, 
+
+DANCE, DANCE
+
+**DANCE, DANCE,**
+
+**DANCE, DANCE**
+
 눈치 볼 필요는 없어 어때?
 
-No manners 이거 빼곤 다 돼
-마음껏 shake it 두 배로 오늘 네 맘대로
+**(좋아!)**
+
+No manners 
+
+이거 빼곤 다 돼
+
+마음껏 shake it
+
+**두 배로**
+
+오늘 네 **맘대로**
+
 Oh No matter what
+
 비가 내리던 whatever
+
 움직여 난리 난리 몸이
 
-ABCD 상관없어
-H 하고 OT 해 HOOT 달아올라
+**ABCD** 상관없어
+
+**H 하고 OT 해**
+
+HOOT 달아올라
+
 초대할게 네가 누구든지
-Let's get the party started
 
-LET'S DANCE DANCE DANCE DANCE
-DANCE DANCE DANCE DANCE DANCE DANCE
-DANCE DANCE DANCE
-DANCE DANCE DANCE DANCE DANCE
+**(함께해)**
 
-뜨거워진 Oil에 물 붓듯이
-Let's get the party started
+Let’s get the 
 
-LET'S DANCE DANCE DANCE
-DANCE DANCE DANCE
-DANCE DANCE DANCE
-DANCE DANCE DANCE DANCE
+party started
+
+LET’S DANCE
+
+**(DANCE)**
+
+DANCE, 
+
+DANCE, DANCE
+
+**(DANCE)**
+
+DANCE, DANCE,
+
+DANCE, DANCE,
+
+DANCE, DANCE
+
+**DANCE,** 
+
+**DANCE, DANCE**
+
+DANCE, DANCE, 
+
+DANCE, 
+
+DANCE, DANCE
+
+뜨거워진 Oil에 
+
+물 붓듯이
+
+Let’s get the 
+
+party started
+
+LET’S DANCE, 
+
+DANCE, DANCE
+
+DANCE, 
+
+DANCE, DANCE
+
+DANCE, 
+
+DANCE, DANCE
+
+**DANCE, DANCE,**
+
+**DANCE, DANCE**
+
 Yeah it was so lit
 
-LET'S DANCE DANCE DANCE
-DANCE DANCE DANCE
-DANCE DANCE DANCE
-DANCE DANCE DANCE DANCE
+LET’S DANCE, 
+
+DANCE, DANCE
+
+DANCE, 
+
+DANCE, DANCE
+
+DANCE, 
+
+DANCE, DANCE
+
+**DANCE, DANCE,**
+
+**DANCE, DANCE**
+
 눈치 볼 필요는 없어 어때?
+
+**(좋아!)**
 
 지그재그 춤을 추는
-새들 소리 Early in the morning
+
+새들 소리 Early 
+
+in the morning
+
 In the bedroom
-허밍에 맞춰 내 머리에 떠올려 봐
-Don't worry 미리 멀리
+
+허밍에 맞춰 내 
+
+머리에 떠올려 봐
+
+Don’t worry 미리 멀리
+
+**(worry 미리 멀리)**
+
 네가 그린 대로 말야
+
 Turn 허리 Move it
-이대로면 OK 뭘 하든지 맘에 들어
 
-ABCD 상관없어
-H 하고 OT 해 HOOT 달아올라
+이대로면 **OK**
+
+뭘 하든지 맘에 들어
+
+**ABCD** 상관없어
+
+**H 하고 OT 해**
+
+HOOT 달아올라
+
 초대할게 네가 누구든지
-Let's get the party started
 
-LET'S DANCE DANCE DANCE DANCE
-DANCE DANCE DANCE DANCE DANCE DANCE
-DANCE DANCE DANCE
-DANCE DANCE DANCE DANCE DANCE
+**(함께해)**
 
-뜨거워진 Oil에 물 붓듯이
-Let's get the party started
+Let’s get the 
 
-LET'S DANCE DANCE DANCE
-DANCE DANCE DANCE
-DANCE DANCE DANCE
-DANCE DANCE DANCE DANCE
+party started
+
+LET’S DANCE
+
+**(DANCE)**
+
+DANCE, 
+
+DANCE, DANCE
+
+**(DANCE)**
+
+DANCE, DANCE,
+
+DANCE, DANCE,
+
+DANCE, DANCE
+
+**DANCE,** 
+
+**DANCE, DANCE**
+
+DANCE, DANCE, 
+
+DANCE, 
+
+DANCE, DANCE
+
+뜨거워진 Oil에 
+
+물 붓듯이
+
+Let’s get the 
+
+party started
+
+LET’S DANCE, 
+
+DANCE, DANCE
+
+DANCE, DANCE,
+
+DANCE, DANCE,
+
+DANCE, DANCE
+
+**DANCE, DANCE,**
+
+**DANCE, DANCE**
+
 Yeah it was so lit
 
-LET'S DANCE DANCE DANCE
-DANCE DANCE DANCE
-DANCE DANCE DANCE
-DANCE DANCE DANCE DANCE
+LET’S DANCE, 
+
+DANCE, DANCE
+
+DANCE, DANCE,
+
+DANCE, DANCE,
+
+DANCE, DANCE
+
+**DANCE, DANCE,**
+
+**DANCE, DANCE**
+
 눈치 볼 필요는 없어 어때?
 
-You can DANCE all night
-LET'S DANCE
+**(좋아!)**
 
-ABBA Dancing Queen
+You can DANCE 
+
+all night
+
+**(We can DANCE)**
+
+LET’S DANCE
+
+**(다.시.한.번 DANCE)**
+
+**ABBA**
+
+Dancing Queen
+
+**(이채연)**
+
 내가 추는 춤을 따라 춰
+
+**(영원히)**
+
 초대할게 네가 누구든지
-Let's get the party started
 
-LET'S DANCE DANCE DANCE DANCE
-DANCE DANCE DANCE DANCE DANCE DANCE
-DANCE DANCE DANCE
-DANCE DANCE DANCE DANCE DANCE
+**(함께해)**
 
-뜨거워진 Oil에 물 붓듯이
-Let's get the party started`
+Let’s get the 
+
+party started
+
+LET’S DANCE
+
+**(DANCE)**
+
+DANCE, 
+
+DANCE, DANCE
+
+**(DANCE)**
+
+DANCE, DANCE,
+
+DANCE, DANCE,
+
+DANCE, DANCE
+
+**DANCE,** 
+
+**DANCE, DANCE**
+
+DANCE, DANCE, 
+
+DANCE, 
+
+DANCE, DANCE
+
+뜨거워진 Oil에 
+
+물 붓듯이
+
+Let’s get the 
+
+party started`
 
   },
 };

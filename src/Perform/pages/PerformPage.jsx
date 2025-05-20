@@ -45,7 +45,6 @@ export default function PerformPage() {
       {/* 1) 고정될 Header: TopTabs + TodayBanner */}
       <div className="header-wrapper">
         <TopTabs />
-        <TodayBanner banners={banners} />
       </div>
 
       {/* 2) 이 영역만 스크롤 */}

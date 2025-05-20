@@ -2,6 +2,7 @@
 .schedule-page {
   display: flex;
   flex-direction: column;
+  padding-bottom: 60px;
 }
 
 /* 고정 헤더 */
@@ -13,6 +14,7 @@
   gap: 16px;
   overflow-x: auto;
   padding-bottom: 12px;
+  padding-left: 10px;
 }
 .date-nav::-webkit-scrollbar { display: none; }
 .date-btn {
@@ -50,6 +52,7 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  padding: 12px;
 }
 .event-card {
   display: flex;
@@ -94,7 +97,8 @@
 .schedule-notice-inline {
   display: flex;
   align-items: center;
-  padding: 10px 0 30px;
+  padding: 10px 0 40px;
+  padding-left: 10px;
   gap: 6px;
   font-size: 12px;
   color: var(--Indigo-10, #9DA4FB);

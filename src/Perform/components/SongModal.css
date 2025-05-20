@@ -101,3 +101,7 @@
   flex-direction: column;
   margin-bottom: 50px;   /* 그룹 간 간격 */
 }
+.sm-highlight {
+  color: #9DA4FB; /* 강조색 원하는 대로 지정 가능 */
+  font-weight: 700;
+}
