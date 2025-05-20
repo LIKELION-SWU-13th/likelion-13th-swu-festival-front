@@ -6,6 +6,7 @@ const Confirmation = ({ userInfo, onNext, setUserInfo, selectedFile }) => {
   const [loading, setLoading] = useState(false);  // 로딩 중 여부
   const [error, setError] = useState('');         // 에러 메시지 상태
   const [showModal, setShowModal] = useState(false); // 모달 표시 여부
+  const [hasSeenModal, setHasSeenModal] = useState(false); // 모달을 본 적이 있는지 추적
   const [ocrInfo, setOcrInfo] = useState({
     student_num: userInfo.student_num || '',
     name: userInfo.name || '',
@@ -104,10 +105,21 @@ const Confirmation = ({ userInfo, onNext, setUserInfo, selectedFile }) => {
     setShowModal(false);
   };
 
-  // 모달 확인 버튼 클릭 시 로그인 실행
+  // 로그인 버튼 클릭 핸들러
+  const handleLoginClick = () => {
+    if (!hasSeenModal) {
+      // 최초 1회만 모달 표시
+      setShowModal(true);
+    } else {
+      // 이미 모달을 본 경우 바로 로그인 시도
+      handleLogin();
+    }
+  };
+
+  // 모달 확인 버튼 클릭 시 모달 닫고 상태 업데이트
   const handleModalConfirm = () => {
     closeModal();
-    handleLogin();
+    setHasSeenModal(true); // 모달을 봤다는 상태로 변경
   };
 
   return (
@@ -154,14 +166,13 @@ const Confirmation = ({ userInfo, onNext, setUserInfo, selectedFile }) => {
             onClick={handleRetry}
             disabled={loading}
           >
-             {/* 공백 문자 추가 */}
             {loading ? '\u00A0' : '다시 인식하기'}
           </button>
 
           {/* 로그인 버튼 */}
           <button
             className="form-button"
-            onClick={openModal}
+            onClick={handleLoginClick}
             disabled={loading}
           >
             {loading ? '처리중...' : '로그인 하기'}
