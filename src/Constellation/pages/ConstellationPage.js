@@ -270,7 +270,7 @@ const ConstellationPage = () => {
           <div className="floating-button-container">
             <img src={buttonFloating} alt="유형 확인" className="tooltip-icon" onClick={checkQuizType} />
             {showTooltip && (
-              <div className="tooltip-bubble tooltip-fade">
+              <div className="type-tooltip-bubble tooltip-fade">
                 축제를 즐기는 유형을 확인해 보세요
               </div>
             )}

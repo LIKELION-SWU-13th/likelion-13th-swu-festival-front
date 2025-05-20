@@ -142,12 +142,15 @@
   z-index: 100;
   display: flex;
   align-items: center;
+  gap: 12px; /* 버튼과 말풍선 사이 간격 */
 }
 
 /* 유형 확인 플로팅 버튼 */
 .tooltip-icon {
   width: 60px;
   height: 60px;
+  margin-top: 15px;
+  margin-left: 4px;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -162,109 +165,31 @@
 }
 
 /* 유형 확인 말풍선 */
-.type-tooltip {
-  position: absolute;
-  right: 70px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: #7B7FD6;
-  border-radius: 20px;
-  padding: 12px 24px;
-  color: white;
-  font-size: 14px;
-  white-space: nowrap;
-  z-index: 99;
-  display: flex;
-  align-items: center;
-}
-
-.type-tooltip span {
-  position: relative;
-  z-index: 2;
-}
-
-.type-tooltip img {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  object-fit: contain;
-  z-index: 1;
-}
-
-/* 오류 메시지 컨테이너 */
-.error-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  text-align: center;
-  padding: 0 20px;
-}
-
-.error-container p {
-  font-size: 18px;
-  color: #ff6b6b;
-  margin-bottom: 20px;
-}
-
-.retry-button {
-  background-color: #5e3ad3;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  padding: 12px 24px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.retry-button:hover {
-  background-color: #4926b5;
-}
-
-.type-tooltip-row {
-  display: flex;
-  align-items: center;
-  margin-top: 8px;
-}
-
-.tooltip-icon {
-  width: 50px;
-  height: 50px;
-  min-width: 50px;
-  min-height: 50px;
-  margin-right: 10px;
-  display: block;
-}
-
-/* 툴팁 기본 스타일 */
-.tooltip-bubble {
+.type-tooltip-bubble {
   position: relative;
   background: #906CF9;
   color: #fff;
-  padding: 6px 11px;
-  border-radius: 6px;
+  padding: 5px 9px;
+  border-radius: 8px;
   font-size: 14px;
   font-weight: 500;
-  display: inline-block;
-  z-index: 20;
   white-space: nowrap;
-  margin-left: -4px;
+  margin-top: 15px; /* 버튼과 같은 높이로 맞춤 */
+  z-index: 99;
 }
 
-/* 플로팅 버튼 툴팁 꼬리 */
-.tooltip-bubble::before {
+/* 유형 확인 말풍선 꼬리 */
+.type-tooltip-bubble::before {
   content: '';
   position: absolute;
-  left: -6px;
+  left: -8px;
   top: 50%;
   transform: translateY(-50%);
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
-  border-right: 6px solid #906CF9;
+  width: 0;
+  height: 0;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-right: 8px solid #906CF9;
 }
 
 /* 툴팁 페이드 애니메이션 */
@@ -275,7 +200,7 @@
 @keyframes tooltipFade {
   0% {
     opacity: 0;
-    transform: translateX(-20px);
+    transform: translateX(-10px);
   }
   10% {
     opacity: 1;
@@ -287,8 +212,124 @@
   }
   100% {
     opacity: 0;
-    transform: translateX(-20px);
+    transform: translateX(-10px);
   }
+}
+
+/* 별자리 선 + 별을 같은 컨테이너에서 비율 맞춰 렌더 */
+.constellation-visual-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 277px;
+  aspect-ratio: 278 / 514;
+  margin: 70px auto 0; /* 별자리 위치 조정 */
+  background: none;
+}
+/* 별자리 선 */
+.constellation-visual-wrapper
+.constellation-lines {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 1;
+}
+/* 별 */
+.constellation-visual-wrapper .star-position {
+  position: absolute;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+}
+
+/* 별자리 페이지 뒤로가기 버튼 */
+.constellation-page-back-button {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: none;
+  border: none;
+  color: white;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  z-index: 100;
+}
+
+.constellation-page-back-button img {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.constellation-page-back-button:hover {
+  opacity: 0.8;
+}
+
+.constellation-page-back-button:active {
+  opacity: 0.6;
+}
+
+/* 새로고침 버튼 컨테이너 */
+.refresh-container {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+}
+
+/* 새로고침 버튼 래퍼 */
+.refresh-button-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* 새로고침 버튼 */
+.refresh-button {
+  width: 60px;
+  height: 60px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  z-index: 10;
+  transition: opacity 0.2s ease;
+  display: block;
+}
+
+.refresh-button:hover,
+.refresh-button:active {
+  opacity: 0.9;
+}
+
+/* 새로고침 버튼 옆 툴팁 */
+.refresh-button-wrapper .tooltip-bubble {
+  position: absolute;
+  left: 77px; /* SVG랑 간격 */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  padding: 5px 9px;
+  max-height: 24px;
+  background: #906CF9;
+  color: #fff;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+/* 새로고침 버튼 툴팁 꼬리 */
+.refresh-button-wrapper .tooltip-bubble::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-right: 8px solid #906CF9;
 }
 
 /* 별 툴팁 기본 스타일 */
@@ -341,7 +382,8 @@
   right: -8px;
   top: 50%;
   transform: translateY(-50%);
-  width: 0; height: 0;
+  width: 0;
+  height: 0;
   border-top: 4px solid transparent;
   border-bottom: 4px solid transparent;
   border-left: 8px solid #906CF9;
@@ -354,7 +396,8 @@
   left: 50%;
   bottom: -8px;
   transform: translateX(-50%);
-  width: 0; height: 0;
+  width: 0;
+  height: 0;
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
   border-top: 8px solid #906CF9;
@@ -367,7 +410,8 @@
   left: 50%;
   top: -8px;
   transform: translateX(-50%);
-  width: 0; height: 0;
+  width: 0;
+  height: 0;
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
   border-bottom: 8px solid #906CF9;
@@ -380,118 +424,8 @@
   left: -8px;
   top: 50%;
   transform: translateY(-50%);
-  width: 0; height: 0;
-  border-top: 4px solid transparent;
-  border-bottom: 4px solid transparent;
-  border-right: 8px solid #906CF9;
-}
-
-/* 별자리 선 + 별을 같은 컨테이너에서 비율 맞춰 렌더 */
-.constellation-visual-wrapper {
-  position: relative;
-  width: 100%;
-  max-width: 277px;
-  aspect-ratio: 278 / 514;
-  margin: 50px auto 0;
-  background: none;
-}
-/* 별자리 선 */
-.constellation-visual-wrapper
-.constellation-lines {
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  z-index: 1;
-}
-/* 별 */
-.constellation-visual-wrapper .star-position {
-  position: absolute;
-  z-index: 2;
-  transform: translate(-50%, -50%);
-}
-
-/* 별자리 페이지 뒤로가기 버튼 */
-.constellation-page-back-button {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  background: none;
-  border: none;
-  color: white;
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  width: 40px;
-  height: 40px;
-  z-index: 100;
-}
-
-.constellation-page-back-button img {
-  width: 24px;
-  height: 24px;
-  display: block;
-}
-
-.constellation-page-back-button:hover {
-  opacity: 0.8;
-}
-
-.constellation-page-back-button:active {
-  opacity: 0.6;
-}
-
-/* 새로고침 버튼 컨테이너 */
-.refresh-container {
-  position: absolute;
-  bottom: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 100;
-}
-
-/* 새로고침 버튼 래퍼 */
-.refresh-button-wrapper {
-  position: relative;
-  display: inline-block;
-}
-
-/* 새로고침 버튼 */
-.refresh-button {
-  width: 60px;
-  height: 60px;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  z-index: 10;
-  transition: opacity 0.2s ease;
-  display: block;
-}
-
-.refresh-button:hover,
-.refresh-button:active {
-  opacity: 0.9;
-}
-
-/* 새로고침 버튼 옆 툴팁 */
-.refresh-button-wrapper .tooltip-bubble {
-  position: absolute;
-  left: 80px; /* SVG랑 간격 */
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 12px;
-  padding: 5px 9px;
-  max-height: 24px;
-}
-
-/* 새로고침 버튼 툴팁 꼬리 */
-.refresh-button-wrapper .tooltip-bubble::before {
-  content: '';
-  position: absolute;
-  left: -8px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 0; height: 0;
+  width: 0;
+  height: 0;
   border-top: 4px solid transparent;
   border-bottom: 4px solid transparent;
   border-right: 8px solid #906CF9;
