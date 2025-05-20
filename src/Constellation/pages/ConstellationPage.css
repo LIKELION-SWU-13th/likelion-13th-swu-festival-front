@@ -308,26 +308,26 @@
 
 /* 별 툴팁 방향별 위치 조정 */
 .star-tooltip-bubble-left {
-  right: 35px;
+  right: 38px;
   top: 50%;
   transform: translateY(-50%);
 }
 
 .star-tooltip-bubble-right {
-  left: 30px;
+  left: 40px;
   top: 50%;
   transform: translateY(-50%);
 }
 
 .star-tooltip-bubble-top {
-  bottom: 30px;
+  bottom: 33px;
   left: 50%;
   transform: translateX(-50%);
   margin-bottom: 5px;
 }
 
 .star-tooltip-bubble-bottom {
-  top: 30px;
+  top: 38px;
   left: 50%;
   transform: translateX(-50%);
   margin-top: 5px;
@@ -338,13 +338,13 @@
 .star-tooltip-bubble-left::before {
   content: '';
   position: absolute;
-  right: -6px;
+  right: -8px;
   top: 50%;
   transform: translateY(-50%);
   width: 0; height: 0;
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
-  border-left: 6px solid #906CF9;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 8px solid #906CF9;
 }
 
 /* 꼬리 아래 (위에 붙는 말풍선) */
@@ -352,12 +352,12 @@
   content: '';
   position: absolute;
   left: 50%;
-  bottom: -6px;
+  bottom: -8px;
   transform: translateX(-50%);
   width: 0; height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 6px solid #906CF9;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 8px solid #906CF9;
 }
 
 /* 꼬리 위 (아래에 붙는 말풍선) */
@@ -365,25 +365,25 @@
   content: '';
   position: absolute;
   left: 50%;
-  top: -6px;
+  top: -8px;
   transform: translateX(-50%);
   width: 0; height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-bottom: 6px solid #906CF9;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 8px solid #906CF9;
 }
 
 /* 꼬리 왼쪽 (오른쪽에 붙는 말풍선) */
 .star-tooltip-bubble-right::before {
   content: '';
   position: absolute;
-  left: -6px;
+  left: -8px;
   top: 50%;
   transform: translateY(-50%);
   width: 0; height: 0;
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
-  border-right: 6px solid #906CF9;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-right: 8px solid #906CF9;
 }
 
 /* 별자리 선 + 별을 같은 컨테이너에서 비율 맞춰 렌더 */
@@ -441,12 +441,23 @@
   opacity: 0.6;
 }
 
-/* 새로고침 버튼 */
-.refresh-button {
+/* 새로고침 버튼 컨테이너 */
+.refresh-container {
   position: absolute;
   bottom: 60px;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 100;
+}
+
+/* 새로고침 버튼 래퍼 */
+.refresh-button-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* 새로고침 버튼 */
+.refresh-button {
   width: 60px;
   height: 60px;
   border: none;
@@ -454,9 +465,34 @@
   cursor: pointer;
   z-index: 10;
   transition: opacity 0.2s ease;
+  display: block;
 }
 
 .refresh-button:hover,
 .refresh-button:active {
   opacity: 0.9;
+}
+
+/* 새로고침 버튼 옆 툴팁 */
+.refresh-button-wrapper .tooltip-bubble {
+  position: absolute;
+  left: 80px; /* SVG랑 간격 */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  padding: 5px 9px;
+  max-height: 24px;
+}
+
+/* 새로고침 버튼 툴팁 꼬리 */
+.refresh-button-wrapper .tooltip-bubble::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0; height: 0;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-right: 8px solid #906CF9;
 }

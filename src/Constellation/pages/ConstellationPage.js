@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StarQuiz from '../components/StarQuiz';
 import LoadingSpinner from '../../components/LoadingSpinner';
-import { getCompletedQuizzes, getQuizType, getQuizOpenTime, isQuizOpen, QUIZ_OPEN_TIMES } from '../../api/quiz';
+import { getCompletedQuizzes, getQuizType, getQuizOpenTime, isQuizOpen, QUIZ_OPEN_TIMES, getNextQuizOpenTime } from '../../api/quiz';
 import TopTabs from '../../components/TopTabs';
 import './ConstellationPage.css';
 
@@ -37,13 +37,13 @@ const VIEWBOX_HEIGHT = 514;
 const STAR_POSITIONS = [
   { id: 1, x: 215, y: 1 },      // 첫 번째로 열리는 별
   { id: 2, x: 130, y: 59},      // 두 번째
-  { id: 3, x: 105, y: 140},     // 세 번째
+  { id: 3, x: 105, y: 137},     // 세 번째
   { id: 4, x: 129, y: 190},     // 네 번째
   { id: 5, x: 37, y: 294},     // 다섯 번째
-  { id: 6, x: 8, y: 446},    // 여섯 번째
+  { id: 6, x: 6, y: 454},    // 여섯 번째
   { id: 7, x: 137, y: 510},  // 일곱 번째 (맨 아래)
   { id: 8, x: 88, y: 379},  // 여덟 번째
-  { id: 9, x: 272, y: 275},  // 아홉 번째 (제일 오른쪽)
+  { id: 9, x: 279, y: 282},  // 아홉 번째 (제일 오른쪽)
   { id: 10, x: 218, y: 219},  // 열 번째
   { id: 11, x: 207, y: 112},  // 열한 번째
   { id: 12, x: 242, y: 59},  // 열두 번째
@@ -91,6 +91,7 @@ const ConstellationPage = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [nextQuizId, setNextQuizId] = useState(null);
   const [showTypeModal, setShowTypeModal] = useState(false);
+  const [nextQuizOpenInfo, setNextQuizOpenInfo] = useState(null);
 
   // 컴포넌트 마운트 시 데이터 로드 - 완료된 퀴즈 목록만 가져옴
   useEffect(() => {
@@ -187,6 +188,12 @@ const ConstellationPage = () => {
 
     setNextQuizId(calculateNextQuiz());
   }, [currentTime]); // 시간이 변경될 때만 다시 계산
+
+  // 시간이 변경될 때마다 다음 퀴즈 정보 업데이트
+  useEffect(() => {
+    const nextQuiz = getNextQuizOpenTime();
+    setNextQuizOpenInfo(nextQuiz);
+  }, [currentTime]);
 
   const handleQuizComplete = (quizId) => {
     setCompletedQuizzes(prev => {
@@ -346,18 +353,27 @@ const ConstellationPage = () => {
           </div>
         )}
 
-        {/* 새로고침 버튼 */}
-        <button 
-          className="refresh-button" 
-          onClick={() => window.location.reload()}
-          aria-label="페이지 새로고침"
-          style={{ 
-            backgroundImage: `url(${buttonRefresh})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
-            backgroundSize: 'contain'
-          }}
-        />
+        {/* 새로고침 버튼과 다음 퀴즈 툴팁 */}
+        <div className="refresh-container">
+          <div className="refresh-button-wrapper">
+            <button 
+              className="refresh-button" 
+              onClick={() => window.location.reload()}
+              aria-label="페이지 새로고침"
+              style={{ 
+                backgroundImage: `url(${buttonRefresh})`,
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+                backgroundSize: 'contain'
+              }}
+            />
+            {nextQuizOpenInfo && nextQuizOpenInfo.timeUntilOpen === 1 && (
+              <div className="tooltip-bubble star-tooltip-bubble">
+                새 퀴즈 오픈 1분 전!!
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
