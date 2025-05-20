@@ -296,9 +296,10 @@
   position: absolute;
   background: #906CF9;
   color: #fff;
-  padding: 6px 11px;
-  border-radius: 6px;
-  font-size: 14px;
+  max-height: 24px;
+  padding: 5px 9px;
+  border-radius: 5px;
+  font-size: 12px;
   font-weight: 500;
   display: inline-block;
   z-index: 20;
@@ -389,7 +390,7 @@
 .constellation-visual-wrapper {
   position: relative;
   width: 100%;
-  max-width: 375px;
+  max-width: 277px;
   aspect-ratio: 278 / 514;
   margin: 50px auto 0;
   background: none;
