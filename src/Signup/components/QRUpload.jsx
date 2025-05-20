@@ -31,7 +31,8 @@ const QRUpload = ({
   // '사진 업로드' 버튼 클릭 시 실행
   const handleSubmit = async () => {
     if (!selectedFile) {
-      setError('이미지를 선택해주세요.');
+      // 파일이 선택되지 않은 경우 파일 선택 다이얼로그 열기
+      document.getElementById('qr-upload').click();
       return;
     }
 
@@ -129,7 +130,7 @@ const QRUpload = ({
           ) : (
             <button
               onClick={handleSubmit}
-              disabled={loading || !selectedFile}
+              disabled={loading}
               className="form-button"
             >
               {loading ? '처리중...' : '사진 업로드'}
