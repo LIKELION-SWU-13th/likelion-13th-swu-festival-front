@@ -19,8 +19,8 @@
   position: relative;
 }
 
-/* 뒤로가기 버튼 */
-.back-button {
+/* 쿠폰 페이지 뒤로가기 버튼 */
+.constellation-coupon-back-button {
   position: absolute;
   top: 16px;
   left: 16px;
@@ -37,17 +37,17 @@
   z-index: 100;
 }
 
-.back-button img {
+.constellation-coupon-back-button img {
   width: 24px;
   height: 24px;
   display: block;
 }
 
-.back-button:hover {
+.constellation-coupon-back-button:hover {
   opacity: 0.8;
 }
 
-.back-button:active {
+.constellation-coupon-back-button:active {
   opacity: 0.6;
 }
 

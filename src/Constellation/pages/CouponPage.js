@@ -22,7 +22,7 @@ const CouponPage = () => {
     <div className="coupon-container">
       <div className="coupon-content">
         {/* 뒤로가기 버튼 */}
-        <button className="back-button" onClick={() => navigate(-1)}>
+        <button className="constellation-coupon-back-button" onClick={() => navigate(-1)}>
           <img 
             src={iconBack} 
             alt="뒤로가기" 

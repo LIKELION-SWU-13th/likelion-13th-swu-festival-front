@@ -26,8 +26,8 @@
   margin-top: 48px;
 }
 
-/* 뒤로가기 버튼 */
-.back-button {
+/* 축제 유형 페이지 뒤로가기 버튼 */
+.constellation-quiz-type-back-button {
   position: absolute;
   top: 16px;
   left: 12px;
@@ -38,7 +38,7 @@
   cursor: pointer;
 }
 
-.back-button img {
+.constellation-quiz-type-back-button img {
   width: 24px;
   height: 24px;
 }
