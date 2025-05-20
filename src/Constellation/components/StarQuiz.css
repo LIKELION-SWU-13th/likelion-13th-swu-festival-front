@@ -13,6 +13,11 @@
   cursor: pointer;
 }
 
+/* 활성화된 별에 발광 효과 추가 */
+.star-container.open .star-image {
+  filter: drop-shadow(0 0 4.5px rgba(255, 255, 255, 1));
+}
+
 /* 별 이미지 스타일 */
 .star-image {
   width: 100%;
