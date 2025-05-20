@@ -113,11 +113,6 @@
 .coupon-container .coupon-content .instagram-button:hover {
   opacity: 0.9;
   border-color: #484851 !important;
-  transform: translateY(-2px);
-}
-
-.coupon-container .coupon-content .instagram-button:active {
-  transform: translateY(0);
 }
 
 .instagram-icon {
@@ -148,14 +143,10 @@
   height: 56px;
   border-radius: 100px;
   box-sizing: border-box;
-  transition: transform 0.2s;
   position: relative;
 }
 
-.home-button:hover {
-  transform: translateY(-2px);
-}
-
+.home-button:hover,
 .home-button:active {
-  transform: translateY(0);
+  transform: none;
 }

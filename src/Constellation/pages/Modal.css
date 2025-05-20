@@ -71,15 +71,15 @@
   font-weight: 600;
   cursor: pointer;
   color: #F1F1F3;
-  transition: transform 0.2s;
+  transition: opacity 0.2s ease;
 }
 
 .quiz-modal-button-success:hover,
 .quiz-modal-button-fail:hover {
-  transform: translateY(-2px);
+  opacity: 0.9;
 }
 
 .quiz-modal-button-success:active,
 .quiz-modal-button-fail:active {
-  transform: translateY(1px);
+  opacity: 0.9;
 }

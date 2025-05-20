@@ -89,6 +89,12 @@
   cursor: pointer;
   text-align: center;
   height: 56px;
+  transition: opacity 0.2s ease;
+}
+
+.instagram-button:hover,
+.instagram-button:active {
+  opacity: 0.9;
 }
 
 /* 로딩 화면 */

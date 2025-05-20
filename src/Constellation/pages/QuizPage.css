@@ -87,24 +87,6 @@
   background: rgba(250, 250, 250, 0.3);
 }
 
-.choice-button:active {
-  transform: translateY(1px);
-}
-
-/* 선택된 버튼 */
-.choice-button.selected {
-  background: linear-gradient(90deg, rgba(157, 164, 251, 0.9), rgba(206, 209, 253, 0.9));
-  border: 1px solid #FAFAFA;
-  color: #FFFFFF;
-  pointer-events: none;
-  box-shadow: 0 0 15px rgba(250, 250, 250, 0.3);
-}
-
-.choice-button.selected .choice-label,
-.choice-button.selected .choice-text {
-  color: #FFFFFF;
-}
-
 /* A/B 라벨 텍스트 */
 .choice-label {
   font-weight: 500;
@@ -246,6 +228,12 @@
   height: 56px;
   box-sizing: border-box;
   border-radius: 24px;
+  transition: opacity 0.2s ease;
+}
+
+.home-button:hover,
+.home-button:active {
+  opacity: 0.9;
 }
 
 /* 로딩 인디케이터 스타일 개선 */
