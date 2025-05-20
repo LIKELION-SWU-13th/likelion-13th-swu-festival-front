@@ -1,6 +1,7 @@
 // src/Booth/components/DepartmentSection.jsx
 
 import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { ReactComponent as ClockIcon } from '../../assets/Clock.svg';
 import { ReactComponent as CheckIcon } from '../../assets/Check.svg';
 import { ReactComponent as StarIcon } from '../../assets/iconoir_bright-star.svg';
@@ -37,14 +38,13 @@ const LAYOUTS = [
 
 export default function DepartmentSection() {
   const navigate = useNavigate();
-  const [departmentList, setDepartmentList]   = useState([]);
+  const [departmentList, setDepartmentList] = useState([]);
   const [completedBooths, setCompletedBooths] = useState([]);
-  const [majorName, setMajorName]             = useState('');
-  const [selectedBlock, setSelectedBlock]     = useState(null);
-  const [activeBooth, setActiveBooth]         = useState(null);
-  const [showModal, setShowModal]             = useState(false);
+  const [majorName, setMajorName] = useState('');
+  const [selectedBlock, setSelectedBlock] = useState(null);
+  const [activeBooth, setActiveBooth] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
-  // 날짜 매핑
   const days = [
     { date:'5/21 수요일', label:'Day 1' },
     { date:'5/22 목요일', label:'Day 2' },
@@ -58,9 +58,8 @@ export default function DepartmentSection() {
   const today = days[todayIndex];
   const BLOCK_LAYOUT = LAYOUTS[todayIndex];
 
-  // 운영 상태 계산
-  const now     = new Date();
-  const hours   = now.getHours();
+  const now = new Date();
+  const hours = now.getHours();
   const minutes = now.getMinutes();
   const statusText = hours < 11
     ? '운영전'
@@ -68,15 +67,13 @@ export default function DepartmentSection() {
       ? '운영 종료'
       : '운영중';
 
-  // 데이터 로드
   useEffect(() => {
-    // 로컬스토리지에 토큰 확인
     const token = localStorage.getItem('access_token');
     if (!token) {
       navigate('/signup');
       return;
     }
-    // 부스 정보 호출
+
     instance.get('/booth/info')
       .then(res => {
         const { department_list, major } = res.data;
@@ -85,42 +82,36 @@ export default function DepartmentSection() {
       })
       .catch(console.error);
 
-    // 완료된 부스 호출
     instance.get('/booth/complete')
       .then(res => setCompletedBooths(res.data))
       .catch(console.error);
   }, [navigate]);
 
-  // 블록 클릭 핸들러
   const onBlockClick = block => {
     setSelectedBlock(prev => prev?.id === block.id ? null : block);
     setActiveBooth(null);
     setShowModal(false);
   };
 
-  // 선택된 블록 내 부스 번호 정렬
   const getRenderNumbers = () => selectedBlock
     ? [...selectedBlock.numbers].sort((a, b) => a - b)
     : [];
 
-  // 모달 핸들링
   const openCompleteModal = num => { setActiveBooth(num); setShowModal(true); };
-  const closeModal        = ()  => setShowModal(false);
-  const confirmComplete   = ()  => {
+  const closeModal = () => setShowModal(false);
+  const confirmComplete = () => {
     instance.post(`/booth/${activeBooth}/participate`)
       .then(() => setCompletedBooths(prev => [...prev, activeBooth]))
       .catch(console.error)
       .finally(() => setShowModal(false));
   };
 
-  // 좌우 리스트 분할
   const mid = Math.ceil(departmentList.length / 2);
-  const leftList  = departmentList.slice(0, mid);
+  const leftList = departmentList.slice(0, mid);
   const rightList = departmentList.slice(mid);
 
   return (
     <div className="dept-section">
-      {/* 헤더 */}
       <div className="header-wrapper">
         <div className="dept-header">
           <span className="day-pill">{today.label}</span>
@@ -128,7 +119,6 @@ export default function DepartmentSection() {
         </div>
       </div>
 
-      {/* 레이아웃 영역 */}
       <div className="dept-layout">
         {BLOCK_LAYOUT.map(block => (
           <div
@@ -152,7 +142,6 @@ export default function DepartmentSection() {
         ))}
       </div>
 
-      {/* 부스 목록 */}
       <h3 className="booth-list-title">부스 목록</h3>
 
       {!selectedBlock ? (
@@ -210,27 +199,29 @@ export default function DepartmentSection() {
         </div>
       )}
 
-{showModal && (
-  <div className="modal-overlay">
-    <div className="modal-backdrop" onClick={closeModal} />
-    <div className="bottom-sheet">
-      <div className="complete-modal">
-        <div className="modal-header">
-          <h3>✔️ 체험 완료 처리</h3>
-        </div>
-        <div className="modal-body">
-          <p>부스 활동은 즐거우셨나요?</p>
-          <p>체험 완료 처리를 해주세요!</p>
-        </div>
-        <div className="modal-actions">
-          <button className="btn-close" onClick={closeModal}>닫기</button>
-          <button className="btn-confirm" onClick={confirmComplete}>완료</button>
-        </div>
-      </div>
-    </div>
-  </div>
-)}
-
+      {/* === 포탈로 전체 페이지에 모달 렌더링 === */}
+      {showModal && ReactDOM.createPortal(
+        <div className="modal-overlay">
+          <div className="modal-backdrop" onClick={closeModal} />
+          <div className="bottom-sheet">
+            <div className="complete-modal">
+              <div className="modal-header">
+                <h3>✔️ 체험 완료 처리</h3>
+              </div>
+              <div className="modal-body">
+                <p>부스 활동은 즐거우셨나요?</p>
+                <p>체험 완료 처리를 해주세요!</p>
+              </div>
+              <div className="modal-actions">
+                <button className="btn-close" onClick={closeModal}>닫기</button>
+                <button className="btn-confirm" onClick={confirmComplete}>완료</button>
+              </div>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
     </div>
   );
 }
+
