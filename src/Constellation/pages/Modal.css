@@ -22,7 +22,7 @@
   border-radius: 20px;
   padding: 20px;
   width: 85%;
-  max-width: 323px;
+  max-width: 343px;
   text-align: center;
   position: relative;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
@@ -40,6 +40,8 @@
   font-size: 22px;
   color: #303036;
   font-weight: 600;
+  white-space: nowrap;
+  padding: 0 8px;
 }
 
 .quiz-modal-title-emoji {
