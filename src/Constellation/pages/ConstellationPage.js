@@ -14,6 +14,7 @@ import starCompleted from '../assets/star-completed.svg';
 import tooltip from '../assets/tooltip.svg';
 import buttonFloating from '../assets/button-floating.svg';
 import buttonBg from '../../Signup/assets/button-bg.svg';
+import buttonRefresh from '../assets/button-floating-refresh.svg';
 
 // API 요청 타임아웃(밀리초)
 const API_TIMEOUT = 5000;
@@ -344,6 +345,19 @@ const ConstellationPage = () => {
             </div>
           </div>
         )}
+
+        {/* 새로고침 버튼 */}
+        <button 
+          className="refresh-button" 
+          onClick={() => window.location.reload()}
+          aria-label="페이지 새로고침"
+          style={{ 
+            backgroundImage: `url(${buttonRefresh})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            backgroundSize: 'contain'
+          }}
+        />
       </div>
     </div>
   );
