@@ -219,23 +219,53 @@ const QuizPage = () => {
       }
       
     } catch (error) {
-      if (error.response?.status === 403) {
-        // 선택 해제 및 UI 에러 표시 (이미 응답한 경우)
-        setSelectedChoice(null);
-        setError('이미 응답한 퀴즈입니다.');
-      } else if (error.code === 'ECONNABORTED' || !error.response) {
-        // 네트워크 문제나 타임아웃은 LoadingSpinner에 표시하기 위해 isLoading으로 처리
-        setSelectedChoice(null);
+      // 선택 해제
+      setSelectedChoice(null);
+
+      if (error.response) {
+        const status = error.response.status;
+        
+        // 400번대 에러는 에러 메시지 표시
+        if (status >= 400 && status < 500) {
+          let errorMessage = '응답 제출에 실패했습니다. 다시 시도해주세요.';
+          
+          // 403: 이미 응답한 퀴즈
+          if (status === 403) {
+            errorMessage = '이미 응답한 퀴즈입니다.';
+          }
+          // 404: 퀴즈를 찾을 수 없음
+          else if (status === 404) {
+            errorMessage = '퀴즈를 찾을 수 없습니다.';
+          }
+          // 409: 충돌 (이미 응답했거나 쿠폰 락 획득 실패)
+          else if (status === 409) {
+            if (error.response.data?.includes('쿠폰 락 획득 실패')) {
+              errorMessage = '응답 제출에 실패했습니다. 다시 시도해주세요.';
+            } else {
+              errorMessage = '이미 응답한 퀴즈입니다.';
+            }
+          }
+          
+          setError(errorMessage);
+        }
+        // 500번대 에러는 로딩 스피너 표시
+        else if (status >= 500) {
+          setIsLoading(true);
+          setError('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+          // 3초 후 새로고침
+          setTimeout(() => {
+            window.location.reload();
+          }, 3000);
+        }
+      }
+      // 네트워크 오류나 타임아웃
+      else if (error.code === 'ECONNABORTED' || !error.response) {
         setIsLoading(true);
         setError('서버 응답이 지연되고 있습니다. 잠시 후 다시 시도해주세요.');
         // 3초 후 새로고침
         setTimeout(() => {
           window.location.reload();
         }, 3000);
-      } else {
-        // 기타 에러
-        setSelectedChoice(null);
-        setError('응답 제출에 실패했습니다. 다시 시도해주세요.');
       }
     } finally {
       // 제출 상태 종료
