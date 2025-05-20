@@ -11,7 +11,7 @@
   object-fit: cover;
 }
 .modal-title-group { flex: 1; }
-.modal-title {
+.modal-perform-title {
   margin: 0; font-size: 18px; color: var(--Gray-30, #CACAD0);
 }
 .modal-time {

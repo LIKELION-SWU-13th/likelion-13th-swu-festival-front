@@ -112,7 +112,7 @@ export default function ScheduleDetailModal({
         <div className="modal-header">
           <img src={event.imageUrl} alt={event.title} className="modal-image" />
           <div className="modal-title-group">
-            <h2 className="modal-title">{event.title}</h2>
+            <h2 className="modal-perform-title">{event.title}</h2>
             <p className="modal-time">{`${event.start} - ${event.end}`}</p>
           </div>
         </div>

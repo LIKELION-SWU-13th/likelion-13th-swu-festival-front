@@ -4,20 +4,24 @@ import SliderModal from './SliderModal';
 import { ReactComponent as StarIcon } from '../../assets/Star.svg';
 import './FleaMarketSection.css';
 
-import img1_1 from '../images/1-1.png';
-import img1_2 from '../images/1-2.png';
-import img1_3 from '../images/1-3.png';
-import img1_4 from '../images/1-4.png';
+import img1_1 from '../images/sell1.jpg';
+import img1_2 from '../images/sell2.jpg';
+import img1_3 from '../images/sell3.png';
+import img1_4 from '../images/sell4.png';
+import img1_5 from '../images/sell5.png';
+import img1_6 from '../images/sell6.png';
+import img1_7 from '../images/sell7.png';
+import img1_8 from '../images/sell8.png';
 
 const SELLERS = {
-  1: { name: '담기:淡器',            item: '키링',       images: [img1_1, img1_2, img1_3, img1_4] },
-  2: { name: '뜨개다방',             item: '엽서',       images: [img1_1, img1_2, img1_3, img1_4] },
-  3: { name: '레이븐팩토리',         item: '머리끈',     images: [img1_1, img1_2, img1_3, img1_4] },
-  4: { name: '라플레르',             item: '키워드',     images: [img1_1, img1_2, img1_3, img1_4] },
-  5: { name: '소원상점',             item: '아트 프린트',images: [img1_1, img1_2, img1_3, img1_4] },
-  6: { name: '뜨개슌 애옹상점',      item: '푸드 코너', images: [img1_1, img1_2, img1_3, img1_4] },
-  7: { name: '플레인톤',             item: '빈티지 의류',images: [img1_1, img1_2, img1_3, img1_4] },
-  8: { name: '체리쉬미앤유',         item: '뷰티 제품', images: [img1_1, img1_2, img1_3, img1_4] },
+  1: { name: '담기:淡器',            item: '공예전공 학생들이 직접 만든 도자기',       images: [img1_1] },
+  2: { name: '뜨개다방',             item: '뜨개를 위주로 만든 핸드메이드 소품, 비즈키링과 팔찌 만들기 체험',       images: [img1_2] },
+  3: { name: '레이븐팩토리',         item: '손수 만든 비즈팔찌와 키링',     images: [img1_3] },
+  4: { name: '라플레르',             item: '생화, 원데이 클래스 체험',     images: [img1_4] },
+  5: { name: '소원상점',             item: '레진으로 만든 클로버키링, 비즈키링, 행운부적 등',images: [img1_5] },
+  6: { name: '뜨개슌 애옹상점',      item: '아기자기한 뜨개 소품, 야구선수 모루인형', images: [img1_6] },
+  7: { name: '플레인톤',             item: '키링, 책갈피, 써지컬 액세서리 등',images: [img1_7] },
+  8: { name: '체리쉬미앤유',         item: '귀여운 키링, 에어팟 케이스, 그립톡, 나만의 에어팟 케이스 만들기 체험', images: [img1_8] },
 };
 
 export default function FleaMarketSection() {

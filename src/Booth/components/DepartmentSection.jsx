@@ -13,17 +13,17 @@ const LAYOUTS = [
   // 5/21 레이아웃
   [
     { id: 'left',       numbers: [10,9,8,7,6,5,4,3,2,1], style: { top:'0%', left:'5%',  width:'40px',  height:'240px', flexDirection:'column' } },
-    { id: 'middle-top', numbers: [14,15,16,17,18,19],  style: { top:'0%', left:'30%', transform:'translateX(-50%)', width:'150px', height:'40px', flexDirection:'row' } },
-    { id: 'middle',     numbers: [11,12,13],           style: { top:'20%', left:'36%', transform:'translateX(-50%)', width:'100px', height:'40px', flexDirection:'row' } },
-    { id: 'right',      numbers: [20,21,22,23,24,25,26,27,28], style:{top:'0%', left:'85%', transform:'translateX(-100%)', width:'40px', height:'240px', flexDirection:'column'} },
+    { id: 'middle-top', numbers: [13,14,15,16,17],  style: { top:'0%', left:'30%', transform:'translateX(-50%)', width:'150px', height:'40px', flexDirection:'row' } },
+    { id: 'middle',     numbers: [11,12],           style: { top:'20%', left:'40%', transform:'translateX(-50%)', width:'80px', height:'40px', flexDirection:'row' } },
+    { id: 'right',      numbers: [18,19,20,21,22,23,24,25,26], style:{top:'0%', left:'85%', transform:'translateX(-100%)', width:'40px', height:'240px', flexDirection:'column'} },
   ],
   // 5/22 레이아웃
   [
     { id: 'left',       numbers: [9,8,7,6,5,4,3,2,1], style: { top:'0%', left:'5%',  width:'40px',  height:'240px', flexDirection:'column' } },
     { id: 'center',     numbers: [10,11,12,13,14], style: { top:'40%', left:'29%', transform:'translateX(-50%)', width:'150px', height:'40px', flexDirection:'row' } },
     { id: 'middle',     numbers: [15,16,17,18,19,20,21], style: { top:'20%', left:'22%', transform:'translateX(-50%)', width:'200px', height:'40px', flexDirection:'row' } },
-    { id: 'middle-top', numbers: [22,23,24,25,26,27],  style: { top:'0%', left:'25%', transform:'translateX(-50%)', width:'180px', height:'40px', flexDirection:'row' } },
-    { id: 'right',      numbers: [28,29,30,31,32,33,34,35,36], style:{top:'0%', left:'85%', transform:'translateX(-100%)', width:'40px', height:'240px', flexDirection:'column'} },
+    { id: 'middle-top', numbers: [22,23,24,25,26],  style: { top:'0%', left:'29%', transform:'translateX(-50%)', width:'150px', height:'40px', flexDirection:'row' } },
+    { id: 'right',      numbers: [27,28,29,30,31,32,33,34,35], style:{top:'0%', left:'85%', transform:'translateX(-100%)', width:'40px', height:'240px', flexDirection:'column'} },
   ],
   // 5/23 레이아웃
   [
