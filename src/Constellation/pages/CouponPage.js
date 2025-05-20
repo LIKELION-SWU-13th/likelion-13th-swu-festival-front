@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './CouponPage.css';
 
 // 이미지 import
@@ -11,6 +11,7 @@ import buttonBg from '../../Signup/assets/button-bg.svg';
 
 const CouponPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   // 인스타그램으로 이동
   const goToInstagram = () => {
@@ -22,7 +23,14 @@ const CouponPage = () => {
       <div className="coupon-content">
         {/* 뒤로가기 버튼 */}
         <button className="back-button" onClick={() => navigate(-1)}>
-          <img src={iconBack} alt="뒤로가기" />
+          <img 
+            src={iconBack} 
+            alt="뒤로가기" 
+            onError={(e) => {
+              e.target.style.display = 'none';
+              e.target.parentElement.textContent = '<';
+            }}
+          />
         </button>
 
         {/* 제목 */}
