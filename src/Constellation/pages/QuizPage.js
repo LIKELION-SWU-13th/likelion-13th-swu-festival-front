@@ -85,6 +85,7 @@ const QuizPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false); // 제출 중 상태 추가
   const [pollingId, setPollingId] = useState(null); // 폴링 ID 상태 추가
   const [nextQuizInfo, setNextQuizInfo] = useState(null); // 다음 퀴즈 정보 상태
+  const [completedCount, setCompletedCount] = useState(0);    // 완료한 퀴즈 수
 
   // 퀴즈 데이터 불러오기
   useEffect(() => {
@@ -110,6 +111,7 @@ const QuizPage = () => {
           const completedQuizzes = completedQuizzesResponse.data;
           const isQuizCompleted = completedQuizzes.includes(parseInt(quizId));
           setIsCompleted(isQuizCompleted);
+          setCompletedCount(completedQuizzes.length);  // 완료한 퀴즈 수 저장
 
           // 2. 퀴즈 상세 정보
           const quizDetailResponse = await api.get(`/quiz/${quizId}`, {
@@ -357,7 +359,7 @@ const QuizPage = () => {
         )}
       </div>
 
-      {/* 모달 창 */}
+      {/* 당첨/미당첨 모달 */}
       {showModal && (
         <div className="quiz-modal-container">
           <div className="quiz-modal-content">
