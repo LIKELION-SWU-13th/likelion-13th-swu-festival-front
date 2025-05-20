@@ -6,6 +6,7 @@ import LoadingSpinner from '../../components/LoadingSpinner';
 import './QuizPage.css';
 import './Modal.css';
 import buttonBg from '../../Signup/assets/button-bg.svg';
+import buttonFloatingCoupon from '../assets/button-floating-coupon.svg';
 
 // API 요청 타임아웃(밀리초)
 const API_TIMEOUT = 3000;
@@ -242,12 +243,7 @@ const QuizPage = () => {
 
   // 모달 닫기 및 결과 보기
   const handleModalConfirm = () => {
-    setShowModal(false); // 모달 닫기
-    
-    if (isSuccessful) {
-      // 쿠폰 페이지로 이동
-      navigate('/coupon');
-    }
+    setShowModal(false);
   };
 
   // 로딩 중이거나 심각한 에러 발생 시 LoadingSpinner 표시
@@ -331,9 +327,20 @@ const QuizPage = () => {
           </div>
         )}
         
-        {/* 하단에 고정된 홈 버튼 -> 응답 후에만 노출 */}
+        {/* 하단에 고정된 홈 버튼 - 응답 후에만 노출 */}
         {result && (
           <div className="quiz-bottom-container">
+            {/* 플로팅 쿠폰 버튼 */}
+            {result._win === true && (
+              <div className="coupon-floating-container">
+                <button
+                  className="coupon-floating-button"
+                  onClick={() => navigate('/coupon', { state: { from: 'quiz' } })}
+                >
+                  <img src={buttonFloatingCoupon} alt="커피 쿠폰" />
+                </button>
+              </div>
+            )}
             <button 
               className="home-button" 
               onClick={() => navigate('/')}
@@ -376,7 +383,7 @@ const QuizPage = () => {
                     backgroundSize: 'cover'
                   }}
                 >
-                  쿠폰 받으러 가기
+                  확인
                 </button>
               </>
             ) : (
