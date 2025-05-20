@@ -1,6 +1,20 @@
 import React from 'react';
 import './SongModal.css';
 
+function highlightText(text) {
+  const parts = text.split(/(\*\*.*?\*\*)/).map((part, index) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return (
+        <span key={index} className="sm-highlight">
+          {part.slice(2, -2)}
+        </span>
+      );
+    }
+    return part;
+  });
+  return parts;
+}
+
 export default function SongModal({ song, artistName, lyrics, onClose }) {
   // 가사를 줄바꿈으로 분리하고 2줄씩 묶기
   const lines = lyrics.split('\n').filter(line => line.trim() !== '');
@@ -31,7 +45,9 @@ export default function SongModal({ song, artistName, lyrics, onClose }) {
           {chunks.map((pair, idx) => (
             <div key={idx} className="sm-line-group">
               {pair.map((line, j) => (
-                <p key={j} className="sm-line">{line}</p>
+                <p key={j} className="sm-line">
+                  {highlightText(line)}
+                </p>
               ))}
             </div>
           ))}
