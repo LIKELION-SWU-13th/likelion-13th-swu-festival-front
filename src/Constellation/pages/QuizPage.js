@@ -331,19 +331,23 @@ const QuizPage = () => {
           </div>
         )}
         
-        {/* 하단에 고정된 홈 버튼 */}
-        <button 
-          className="home-button" 
-          onClick={() => navigate('/')}
-          style={{ 
-            backgroundImage: `url(${buttonBg})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
-            backgroundSize: 'cover'
-          }}
-        >
-          홈 화면 바로가기
-        </button>
+        {/* 하단에 고정된 홈 버튼 -> 응답 후에만 노출 */}
+        {result && (
+          <div className="quiz-bottom-container">
+            <button 
+              className="home-button" 
+              onClick={() => navigate('/')}
+              style={{ 
+                backgroundImage: `url(${buttonBg})`,
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+                backgroundSize: 'cover'
+              }}
+            >
+              홈 화면 바로가기
+            </button>
+          </div>
+        )}
       </div>
 
       {/* 모달 창 */}
