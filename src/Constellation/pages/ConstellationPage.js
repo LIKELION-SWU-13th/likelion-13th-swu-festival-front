@@ -48,8 +48,9 @@ const STAR_POSITIONS = [
   { id: 12, x: 242, y: 59},  // 열두 번째
 ];
 
-// 별마다 툴팁 위치 지정 (1번 별은 툴팁 없음)
+// 별마다 툴팁 위치 지정 (1번 별도 툴팁 추가)
 const STAR_TOOLTIP = {
+  1: { position: 'left' },    // 꼬리 오른쪽
   2: { position: 'left' },    // 꼬리 오른쪽
   3: { position: 'top' },     // 꼬리 아래
   4: { position: 'left' },    // 꼬리 오른쪽
@@ -69,6 +70,14 @@ function getOpenHourStr(quizId) {
   if (!iso) return '';
   const date = new Date(iso);
   return `${date.getHours()}시`;
+}
+
+// 툴팁 메시지 가져오기
+function getTooltipMessage(quizId, isOpen) {
+  if (quizId === 1 && !isOpen) {
+    return '첫 퀴즈 맞추고 선착순 커피 받아가세요!';
+  }
+  return `다음 퀴즈는 ${getOpenHourStr(quizId)}에 열려요!`;
 }
 
 const ConstellationPage = () => {
@@ -297,7 +306,7 @@ const ConstellationPage = () => {
               {/* 다음 열릴 퀴즈 1개에만 커스텀 툴팁 표시 */}
               {position.id === nextQuizId && STAR_TOOLTIP[position.id] && (
                 <div className={`star-tooltip-bubble star-tooltip-bubble-${STAR_TOOLTIP[position.id].position}`}>
-                  다음 퀴즈는 {getOpenHourStr(position.id)}에 열려요!
+                  {getTooltipMessage(position.id, checkQuizOpen(position.id))}
                 </div>
               )}
             </div>
