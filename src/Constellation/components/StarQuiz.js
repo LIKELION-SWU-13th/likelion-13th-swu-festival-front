@@ -30,7 +30,7 @@ const StarQuiz = ({ quizId, isOpen, isCompleted, onComplete, isNext, quizData, s
   };
 
   return (
-    <div className={`star-container ${isOpen ? 'open' : 'closed'}`}>
+    <div className={`star-container ${isOpen ? 'open' : 'closed'} ${isCompleted ? 'completed' : ''}`}>
       <img 
         src={getStarImage()} 
         alt="star"
