@@ -299,11 +299,12 @@ const QuizPage = () => {
             {['A', 'B'].map((key) => {
               // 퍼센트 값 계산 및 정수로만 표시
               const percentValue = Math.round(parseFloat(result[`${key.toLowerCase()}_rate`]));
+              const isSelected = result.choice === key; // 사용자가 선택한 응답지인지 확인
               
               return (
                 <div className="choice-result" key={key}>
                   <div 
-                    className="choice-button filled"
+                    className={`choice-button filled ${isSelected ? 'selected-choice' : 'unselected-choice'}`}
                     style={{ '--percent': `${percentValue}%` }} // CSS 변수로 퍼센트 전달
                   >
                     <span className="choice-label">{key}.</span>
@@ -312,7 +313,10 @@ const QuizPage = () => {
                     </span>
                   </div>
                   <div className="choice-percent-text">
-                    {percentValue}%의 슈니들이 여기에 해당돼요!
+                    {isSelected 
+                      ? `나를 포함한 ${percentValue}%의 슈니들이 여기에 해당돼요!`
+                      : `${percentValue}%의 슈니들이 여기에 해당돼요!`
+                    }
                   </div>
                 </div>
               );
