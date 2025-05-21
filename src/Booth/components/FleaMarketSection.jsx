@@ -30,7 +30,7 @@ import ttega13 from '../images/ttega13.png';
 
 const SELLERS = {
   1: { name: '담기:淡器',            item: '공예전공 학생들이 직접 만든 도자기',       images: [img1_1] },
-  2: { name: '뜨개다방',             item: '뜨개를 위주로 만든 핸드메이드 소품, 비즈키링과 팔찌 만들기 체험',       images: [img1_2, ttega1, ttega2, ttega3, ttega4, ttega5, ttega6, ttega7, ttega8, ttega9,ttega10,ttega11,ttega12,ttega13] },
+  2: { name: '뜨개다방',             item: '뜨개를 위주로 만든 핸드메이드 소품, 비즈키링과 팔찌 만들기 체험',       images: [img1_2, ttega11, ttega1, ttega2, ttega3, ttega5, ttega6, ttega8, ttega9,ttega12,ttega13, ttega4, ttega7, ttega10] },
   3: { name: '레이븐팩토리',         item: '손수 만든 비즈팔찌와 키링',     images: [img1_3] },
   4: { name: '라플레르',             item: '생화, 원데이 클래스 체험',     images: [img1_4] },
   5: { name: '소원상점',             item: '레진으로 만든 클로버키링, 비즈키링, 행운부적 등',images: [img1_5] },
