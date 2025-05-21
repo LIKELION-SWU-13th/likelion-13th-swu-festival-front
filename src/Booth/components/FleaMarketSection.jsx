@@ -27,11 +27,30 @@ import ttega11 from '../images/ttega11.png';
 import ttega12 from '../images/ttega12.png';
 import ttega13 from '../images/ttega13.png';
 
+import reven1 from '../images/raven1.png';
+import reven2 from '../images/raven2.png';
+import reven3 from '../images/raven3.png';
+import reven4 from '../images/raven4.png';
+import reven5 from '../images/raven5.png';
+import reven6 from '../images/raven6.png';
+import reven7 from '../images/raven7.png';
+import reven8 from '../images/raven8.png';
+import reven9 from '../images/raven9.png';
+import reven10 from '../images/reven10.png';
+import reven11 from '../images/reven11.png';
+import reven12 from '../images/reven12.png';
+import reven13 from '../images/reven13.png';
+import reven14 from '../images/reven14.png';
+import reven15 from '../images/reven15.png';
+import reven16 from '../images/reven16.png';
+import reven17 from '../images/reven17.png';
+import reven18 from '../images/reven18.png';
+
 
 const SELLERS = {
   1: { name: '담기:淡器',            item: '공예전공 학생들이 직접 만든 도자기',       images: [img1_1] },
   2: { name: '뜨개다방',             item: '뜨개를 위주로 만든 핸드메이드 소품, 비즈키링과 팔찌 만들기 체험',       images: [img1_2, ttega11, ttega1, ttega2, ttega3, ttega5, ttega6, ttega8, ttega9,ttega12,ttega13, ttega4, ttega7, ttega10] },
-  3: { name: '레이븐팩토리',         item: '손수 만든 비즈팔찌와 키링',     images: [img1_3] },
+  3: { name: '레이븐팩토리',         item: '손수 만든 비즈팔찌와 키링',     images: [reven15, reven1, reven2, reven3, reven4, reven5, reven6, reven7, reven8, reven9, reven10, reven11, reven12, reven13, reven14,reven16, reven17, reven18] },
   4: { name: '라플레르',             item: '생화, 원데이 클래스 체험',     images: [img1_4] },
   5: { name: '소원상점',             item: '레진으로 만든 클로버키링, 비즈키링, 행운부적 등',images: [img1_5] },
   6: { name: '뜨개슌 애옹상점',      item: '아기자기한 뜨개 소품, 야구선수 모루인형', images: [img1_6] },
