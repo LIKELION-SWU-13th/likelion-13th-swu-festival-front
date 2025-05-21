@@ -62,7 +62,7 @@ const CouponPage = () => {
 
         {/* 홈 화면 바로가기 버튼 */}
         <button 
-          className="home-button" 
+          className="coupon-home-button" 
           onClick={() => navigate('/')}
           style={{ 
             backgroundImage: `url(${buttonBg})`,

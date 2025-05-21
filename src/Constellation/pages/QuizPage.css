@@ -4,7 +4,6 @@
   background: url('../assets/bg-quiz.svg') no-repeat center center;
   background-size: cover;
   color: white;
-  padding: 24px;
   box-sizing: border-box;
 }
 
@@ -12,7 +11,7 @@
 .quiz-content {
   max-width: 343px; /* 선택지 버튼과 동일한 너비로 제한 */
   margin: 0 auto;
-  padding: 48px 0 100px; /* 하단 패딩 수정 */
+  padding-top: 35px;
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* 왼쪽 정렬 */
@@ -203,16 +202,18 @@
 /* 홈 화면 바로가기 버튼 컨테이너 */
 .quiz-bottom-container {
   width: 100%;
-  margin-top: 220px;
+  max-width: 343px;
+  margin: 176px auto 48px;
   display: flex;
   flex-direction: column;
   align-items: center;
   z-index: 10;
 }
 
-.home-button {
+.quiz-home-button {
   width: 100%;
   max-width: 343px;
+  height: 56px;
   background-color: transparent;
   background-image: url('../../Signup/assets/button-bg.svg');
   background-size: cover;
@@ -230,8 +231,8 @@
   margin: 0 auto;
 }
 
-.home-button:hover,
-.home-button:active {
+.quiz-home-button:hover,
+.quiz-home-button:active {
   opacity: 0.9;
 }
 
