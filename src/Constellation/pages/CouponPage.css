@@ -96,7 +96,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6.5px;
   background-color: #60606C !important;
   border: 1px solid #484851 !important;
   border-radius: 100px;
@@ -106,8 +106,9 @@
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  width: 230px !important;
+  width: 206px !important;
   height: 36px !important;
+  padding: 0 8px;
 }
 
 .coupon-container .coupon-content .instagram-button:hover {
@@ -116,15 +117,15 @@
 }
 
 .instagram-icon {
-  width: 18px;
-  height: 18px;
-  margin-right: 0; /* 마진 제거 */
+  width: 20px;
+  height: 20px;
+  margin: 0;
 }
 
 .arrow-icon {
-  width: 14px;
-  height: 14px;
-  margin-right: 0;
+  width: 12px;
+  height: 12px;
+  margin: 0;
 }
 
 /* 홈 화면 버튼 */
