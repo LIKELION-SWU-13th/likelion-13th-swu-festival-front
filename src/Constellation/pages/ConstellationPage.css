@@ -316,6 +316,20 @@
   color: #fff;
   border-radius: 6px;
   white-space: nowrap;
+  animation: floating 2s ease-in-out infinite; /* 2초 주기로 반복 */
+}
+
+/* 둥둥 떠다니는 애니메이션 정의 */
+@keyframes floating {
+  0% {
+    transform: translateY(-50%) translateY(0px);
+  }
+  50% {
+    transform: translateY(-50%) translateY(-3.5px);
+  }
+  100% {
+    transform: translateY(-50%) translateY(0px);
+  }
 }
 
 /* 새로고침 버튼 툴팁 꼬리 */
