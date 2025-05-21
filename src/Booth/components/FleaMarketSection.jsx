@@ -25,7 +25,7 @@ import ttega99 from '../images/ttega9.png';
 import ttega10 from '../images/ttega10.png';
 import ttega11 from '../images/ttega11.png';
 import ttega12 from '../images/ttega12.png';
-import ttega13 from '../images/ttega13.png';
+import ttega13 from '../images/ttega13.png';s
 
 
 const SELLERS = {
