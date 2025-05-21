@@ -140,6 +140,27 @@ export const QUIZ_OPEN_TIMES = {
   12: '2025-05-23T18:00:00'
 };
 
+// 퀴즈 오픈 1분 전 시간 매핑
+export const QUIZ_ONE_MINUTE_BEFORE = {
+  // 축제 첫째날: 5/21(수)
+  1: '2025-05-21T10:59:00',
+  2: '2025-05-21T13:59:00',
+  3: '2025-05-21T15:59:00',
+  4: '2025-05-21T17:59:00',
+  
+  // 둘째날: 5/22(목)
+  5: '2025-05-22T10:59:00',
+  6: '2025-05-22T13:59:00',
+  7: '2025-05-22T15:59:00',
+  8: '2025-05-22T17:59:00',
+  
+  // 셋째날: 5/23(금)
+  9: '2025-05-23T10:59:00',
+  10: '2025-05-23T13:59:00',
+  11: '2025-05-23T15:59:00',
+  12: '2025-05-23T17:59:00'
+};
+
 // 퀴즈 오픈 시간 계산 함수
 export const getQuizOpenTime = (quizId) => {
   return QUIZ_OPEN_TIMES[quizId] || null;
@@ -158,21 +179,20 @@ export const getNextQuizOpenTime = () => {
   const currentTime = new Date();
   const quizIds = Object.keys(QUIZ_OPEN_TIMES).map(Number).sort((a, b) => a - b);
   
-  // 현재 시간 이후에 열리는 가장 가까운 퀴즈 찾기
+  // 현재 시간이 1분 전 시간과 오픈 시간 사이에 있는 퀴즈 찾기
   for (const quizId of quizIds) {
+    const oneMinuteBefore = new Date(QUIZ_ONE_MINUTE_BEFORE[quizId]);
     const openTime = new Date(QUIZ_OPEN_TIMES[quizId]);
-    const timeDiff = openTime - currentTime;
-    const minutesUntilOpen = Math.floor(timeDiff / (1000 * 60));
     
-    // 정확히 1분 전일 때만 반환
-    if (timeDiff > 0 && minutesUntilOpen === 1) {
+    // 현재 시간이 1분 전 시간과 오픈 시간 사이에 있는지 확인
+    if (currentTime >= oneMinuteBefore && currentTime < openTime) {
       return {
         quizId,
         openTime,
-        timeUntilOpen: minutesUntilOpen
+        timeUntilOpen: 1 // 항상 1분으로 표시
       };
     }
   }
   
-  return null; // 더 이상 열릴 퀴즈가 없거나 정확히 1분 전이 아닌 경우
+  return null; // 현재 1분 전 시간과 오픈 시간 사이에 있는 퀴즈가 없는 경우
 }; 
