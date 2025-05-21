@@ -358,36 +358,36 @@ const QuizPage = () => {
             <p>{error}</p>
           </div>
         )}
-        
-        {/* 하단에 고정된 홈 버튼 - 응답 후에만 노출 */}
-        {result && (
-          <div className="quiz-bottom-container">
-            {/* 플로팅 쿠폰 버튼 */}
-            {result._win === true && (
-              <div className="coupon-floating-container">
-                <button
-                  className="coupon-floating-button"
-                  onClick={() => navigate('/coupon', { state: { from: 'quiz' } })}
-                >
-                  <img src={buttonFloatingCoupon} alt="커피 쿠폰" />
-                </button>
-              </div>
-            )}
-            <button 
-              className="home-button" 
-              onClick={() => navigate('/')}
-              style={{ 
-                backgroundImage: `url(${buttonBg})`,
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'center',
-                backgroundSize: 'cover'
-              }}
-            >
-              홈 화면 바로가기
-            </button>
-          </div>
-        )}
       </div>
+
+      {/* 하단에 고정된 홈 버튼 - 응답 후에만 노출 */}
+      {result && (
+        <div className="quiz-bottom-container">
+          {/* 플로팅 쿠폰 버튼 */}
+          {result._win === true && (
+            <div className="coupon-floating-container">
+              <button
+                className="coupon-floating-button"
+                onClick={() => navigate('/coupon', { state: { from: 'quiz' } })}
+              >
+                <img src={buttonFloatingCoupon} alt="커피 쿠폰" />
+              </button>
+            </div>
+          )}
+          <button 
+            className="quiz-home-button" 
+            onClick={() => navigate('/')}
+            style={{ 
+              backgroundImage: `url(${buttonBg})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center',
+              backgroundSize: 'cover'
+            }}
+          >
+            홈 화면 바로가기
+          </button>
+        </div>
+      )}
 
       {/* 당첨/미당첨 모달 */}
       {showModal && (
