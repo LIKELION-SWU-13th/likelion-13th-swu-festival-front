@@ -203,7 +203,7 @@
 .quiz-bottom-container {
   width: 100%;
   max-width: 343px;
-  margin: 176px auto 48px;
+  margin: 160px auto 48px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -415,10 +415,12 @@
 .coupon-floating-button {
   width: 60px;
   height: 60px;
-  background: transparent;
   border: none;
+  background: transparent;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  z-index: 10;
+  transition: opacity 0.2s ease;
+  display: block;
 }
 
 .coupon-floating-button:hover {
