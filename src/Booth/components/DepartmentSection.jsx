@@ -9,7 +9,6 @@ import instance from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
 import './DepartmentSection.css';
 
-// 날짜별 블록 레이아웃 정의
 const LAYOUTS = [
   // 5/21 레이아웃
   [
