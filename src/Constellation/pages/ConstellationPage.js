@@ -369,7 +369,7 @@ const ConstellationPage = () => {
             />
             {nextQuizOpenInfo && nextQuizOpenInfo.timeUntilOpen === 1 && (
               <div className="tooltip-bubble star-tooltip-bubble">
-                새 퀴즈 오픈 1분 전!!
+                곧 별이 오픈돼요!
               </div>
             )}
           </div>
