@@ -12,7 +12,7 @@
 .quiz-content {
   max-width: 343px; /* 선택지 버튼과 동일한 너비로 제한 */
   margin: 0 auto;
-  padding: 48px 0 32px; /* 하단 패딩 감소 */
+  padding: 48px 0 100px; /* 하단 패딩 수정 */
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* 왼쪽 정렬 */
