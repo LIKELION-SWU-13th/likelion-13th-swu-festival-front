@@ -44,7 +44,7 @@ const artistData = {
     ],
   },
   yudabin: {
-    name: '유다빈 밴드',
+    name: '유다빈밴드',
     songs: [
       { id: '1', title: '좋지 아니한가',       imageUrl: yudabin1 },
       { id: '2', title: '향해',               imageUrl: yudabin2 },
