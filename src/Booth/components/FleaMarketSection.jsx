@@ -21,16 +21,16 @@ import ttega5 from '../images/ttega5.png';
 import ttega6 from '../images/ttega6.png';
 import ttega7 from '../images/ttega7.png';
 import ttega8 from '../images/ttega8.png';
-import ttega99 from '../images/ttega9.png';
+import ttega9 from '../images/ttega9.png';
 import ttega10 from '../images/ttega10.png';
 import ttega11 from '../images/ttega11.png';
 import ttega12 from '../images/ttega12.png';
-import ttega13 from '../images/ttega13.png';s
+import ttega13 from '../images/ttega13.png';
 
 
 const SELLERS = {
   1: { name: '담기:淡器',            item: '공예전공 학생들이 직접 만든 도자기',       images: [img1_1] },
-  2: { name: '뜨개다방',             item: '뜨개를 위주로 만든 핸드메이드 소품, 비즈키링과 팔찌 만들기 체험',       images: [img1_2, ttega1, ttega2, ttega3, ttega4, ttega5, ttega6, ttega7, ttega8, ttega99,ttega10,ttega11,ttega12,ttega13] },
+  2: { name: '뜨개다방',             item: '뜨개를 위주로 만든 핸드메이드 소품, 비즈키링과 팔찌 만들기 체험',       images: [img1_2, ttega1, ttega2, ttega3, ttega4, ttega5, ttega6, ttega7, ttega8, ttega9,ttega10,ttega11,ttega12,ttega13] },
   3: { name: '레이븐팩토리',         item: '손수 만든 비즈팔찌와 키링',     images: [img1_3] },
   4: { name: '라플레르',             item: '생화, 원데이 클래스 체험',     images: [img1_4] },
   5: { name: '소원상점',             item: '레진으로 만든 클로버키링, 비즈키링, 행운부적 등',images: [img1_5] },
